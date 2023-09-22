@@ -1,0 +1,20 @@
+{
+  "opts": {
+    "destination": "./doc/api/",
+    "recurse": true,
+    "verbose": true,
+    "encoding": "utf8",
+    "template": "./node_modules/@haixing_hu/jsdoc-minami"
+  },
+  "recurseDepth": 10,
+  "sourceType": "module",
+  "plugins": ["plugins/markdown"],
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  }
+}

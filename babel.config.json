@@ -1,0 +1,23 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": "commonjs",
+      "debug": false,
+      "useBuiltIns": "usage",
+      "corejs": "3",
+      "shippedProposals": true
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "babel-plugin-transform-object-hasown",
+    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+    "@babel/plugin-transform-class-properties"
+  ],
+  "sourceType": "unambiguous",
+  "env": {
+    "test": {
+      "presets": ["@babel/preset-env"]
+    }
+  }
+}
