@@ -65,6 +65,9 @@ TODO
 [vue-property-decorator]: https://github.com/kaorun343/vue-property-decorator
 [vue-facing-decorator]: https://github.com/facing-dev/vue-facing-decorator
 [stage 3 proposal of JavaScript decorators]: https://github.com/tc39/proposal-decorators
+[stage 2 proposal of JavaScript decorators]: 
+[legacy proposal of JavaScript decorators]: https://github.com/wycats/javascript-decorators
 [Babel]: https://babeljs.io/
 [@babel/plugin-transform-class-properties]: https://babeljs.io/docs/babel-plugin-transform-class-properties
 [@babel/plugin-proposal-decorators]: https://babeljs.io/docs/babel-plugin-proposal-decorators
+[A Brief History of Decorators in JavaScript]: http://senocular.github.io/articles/js_history_of_decorators.html
