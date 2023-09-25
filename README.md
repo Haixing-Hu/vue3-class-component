@@ -6,7 +6,7 @@ It's heavily inspired by [vue-class-component], except that:
 - It's written in pure JavaScript instead of TypeScript, which is different 
   from [vue-facing-decorator];
 - It uses the most recent (currently version 2023-05)
-  [stage 3 proposal of JavaScript decorators].
+  [stage 3 proposal of JavaScript decorators] and [stage 3 proposal of JavaScript decorator metadata].
 - It provides commonly used decorators for class-style Vue components, such as 
   `@Prop`, `@PropSync`, `@Model`, `@ModelSync`, `@Watch`, `@Provide`, `@Inject`, 
   `@Emit`, etc. (see [Predefined Decorators](#predefined-decorators) section for 
@@ -64,10 +64,10 @@ TODO
 [vue-class-component]: https://github.com/vuejs/vue-class-component
 [vue-property-decorator]: https://github.com/kaorun343/vue-property-decorator
 [vue-facing-decorator]: https://github.com/facing-dev/vue-facing-decorator
-[stage 3 proposal of JavaScript decorators]: https://github.com/tc39/proposal-decorators
-[stage 2 proposal of JavaScript decorators]: 
-[legacy proposal of JavaScript decorators]: https://github.com/wycats/javascript-decorators
 [Babel]: https://babeljs.io/
 [@babel/plugin-transform-class-properties]: https://babeljs.io/docs/babel-plugin-transform-class-properties
 [@babel/plugin-proposal-decorators]: https://babeljs.io/docs/babel-plugin-proposal-decorators
-[A Brief History of Decorators in JavaScript]: http://senocular.github.io/articles/js_history_of_decorators.html
+[stage 3 proposal of JavaScript decorators]: https://github.com/tc39/proposal-decorators
+[stage 2 proposal of JavaScript decorators]: https://www.proposals.es/proposals/Decorators
+[legacy proposal of JavaScript decorators]: https://github.com/wycats/javascript-decorators
+[stage 3 proposal of JavaScript decorator metadata]: https://github.com/tc39/proposal-decorator-metadata

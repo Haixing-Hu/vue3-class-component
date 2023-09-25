@@ -15,7 +15,7 @@ const { merge } = require('webpack-merge');
  * Common configuration across all environments.
  */
 const commonConfig = {
-  entry: resolve(__dirname, 'main.js'),
+  entry: resolve(__dirname, 'index.js'),
   output: {
     filename: 'vue3-class-component.js',
     library: {

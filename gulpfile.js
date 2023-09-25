@@ -13,6 +13,7 @@ const eslint = require('gulp-eslint-new');
 const gulpIf = require('gulp-if');
 const jsdoc = require('gulp-jsdoc3');
 const webpack = require('webpack-stream');
+const {resolve} = require('node:path');
 
 const PATH = {
   sources: [`./src/**/*.js`],
