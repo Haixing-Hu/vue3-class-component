@@ -26,6 +26,7 @@ import { DECORATORS_KEY } from './metadata-keys';
  *    - `context`: The context object containing information about the target
  *      being decorated.
  * @see https://github.com/tc39/proposal-decorators
+ * @see https://github.com/tc39/proposal-decorator-metadata
  * @author Haixing Hu
  */
 function createDecorator(factory) {
@@ -33,10 +34,10 @@ function createDecorator(factory) {
     throw new TypeError('The first argument must be a function.');
   }
   return (target, context) => {
-
-
-    ctor[DECORATORS_KEY].push((options) => factory(target, context, options));
-  }
+    const metadata = context.metadata;
+    metadata[DECORATORS_KEY] ??= [];
+    metadata[DECORATORS_KEY].push((options) => factory(target, context, options));
+  };
 }
 
 export default createDecorator;
