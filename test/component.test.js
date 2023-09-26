@@ -7,6 +7,7 @@
  *
  ******************************************************************************/
 import { Component } from '../index';
+import { OPTIONS_KEY } from '../src/metadata-keys';
 
 /**
  * Unit test of the `@Component` decorator.
@@ -14,16 +15,88 @@ import { Component } from '../index';
  * @author Haixing Hu
  */
 describe('@Component decorator', () => {
-  test('simple test', () => {
+  test('@Component without options', () => {
     @Component
-    class Foo {}
+    class Foo {
+      x = 1;
+      y;
+      constructor() {
+        this.z = 3;
+      }
+      test() {}
 
+      hello = () => { console.log('hello'); };
+
+      get a() { return 1; }
+      set a(value) { console.log('a = ', value); }
+
+      mounted() {
+        console.log('Foo.mounted');
+      }
+    }
+    const metadata = Foo[Symbol.metadata];
+    // console.log('Symbol.metadata:', Symbol.metadata);
+    // console.log('Foo:', Foo);
+    // console.log('metadata: ', metadata);
+    const options = metadata[OPTIONS_KEY];
+    expect(options.name).toBe('Foo');
+    expect(options.mounted).toBe(Foo.prototype.mounted);
+    expect(options.methods.test).toBe(Foo.prototype.test);
+    expect(String(options.methods.hello)).toBe(String(new Foo().hello));
+    expect(options.mixins.length).toBe(1);
+    const mixin = {
+      data() {
+        return { x: 1, z: 3 };
+      }
+    }
+    expect(String(options.mixins[0])).toBe(String(mixin));
+    const a_descriptor = Object.getOwnPropertyDescriptor(Foo.prototype, 'a');
+    expect(options.computed.a.get).toBe(a_descriptor.get);
+    expect(options.computed.a.set).toBe(a_descriptor.set);
+  });
+  test('@Component with options', () => {
     class MyComponent {}
     @Component({
       components: {
-        'MyComponent': MyComponent,
-      },
+        MyComponent,
+      }
     })
-    class Bar {}
+    class Goo {
+      x = 1;
+      y;
+      constructor() {
+        this.z = 3;
+      }
+      test() {}
+
+      hello = () => { console.log('hello'); };
+
+      get a() { return 1; }
+      set a(value) { console.log('a = ', value); }
+
+      mounted() {
+        console.log('Foo.mounted');
+      }
+    }
+    const metadata = Goo[Symbol.metadata];
+    // console.log('Symbol.metadata:', Symbol.metadata);
+    // console.log('Goo:', Goo);
+    // console.log('metadata: ', metadata);
+    const options = metadata[OPTIONS_KEY];
+    expect(options.name).toBe('Goo');
+    expect(options.components).toEqual({ MyComponent });
+    expect(options.mounted).toBe(Goo.prototype.mounted);
+    expect(options.methods.test).toBe(Goo.prototype.test);
+    expect(String(options.methods.hello)).toBe(String(new Goo().hello));
+    expect(options.mixins.length).toBe(1);
+    const mixin = {
+      data() {
+        return { x: 1, z: 3 };
+      }
+    }
+    expect(String(options.mixins[0])).toBe(String(mixin));
+    const a_descriptor = Object.getOwnPropertyDescriptor(Goo.prototype, 'a');
+    expect(options.computed.a.get).toBe(a_descriptor.get);
+    expect(options.computed.a.set).toBe(a_descriptor.set);
   });
 });

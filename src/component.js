@@ -6,7 +6,11 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import buildComponent from './build-component';
+import buildOptions from './build-options';
+
+// FIXME: Why we should define this symbol here?
+// see: https://github.com/babel/babel/blob/672b881e41228f5060bb80ea89f64315b4a1e05b/packages/babel-plugin-proposal-decorators/test/fixtures/metadata/element/exec.js
+Symbol.metadata = Symbol();
 
 /**
  * The decorator of Vue class components.
@@ -30,10 +34,10 @@ function Component(...args) {
   if (args.length === 1) {        // the decorator is used additional options
     // returns a simple class decorator
     return function decorator(Class, context) {
-      return buildComponent(Class, context, args[0]);
+      return buildOptions(Class, context, args[0]);
     }
   } else if (args.length === 2) { // the decorator is used without additional options
-    return buildComponent(args[0], args[1], {});
+    return buildOptions(args[0], args[1], {});
   } else {
     throw new TypeError('Invalid use of the `@Component` decorator.');
   }
