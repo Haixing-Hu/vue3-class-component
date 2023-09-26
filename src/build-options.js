@@ -6,20 +6,17 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { DECORATORS_KEY, OPTIONS_KEY } from './metadata-keys';
-import collectData from './collect-data';
+import { OPTIONS_KEY } from './metadata-keys';
 import {
-  collectVueLifecycleHook,
-  collectVueSpecialFunction,
-  collectUserDefinedMethod,
-  collectUserDefinedField,
-  collectComputedProperty,
+  collectMethod,
+  collectData,
+  collectDecorators,
 } from "./utils";
 
 /**
  * Builds a Vue component from a class.
  *
- * @param {Array} Class
+ * @param {Function} Class
  *     The constructor of the class being decorated.
  * @param {Object} context
  *     The context object containing information about the class being decorated.
@@ -29,8 +26,8 @@ import {
  *     The decorated class, which contains the metadata of the options used to
  *     build a Vue component with the options API.
  */
-function buildComponent(Class, context, options) {
-  console.log('Class = ', Class, 'context = ', context, 'options = ', options);
+function buildOptions(Class, context, options) {
+  // console.log('Class = ', Class, 'context = ', context, 'options = ', options);
   if (context === null || typeof context !== 'object') {
     throw new TypeError('The context must be an object.');
   }
@@ -48,43 +45,20 @@ function buildComponent(Class, context, options) {
   options.mixins ??= [];
   // initialize the options.computed
   options.computed ??= {};
+  // collect the class methods defined in the Class
   const proto = Class.prototype;
   const keys = Object.getOwnPropertyNames(proto);
   for (const key of keys) {
-    if (key === 'constructor') {    // ignore constructor
-      continue;
-    }
-    if (collectVueLifecycleHook(Class, key, options)) {
-      continue;
-    }
-    if (collectVueSpecialFunction(Class, key, options)) {
-      continue;
-    }
-    const descriptor = Object.getOwnPropertyDescriptor(proto, key);
-    if (collectUserDefinedMethod(Class, key, descriptor, options)) {
-      continue;
-    }
-    if (collectUserDefinedField(Class, key, descriptor, options)) {
-      continue;
-    }
-    collectComputedProperty(Class, key, descriptor, options);
+    collectMethod(proto, key, options);
   }
-  // Add data hook to collect class properties as Vue instance's data
-  options.mixins.push({
-    data() {
-      return collectData(this, Class);
-    }
-  });
+  const instance = new Class();
+  collectData(instance, options);
   // deal with customized field/method decorators
-  const metadata = context.metadata;
-  if (metadata[DECORATORS_KEY]) {
-    for (const decorator of metadata[DECORATORS_KEY]) {
-      decorator(options);
-    }
-  }
-  console.log('options = ', options);
-  metadata[OPTIONS_KEY] = options;
-  console.log('metadata = ', metadata);
+  collectDecorators(Class, context, options);
+  // console.dir(options, { depth: null });
+  // store options in the metadata
+  context.metadata[OPTIONS_KEY] = options;
+  return Class;
 }
 
-export default buildComponent;
+export default buildOptions;

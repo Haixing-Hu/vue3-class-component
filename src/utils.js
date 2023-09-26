@@ -8,67 +8,69 @@
  ******************************************************************************/
 import VUE_LIFECYCLE_HOOKS from './vue-lifecycle-hooks';
 import VUE_SPECIAL_FUNCTIONS from './vue-special-functions';
+import {DECORATORS_KEY} from "./metadata-keys";
 
-function collectVueLifecycleHook(Class, key, options) {
+function collectMethod(obj, key, options) {
+  if (key === 'constructor') {
+    return;
+  }
   if (VUE_LIFECYCLE_HOOKS.includes(key)) {
-    options[key] = Class.prototype[key];
-    return true;
+    options[key] = obj[key];
+  } else if (VUE_SPECIAL_FUNCTIONS.includes(key)) {
+    options[key] = obj[key];
   } else {
-    return false;
-  }
-}
-
-function collectVueSpecialFunction(Class, key, options) {
-  if (VUE_SPECIAL_FUNCTIONS.includes(key)) {
-    options[key] = Class.prototype[key];
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function collectUserDefinedMethod(Class, key, descriptor, options) {
-  if (typeof descriptor.value === 'function') {
-    options.methods[key] = descriptor.value;
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function collectUserDefinedField(Class, key, descriptor, options) {
-  if (descriptor.value !== undefined && typeof descriptor.value !== 'function') {
-    // deal with typescript decorated data
-    options.mixins.push({
-      data() {
-        return {
-          [key]: descriptor.value,
-        };
-      }
-    });
-    return true;
-  }
-  return false;
-}
-
-function collectComputedProperty(Class, key, descriptor, options) {
-  if (descriptor.value === undefined) {
-    if (descriptor.get || descriptor.set) {
+    const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+    if (typeof descriptor.value === 'function') {
+      // deal with class methods
+      options.methods[key] = descriptor.value;
+    } else if (descriptor.value !== undefined) {
+      // deal with typescript decorated data
+      options.mixins.push({
+        data() {
+          return {
+            [key]: descriptor.value,
+          };
+        }
+      });
+    } else if (descriptor.get || descriptor.set) {
       // deal with computed properties
       options.computed[key] = {
         get: descriptor.get,
         set: descriptor.set,
       };
-      return true;
     }
   }
-  return false;
+}
+
+function collectData(instance, options) {
+  const entries = Object.entries(instance);
+  const fields = {};
+  entries.forEach(([key, value]) => {
+    if (typeof value === 'function') {
+      collectMethod(instance, key, options);
+    } else if (value !== undefined) {
+      fields[key] = value;
+    }
+  });
+  // Add data hook to collect class properties as Vue instance's data
+  options.mixins.push({
+    data() {
+      return fields;
+    }
+  });
+}
+
+function collectDecorators(Class, context, options) {
+  const metadata = context.metadata;
+  if (metadata[DECORATORS_KEY]) {
+    for (const decorator of metadata[DECORATORS_KEY]) {
+      decorator(options);
+    }
+  }
 }
 
 export {
-  collectVueLifecycleHook,
-  collectVueSpecialFunction,
-  collectUserDefinedMethod,
-  collectUserDefinedField,
-  collectComputedProperty,
+  collectMethod,
+  collectData,
+  collectDecorators,
 };
