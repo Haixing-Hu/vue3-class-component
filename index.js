@@ -7,8 +7,9 @@
  *
  ******************************************************************************/
 import Component from './src/component';
-
+import toNative from './src/to-native';
 
 export {
   Component,
+  toNative,
 };
