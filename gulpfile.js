@@ -41,18 +41,7 @@ function watch() {
 function test() {
   const testTarget = process.argv[3];
   const hasTarget = testTarget && testTarget.startsWith('--target=');
-  const config = {
-    verbose: false,
-    transform: {
-      '\\.js$': 'babel-jest',
-      '\\.vue$': 'vue-jest',
-    },
-    transformIgnorePatterns: ['/node_modules/(?!@haixing_hu)'],
-    testEnvironment: 'jest-environment-jsdom-global',
-    setupFilesAfterEnv: ['jest-extended/all'],
-    collectCoverage: true,
-    collectCoverageFrom: PATH.sources,
-  };
+  const config = require('./jest.config');
   if (hasTarget) {
     const target = testTarget.substring('--target='.length);
     config.testRegex = [ target ];

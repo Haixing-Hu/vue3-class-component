@@ -33,6 +33,7 @@ if (Symbol.metadata === undefined) {
  * @author Haixing Hu
  */
 function Component(...args) {
+  console.log('Component: args = ', args);
   if (args.length === 1) {        // the decorator is used additional options
     // returns a simple class decorator
     return function decorator(Class, context) {

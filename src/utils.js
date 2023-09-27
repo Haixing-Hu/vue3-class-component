@@ -11,12 +11,12 @@ import VUE_SPECIAL_FUNCTIONS from './vue-special-functions';
 import {DECORATORS_KEY} from "./metadata-keys";
 
 function collectMethod(obj, key, options) {
+  console.log('collectMethod: key = ', key);
   if (key === 'constructor') {
     return;
   }
-  if (VUE_LIFECYCLE_HOOKS.includes(key)) {
-    options[key] = obj[key];
-  } else if (VUE_SPECIAL_FUNCTIONS.includes(key)) {
+  if (VUE_LIFECYCLE_HOOKS.includes(key) || VUE_SPECIAL_FUNCTIONS.includes(key)) {
+    // obj[key] must be a function
     options[key] = obj[key];
   } else {
     const descriptor = Object.getOwnPropertyDescriptor(obj, key);
