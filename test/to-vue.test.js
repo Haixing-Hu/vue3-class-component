@@ -6,14 +6,14 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { Component, toNative } from '../index';
+import { Component, toVue } from '../index';
 
 /**
- * Unit test of the `@Component` decorator.
+ * Unit test of the `toVue` function.
  *
  * @author Haixing Hu
  */
-describe('toNative function', () => {
+describe('toVue function', () => {
   test('@Component without options', () => {
     @Component
     class Foo {
@@ -33,7 +33,7 @@ describe('toNative function', () => {
         console.log('Foo.mounted');
       }
     }
-    const options = toNative(Foo)
+    const options = toVue(Foo)
     expect(options.name).toBe('Foo');
     expect(options.mounted).toBe(Foo.prototype.mounted);
     expect(options.methods.test).toBe(Foo.prototype.test);
@@ -74,7 +74,7 @@ describe('toNative function', () => {
         console.log('Foo.mounted');
       }
     }
-    const options = toNative(Goo);
+    const options = toVue(Goo);
     expect(options.name).toBe('Too');
     expect(options.components).toEqual({ MyComponent });
     expect(options.mounted).toBe(Goo.prototype.mounted);

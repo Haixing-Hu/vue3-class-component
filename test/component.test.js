@@ -103,18 +103,101 @@ describe('@Component decorator', () => {
     expect(() => {
       @Component({name: 'F1'}, {id: 2})
       class F1 {}
-    }).toThrowWithMessage(TypeError, 'The `@Component` can only decorate a class.');
+    }).toThrowWithMessage(
+      TypeError,
+      'The `@Component` can only decorate a class.',
+    );
     expect(() => {
       @Component({name: 'F1'}, {id: 2}, {x: 3})
       class F1 {}
-    }).toThrowWithMessage(TypeError, 'Invalid use of the `@Component` decorator.');
+    }).toThrowWithMessage(
+      TypeError,
+      'Invalid use of the `@Component` decorator.',
+    );
   });
-  // test('@Component on class with invalid Vue lifecycle hook', () => {
-  //   expect(() => {
-  //     @Component
-  //     class F1 {
-  //       static mounted = 'hello';
-  //     }
-  //   }).toThrowWithMessage(TypeError, 'The lifecycle hook "mounted" must be a function.');
-  // });
+  test('@Component on class with invalid options', () => {
+    expect(() => {
+      @Component({
+        foo: 'foo',
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "foo" in the argument of @Component is not supported.',
+    );
+  });
+  test('@Component on class with invalid Vue keyword `data`', () => {
+    expect(() => {
+      @Component({
+        data: () => {
+          return { x: 1 };
+        },
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "data" in the argument of @Component should be declared as '
+      + 'the class field.',
+    );
+  });
+  test('@Component on class with invalid Vue keyword `props`', () => {
+    expect(() => {
+      @Component({
+        props: ['x'],
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "props" in the argument of @Component should be declared as '
+      + 'the class field and decorated by @Prop.',
+    );
+  });
+  test('@Component on class with invalid Vue keyword `computed`', () => {
+    expect(() => {
+      @Component({
+        computed: {
+          x() {
+            return 1;
+          },
+        },
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "computed" in the argument of @Component should be declared '
+      + 'as the class setter.',
+    );
+  });
+  test('@Component on class with invalid Vue keyword `methods`', () => {
+    expect(() => {
+      @Component({
+        methods: {
+          foo() {
+            return 1;
+          },
+        },
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "methods" in the argument of @Component should be declared '
+      + 'as the class method.',
+    );
+  });
+  test('@Component on class with invalid Vue keyword `watch`', () => {
+    expect(() => {
+      @Component({
+        watch: {
+          x(val) {
+            console.log(val);
+          },
+        },
+      })
+      class F1 {}
+    }).toThrowWithMessage(
+      Error,
+      'The option "watch" in the argument of @Component should be declared '
+      + 'as the class method and decorated by @Watch.',
+    );
+  });
 });

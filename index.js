@@ -7,9 +7,9 @@
  *
  ******************************************************************************/
 import Component from './src/component';
-import toNative from './src/to-native';
+import toVue from './src/to-vue';
 
 export {
   Component,
-  toNative,
+  toVue,
 };
