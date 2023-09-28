@@ -6,12 +6,53 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import VUE_LIFECYCLE_HOOKS from './vue-lifecycle-hooks';
-import VUE_SPECIAL_FUNCTIONS from './vue-special-functions';
-import {DECORATORS_KEY} from "./metadata-keys";
+import {
+  VUE_KEYWORDS,
+  VUE_LIFECYCLE_HOOKS,
+  VUE_SPECIAL_FUNCTIONS,
+} from "./vue-options-api";
+import { DECORATORS_KEY } from "./metadata-keys";
 
+/**
+ * Checks the validity of the options of the `@Component` decorator.
+ *
+ * @param {Object} options
+ *     the options to be checked.
+ * @throws Error
+ *     if the options contains invalid properties.
+ * @author Haixing Hu
+ */
+function checkOptions(options) {
+  Object.keys(options).forEach((key) => {
+    const keyword = VUE_KEYWORDS.find((item) => (item.name === key));
+    if (!keyword) {
+      throw new Error(`The option "${key}" in the argument of @Component is not supported.`);
+    }
+    if (keyword.declared !== 'options') {
+      let msg = `The option "${key}" in the argument of @Component should be declared as the class ${keyword.declared}`;
+      if (keyword.decorated) {
+        msg += ` and decorated by ${keyword.decorated}`;
+      }
+      msg += '.';
+      throw new Error(msg);
+    }
+  });
+}
+
+/**
+ * Collects a class method or setter/getter and modify the existing Vue component
+ * options object.
+ *
+ * @param obj
+ *     the object, which usually be the prototype of a class or a instance of
+ *     a class.
+ * @param key
+ *     the name of the method or setter/getter.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
 function collectMethod(obj, key, options) {
-  console.log('collectMethod: key = ', key);
   if (key === 'constructor') {
     return;
   }
@@ -23,15 +64,6 @@ function collectMethod(obj, key, options) {
     if (typeof descriptor.value === 'function') {
       // deal with class methods
       options.methods[key] = descriptor.value;
-    } else if (descriptor.value !== undefined) {
-      // deal with typescript decorated data
-      options.mixins.push({
-        data() {
-          return {
-            [key]: descriptor.value,
-          };
-        }
-      });
     } else if (descriptor.get || descriptor.set) {
       // deal with computed properties
       options.computed[key] = {
@@ -42,6 +74,16 @@ function collectMethod(obj, key, options) {
   }
 }
 
+/**
+ * Collects all class fields from an instance of a class and modify the existing
+ * Vue component options object.
+ *
+ * @param instance
+ *     the instance of a class.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
 function collectData(instance, options) {
   const entries = Object.entries(instance);
   const fields = {};
@@ -60,6 +102,18 @@ function collectData(instance, options) {
   });
 }
 
+/**
+ * Collects all decorators defined in a class and modify the existing Vue
+ * component options object.
+ *
+ * @param Class
+ *     the constructor of the decorated class.
+ * @param context
+ *     the context of the information about the decorated class.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
 function collectDecorators(Class, context, options) {
   const metadata = context.metadata;
   if (metadata[DECORATORS_KEY]) {
@@ -70,6 +124,7 @@ function collectDecorators(Class, context, options) {
 }
 
 export {
+  checkOptions,
   collectMethod,
   collectData,
   collectDecorators,

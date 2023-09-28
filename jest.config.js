@@ -17,11 +17,10 @@ module.exports = {
   transform: {
     '\\.js$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue3-jest',
-    '\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub'
   },
-  transformIgnorePatterns: [
-    '/node_modules/(?!@haixing_hu)',
-  ],
+  // transformIgnorePatterns: [
+  //   '/node_modules/(?!@haixing_hu)',
+  // ],
   setupFilesAfterEnv: [
     'jest-extended/all',
   ],

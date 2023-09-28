@@ -16,11 +16,12 @@ import { OPTIONS_KEY } from "./metadata-keys";
  *     The class.
  * @returns {Object}
  *     The corresponding Vue component option.
+ * @author Haixing Hu
  */
-function toNative(Class) {
+function toVue(Class) {
   const metadata = Class[Symbol.metadata];
   const options = metadata[OPTIONS_KEY];
   return defineComponent(options);
 }
 
-export default toNative;
+export default toVue;

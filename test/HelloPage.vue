@@ -23,7 +23,7 @@
   </button>
 </template>
 <script>
-import { Component, toNative } from '../index';
+import { Component, toVue } from '../index';
 
 @Component({
   name: 'Hello',
@@ -64,5 +64,5 @@ class HelloPage {
   }
 }
 
-export default toNative(HelloPage);
+export default toVue(HelloPage);
 </script>

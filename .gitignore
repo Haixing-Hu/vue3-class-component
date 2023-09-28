@@ -169,3 +169,12 @@ doc/api
 
 # code coverage report
 coverage
+
+# yarn 2.x
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

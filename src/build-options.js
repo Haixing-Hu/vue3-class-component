@@ -8,6 +8,7 @@
  ******************************************************************************/
 import { OPTIONS_KEY } from './metadata-keys';
 import {
+  checkOptions,
   collectMethod,
   collectData,
   collectDecorators,
@@ -25,6 +26,7 @@ import {
  * @return {Function}
  *     The decorated class, which contains the metadata of the options used to
  *     build a Vue component with the options API.
+ * @author Haixing Hu
  */
 function buildOptions(Class, context, options) {
   // console.log('Class = ', Class, 'context = ', context, 'options = ', options);
@@ -37,6 +39,7 @@ function buildOptions(Class, context, options) {
   if (options === null || typeof options !== 'object') {
     throw new TypeError('The options of the `@Component` decorator must be an object.');
   }
+  checkOptions(options);
   // set the name of the Vue component
   options.name ??= Class.name;
   // initialize the options.methods
@@ -55,7 +58,6 @@ function buildOptions(Class, context, options) {
   collectData(instance, options);
   // deal with customized field/method decorators
   collectDecorators(Class, context, options);
-  // console.dir(options, { depth: null });
   // store options in the metadata
   context.metadata[OPTIONS_KEY] = options;
   return Class;
