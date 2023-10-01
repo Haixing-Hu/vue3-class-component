@@ -11,7 +11,12 @@ import {
   VUE_LIFECYCLE_HOOKS,
   VUE_SPECIAL_FUNCTIONS,
 } from "./vue-options-api";
-import { DECORATORS_KEY } from "./metadata-keys";
+import {
+  METHODS_KEY,
+  COMPUTED_KEY,
+  FIELDS_KEY,
+  DECORATORS_KEY,
+} from "./metadata-keys";
 
 /**
  * Checks the validity of the options of the `@Component` decorator.
@@ -48,14 +53,21 @@ function checkOptions(options) {
  *     a class.
  * @param key
  *     the name of the method or setter/getter.
+ * @param context
+ *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
  * @author Haixing Hu
  */
-function collectMethod(obj, key, options) {
+function collectMethod(obj, key, context, options) {
   if (key === 'constructor') {
     return;
   }
+  const metadata = context.metadata;
+  metadata[METHODS_KEY] ??= {};
+  const methods = metadata[METHODS_KEY];
+  metadata[COMPUTED_KEY] ??= {};
+  const computed = metadata[COMPUTED_KEY];
   if (VUE_LIFECYCLE_HOOKS.includes(key) || VUE_SPECIAL_FUNCTIONS.includes(key)) {
     // obj[key] must be a function
     options[key] = obj[key];
@@ -63,10 +75,10 @@ function collectMethod(obj, key, options) {
     const descriptor = Object.getOwnPropertyDescriptor(obj, key);
     if (typeof descriptor.value === 'function') {
       // deal with class methods
-      options.methods[key] = descriptor.value;
+      methods[key] = options.methods[key] = descriptor.value;
     } else if (descriptor.get || descriptor.set) {
       // deal with computed properties
-      options.computed[key] = {
+      computed[key] = options.computed[key] = {
         get: descriptor.get,
         set: descriptor.set,
       };
@@ -78,26 +90,28 @@ function collectMethod(obj, key, options) {
  * Collects all class fields from an instance of a class and modify the existing
  * Vue component options object.
  *
- * @param instance
- *     the instance of a class.
+ * @param defaultInstance
+ *     the default constructed instance of the decorated class.
+ * @param context
+ *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
  * @author Haixing Hu
  */
-function collectData(instance, options) {
-  const entries = Object.entries(instance);
-  const fields = {};
+function collectData(defaultInstance, context, options) {
+  const entries = Object.entries(defaultInstance);
+  options.fields = {};
   entries.forEach(([key, value]) => {
     if (typeof value === 'function') {
-      collectMethod(instance, key, options);
+      collectMethod(defaultInstance, key, context, options);
     } else if (value !== undefined) {
-      fields[key] = value;
+      options.fields[key] = value;
     }
   });
   // Add data hook to collect class properties as Vue instance's data
   options.mixins.push({
     data() {
-      return fields;
+      return options.fields;
     }
   });
 }
@@ -108,17 +122,19 @@ function collectData(instance, options) {
  *
  * @param Class
  *     the constructor of the decorated class.
+ * @param defaultInstance
+ *     the default constructed instance of the decorated class.
  * @param context
  *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
  * @author Haixing Hu
  */
-function collectDecorators(Class, context, options) {
+function collectDecorators(Class, defaultInstance, context, options) {
   const metadata = context.metadata;
   if (metadata[DECORATORS_KEY]) {
     for (const decorator of metadata[DECORATORS_KEY]) {
-      decorator(options);
+      decorator(Class, defaultInstance, options);
     }
   }
 }

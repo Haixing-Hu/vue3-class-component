@@ -52,12 +52,12 @@ function buildOptions(Class, context, options) {
   const proto = Class.prototype;
   const keys = Object.getOwnPropertyNames(proto);
   for (const key of keys) {
-    collectMethod(proto, key, options);
+    collectMethod(proto, key, context, options);
   }
-  const instance = new Class();
-  collectData(instance, options);
+  const defaultInstance = new Class();
+  collectData(defaultInstance, context, options);
   // deal with customized field/method decorators
-  collectDecorators(Class, context, options);
+  collectDecorators(Class, defaultInstance, context, options);
   // store options in the metadata
   context.metadata[OPTIONS_KEY] = options;
   return Class;

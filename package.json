@@ -71,8 +71,7 @@
     "webpack": "^5.88.2",
     "webpack-bundle-analyzer": "^4.9.1",
     "webpack-merge": "^5.9.0",
-    "webpack-stream": "^7.0.0",
-    "yarn-upgrade-all": "^0.7.2"
+    "webpack-stream": "^7.0.0"
   },
   "packageManager": "yarn@3.6.3"
 }

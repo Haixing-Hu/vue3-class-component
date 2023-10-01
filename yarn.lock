@@ -11238,7 +11238,6 @@ __metadata:
     webpack-bundle-analyzer: ^4.9.1
     webpack-merge: ^5.9.0
     webpack-stream: ^7.0.0
-    yarn-upgrade-all: ^0.7.2
   peerDependencies:
     vue: ^3.3.4
   languageName: unknown
@@ -11691,15 +11690,6 @@ __metadata:
     y18n: ^3.2.1
     yargs-parser: ^5.0.1
   checksum: 0c330ce1338cd9f293157bf8955af6833ae59032ab1bc936510ce7a216de9bb65b05b39a82ff0e7359bfb643342cc05de5049ce50ee9404b0818f65911fb59a5
-  languageName: node
-  linkType: hard
-
-"yarn-upgrade-all@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "yarn-upgrade-all@npm:0.7.2"
-  bin:
-    yarn-upgrade-all: build/index.js
-  checksum: accf406dda39ea10045237e2072c33d788836998bff68d8a2ebdf7c7e84fd8e7dfd78c0070f9ee2923f09336ed8f9523ac72371e4d7318f7870ea3223b4885cb
   languageName: node
   linkType: hard
 
