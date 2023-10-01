@@ -53,21 +53,14 @@ function checkOptions(options) {
  *     a class.
  * @param key
  *     the name of the method or setter/getter.
- * @param context
- *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
  * @author Haixing Hu
  */
-function collectMethod(obj, key, context, options) {
+function collectMethod(obj, key, options) {
   if (key === 'constructor') {
     return;
   }
-  const metadata = context.metadata;
-  metadata[METHODS_KEY] ??= {};
-  const methods = metadata[METHODS_KEY];
-  metadata[COMPUTED_KEY] ??= {};
-  const computed = metadata[COMPUTED_KEY];
   if (VUE_LIFECYCLE_HOOKS.includes(key) || VUE_SPECIAL_FUNCTIONS.includes(key)) {
     // obj[key] must be a function
     options[key] = obj[key];
@@ -75,10 +68,10 @@ function collectMethod(obj, key, context, options) {
     const descriptor = Object.getOwnPropertyDescriptor(obj, key);
     if (typeof descriptor.value === 'function') {
       // deal with class methods
-      methods[key] = options.methods[key] = descriptor.value;
+      options.methods[key] = descriptor.value;
     } else if (descriptor.get || descriptor.set) {
       // deal with computed properties
-      computed[key] = options.computed[key] = {
+      options.computed[key] = {
         get: descriptor.get,
         set: descriptor.set,
       };
@@ -92,18 +85,16 @@ function collectMethod(obj, key, context, options) {
  *
  * @param defaultInstance
  *     the default constructed instance of the decorated class.
- * @param context
- *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
  * @author Haixing Hu
  */
-function collectData(defaultInstance, context, options) {
+function collectData(defaultInstance, options) {
   const entries = Object.entries(defaultInstance);
   options.fields = {};
   entries.forEach(([key, value]) => {
     if (typeof value === 'function') {
-      collectMethod(defaultInstance, key, context, options);
+      collectMethod(defaultInstance, key, options);
     } else if (value !== undefined) {
       options.fields[key] = value;
     }
