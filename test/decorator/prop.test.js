@@ -8,17 +8,19 @@
  ******************************************************************************/
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import HelloPage from './data/HelloPage.vue';
+import HelloComponent from '../data/HelloComponent.vue';
+import UseHelloComponent from '../data/UseHelloComponent.vue';
 
 /**
- * Unit test of the vue-class-component
+ * Unit tests the `@Prop` decorator.
  *
  * @author Haixing Hu
  */
-describe('HelloPage', () => {
-  test('renders correctly', async () => {
-    console.log('HelloPage:', HelloPage);
-    const wrapper = mount(HelloPage);
+describe('@Prop decorator', () => {
+  test('should work', async () => {
+    console.log('HelloComponent:', HelloComponent);
+    console.log('UseHelloComponent:', UseHelloComponent);
+    const wrapper = mount(UseHelloComponent);
     expect(wrapper.exists()).toBe(true);
     await nextTick();
     const msg = wrapper.get('#message');

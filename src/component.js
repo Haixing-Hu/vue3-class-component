@@ -19,7 +19,7 @@ if (Symbol.metadata === undefined) {
  *
  * This decorator must be used to decorate a class.
  *
- * @param {Array} args
+ * @param {...} args
  *     The array of arguments for calling this decorator. If it has only one
  *     argument, the only argument is the additional options of this decorator,
  *     and this function should return another function which is the decorator
