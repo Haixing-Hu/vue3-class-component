@@ -8,9 +8,8 @@ It's heavily inspired by [vue-class-component], except that:
 - It uses the most recent (currently version 2023-05)
   [stage 3 proposal of JavaScript decorators] and [stage 3 proposal of JavaScript decorator metadata].
 - It provides commonly used decorators for class-style Vue components, such as 
-  `@Prop`, `@PropSync`, `@Model`, `@ModelSync`, `@Watch`, `@Provide`, `@Inject`, 
-  `@Emit`, etc. (see [Predefined Decorators](#predefined-decorators) section for 
-  more details). That is, it combines the functions of [vue-class-component]
+  `@Prop`, `@Watch`, `@Provide`, `@Inject`. (see [Predefined Decorators](#predefined-decorators) 
+  section for more details). That is, it combines the functions of [vue-class-component]
   and [vue-property-decorator].
 
 ## Usage Example
