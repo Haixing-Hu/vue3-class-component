@@ -12,6 +12,19 @@ It's heavily inspired by [vue-class-component], except that:
   section for more details). That is, it combines the functions of [vue-class-component]
   and [vue-property-decorator].
 
+## Table of Contents
+
+- [Usage Example](#usage-example)
+- [Supported Options](#supported-options)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Predefined Decorators](#predefined-decorators)
+  - [@Prop](#Prop)
+  - [@Watch](#Watch)
+  - [@Provide](#Provide)
+  - [@Inject](#Inject)
+- [Customize Decorators](#customize-decorators)
+
 ## Usage Example
 
 ```vue
