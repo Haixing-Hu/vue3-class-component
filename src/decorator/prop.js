@@ -6,22 +6,23 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import createDecorator from "../create-decorator";
+import createDecorator from '../create-decorator';
+import { fixDefaultValue } from '../utils';
 
 /**
  * Infers the default value of a Prop from the initial value of a class field.
  *
- * @param {Any | undefined} defaultValue
+ * @param {any | undefined} defaultValue
  *     the default value of the decorated field specified in the arguments
  *     `default` of the `@Prop` decorator, which could be `undefined` if no
  *     `default` argument specified.
- * @param {Any | undefined} initialValue
+ * @param {any | undefined} initialValue
  *     the initial value of the decorated field specified in the default
  *     constructed instance of the class, which could be `undefined` if the
  *     field is not initialized.
  * @param {Object} context
  *     the context object containing information about the field to be decorated.
- * @return {Any | undefined}
+ * @return {any | undefined}
  *     the inferred default value of the decorated field.
  */
 function inferDefaultValue(defaultValue, initialValue, context) {
@@ -44,7 +45,7 @@ function inferDefaultValue(defaultValue, initialValue, context) {
  *     The type of the decorated field specified in the arguments `type` of the
  *     `@Prop` decorator, which could be `undefined` if no `type` argument
  *     specified.
- * @param {Any | undefined} defaultValue
+ * @param {any | undefined} defaultValue
  *     the inferred default value of the decorated field.
  * @param {Object} context
  *     the context object containing information about the field to be decorated.
@@ -66,41 +67,20 @@ function inferType(type, defaultValue, context) {
 }
 
 /**
- * Fix the inferred default value of a Prop.
- *
- * Note that according to the document of Vue.js, if the default value of a Prop
- * is an Object or an Array, it must be defined with a factory function which
- * returns the default value.
- * See <a href="https://vuejs.org/api/options-state.html#props">Props</a> for details.
- *
- * @param {Any} value
- *     the inferred default value.
- * @return {Any | Function}
- * @see https://vuejs.org/api/options-state.html#props
- */
-function fixDefaultValue(value) {
-  if (Array.isArray(value) || (value instanceof Object)) {
-    return () => value;   // returns the factory function
-  } else {
-    return value;
-  }
-}
-
-/**
  * The factory of the `@Prop` decorator.
  *
- * @param args
+ * @param {object} args
  *     the optional arguments of the `@Prop` decorator.
- * @param Class
+ * @param {function} Class
  *     The constructor of the decorated class.
- * @param defaultInstance
+ * @param {object} defaultInstance
  *     The default constructed instance of the decorated class.
- * @param target
+ * @param {any} target
  *     the decorated target. Since the `@Prop` decorator is used to decorate a
  *     class field, this argument is always `undefined`.
- * @param context
+ * @param {object} context
  *     the context about the information of the field to be decorated.
- * @param options
+ * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
  * @author Haixing Hu
@@ -138,12 +118,11 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
 }
 
 /**
- * The decorator of props of Vue components.
+ * The `@Prop` decorator is marked on class fields to declare props of the Vue
+ * component.
  *
- * This decorator must be used to decorate a class field.
- *
- * The decorator may be used with or without an argument. The argument is an
- * object containing the options of the decorator. The supported options are:
+ * The decorator may be used with an optional argument. The argument is an
+ * object containing the following options of the decorator:
  *
  * | Option      | Type       | Default     | Description                                               |
  * |-------------|------------|-------------|-----------------------------------------------------------|
@@ -154,7 +133,7 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  *
  * @param {...} args
  *     The array of arguments for calling this decorator. If it has only one
- *     argument, the only argument is the additional options of this decorator,
+ *     argument, the only argument is the optional options of this decorator,
  *     and this function should return another function which is the decorator
  *     of a class field; If it has two arguments, the first argument is the
  *     decorated field of a class, and the second argument is the context object

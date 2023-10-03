@@ -143,7 +143,8 @@ const VUE_KEYWORDS = [
   {
     name: 'provide',
     category: 'Composition',
-    declared: 'method',
+    declared: 'field',
+    decorated: '@Provide',
   },
   {
     name: 'inject',
