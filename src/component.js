@@ -10,9 +10,7 @@ import buildOptions from './build-options';
 
 // FIXME: Why we should define this symbol here?
 // see: https://github.com/babel/babel/blob/672b881e41228f5060bb80ea89f64315b4a1e05b/packages/babel-plugin-proposal-decorators/test/fixtures/metadata/element/exec.js
-if (Symbol.metadata === undefined) {
-  Symbol.metadata = Symbol();
-}
+Symbol.metadata = Symbol('metadata');
 
 /**
  * The decorator of Vue class components.
