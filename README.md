@@ -320,7 +320,7 @@ decorator is an object with the following options:
 |-------------|------------|-------------|-----------------------------------------------------------|
 | `type`      | `Function` | `undefined` | The type of the prop, which should be a type constructor. |
 | `required`  | `Boolean`  | `false`     | Whether the prop is required.                             |
-| `default`   | `any`      | `null`      | The default value of the prop.                            |
+| `default`   | `any`      | `undefined` | The default value of the prop.                            |
 | `validator` | `Function` | `undefined` | The validator function of the prop.                       |
 
 - `type`: The type of the prop, which can be one of the following native 

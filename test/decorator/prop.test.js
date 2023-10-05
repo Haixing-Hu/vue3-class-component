@@ -10,6 +10,7 @@ import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import PropComponent from '../data/PropComponent.vue';
 import UsePropComponent from '../data/UsePropComponent.vue';
+import {Component, Prop, Watch} from '../../index';
 
 /**
  * Unit tests the `@Prop` decorator.
@@ -49,5 +50,111 @@ describe('@Prop decorator', () => {
     btn3.trigger('click');
     await nextTick();
     expect(msg.text()).toBe('Changed');
+  });
+
+  test('invalid number of arguments', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({}, 'arg1', 'arg2')
+        value1 = 123;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'Invalid use of the `@Prop` decorator.',
+    );
+  });
+
+  test('decorate non-field', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop
+        hello() {}
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The @Prop decorator can only be used to decorate a class field.',
+    );
+  });
+
+  test('default value not equals initial value', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({default: 0})
+        value = 123;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The default value of the field "value" is different from the default '
+        + 'value specified in arguments of the @Prop decorator.',
+    );
+  });
+
+  test('type argument is not consist with the type of default value', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({type: String, default: 0})
+        value;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The type of the field "value" is Number, which is different from the type '
+        + 'String specified in arguments of the @Prop decorator.',
+    );
+  });
+
+  test('non-required prop has no default value', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({type: Number, required: false})
+        value;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The field "value" is not required, but it has no default value.',
+    );
+  });
+
+  test('no type is specified', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop
+        value;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The type of the field "value" is not specified.',
+    );
+  });
+
+  test('type is not a function', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({type:'number'})
+        value;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The type of the field "value" must be a constructor function.',
+    );
+  });
+
+  test('validator is not a function', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop({type: Number, validator: 'null'})
+        value;
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The validator of the field "value" must be a function.',
+    );
   });
 });

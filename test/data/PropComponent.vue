@@ -27,7 +27,7 @@ class PropComponent {
   @Prop({ type: Number })
   value1;
 
-  @Prop
+  @Prop({ default: 123 })
   value2 = 123;
 
   @Prop
