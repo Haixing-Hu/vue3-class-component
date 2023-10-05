@@ -131,4 +131,26 @@ describe('@Watch decorator', () => {
         'The @Watch decorator can only be used to decorate a class method.',
     );
   });
+
+  test('decorate on the same path twice', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        value = 123;
+
+        @Watch('value')
+        onValueChanged1(val, oldVal) {
+          console.log('val = ', val, ', oldVal = ', oldVal);
+        }
+
+        @Watch('value')
+        onValueChanged2(val, oldVal) {
+          console.log('val = ', val, ', oldVal = ', oldVal);
+        }
+      }
+    }).toThrowWithMessage(
+        Error,
+        'The @Watch decorator can only be used once on the path "value".',
+    );
+  });
 });
