@@ -9,9 +9,11 @@
 import Component from './src/component';
 import toVue from './src/to-vue';
 import Prop from './src/decorator/prop';
+import Watch from './src/decorator/watch';
 
 export {
   Component,
   toVue,
   Prop,
+  Watch,
 };
