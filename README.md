@@ -242,9 +242,9 @@ A possible [Babel] configuration file `babel.config.json` is as follows:
 }
 ``` 
 
-**NOTE:** In order to support the [stage 3 proposal of JavaScript decorator metadata],
+**IMPORTANT NOTE:** In order to support the [stage 3 proposal of JavaScript decorator metadata],
 the version of the babel plugin `@babel/plugin-proposal-decorators` must be 
-greater than `7.23.0`.
+at least `7.23.0`.
 
 ## Predefined Decorators
 
