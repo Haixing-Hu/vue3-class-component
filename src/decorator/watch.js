@@ -42,6 +42,8 @@ function WatchFactory(args, Class, defaultInstance, target, context, options) {
     immediate,
     flush,
   };
+  // delete the handler method from options.methods
+  delete options.methods[context.name];
 }
 
 /**
