@@ -31,8 +31,8 @@ function inferDefaultValue(defaultValue, initialValue, context) {
   } else if (defaultValue === undefined) {
     return initialValue;
   } else if (defaultValue !== initialValue) {
-    throw new Error(`The default value of the field "${context.name}" is 
-        different from the defaultValue specified in arguments of the @Prop decorator.`);
+    throw new Error(`The default value of the field "${context.name}" is `
+        + 'different from the default value specified in arguments of the @Prop decorator.');
   } else {
     return defaultValue;
   }
@@ -60,8 +60,8 @@ function inferType(type, defaultValue, context) {
   } else if ((defaultValue !== undefined)
       && (defaultValue !== null)
       && (String(type) !== String(defaultValue.constructor))) {
-    throw new Error(`The type of the field "${context.name}" is ${defaultValue.constructor},
-        which is different from the type ${type} specified in arguments of the @Prop decorator.`);
+    throw new Error(`The type of the field "${context.name}" is ${defaultValue.constructor.name}, `
+        + `which is different from the type ${type.name} specified in arguments of the @Prop decorator.`);
   }
   return type;
 }
@@ -93,13 +93,16 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
   const initialValue = defaultInstance[context.name];
   const defaultValue = inferDefaultValue(args.default, initialValue, context);
   const type = inferType(args.type, defaultValue, context);
-  const required = args.required || (defaultValue === undefined);
+  const required = args.required ?? (defaultValue === undefined);
   const validator = args.validator;
   if ((required === false) && (defaultValue === undefined)) {
     throw new Error(`The field "${context.name}" is not required, but it has no default value.`);
   }
   if (type === undefined || type === null) {
     throw new Error(`The type of the field "${context.name}" is not specified.`);
+  }
+  if (typeof type !== 'function') {
+    throw new Error(`The type of the field "${context.name}" must be a constructor function.`);
   }
   if (validator !== undefined && typeof validator !== 'function') {
     throw new Error(`The validator of the field "${context.name}" must be a function.`);
@@ -154,7 +157,7 @@ function Prop(...args) {
     const decor = createDecorator(factory);
     return decor(args[0], args[1]);
   } else {
-    throw new TypeError('Invalid use of the `@Prop` decorator.');
+    throw new Error('Invalid use of the `@Prop` decorator.');
   }
 }
 
