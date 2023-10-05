@@ -8,8 +8,8 @@
  ******************************************************************************/
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import HelloComponent from '../data/HelloComponent.vue';
-import UseHelloComponent from '../data/UseHelloComponent.vue';
+import PropComponent from '../data/PropComponent.vue';
+import UsePropComponent from '../data/UsePropComponent.vue';
 
 /**
  * Unit tests the `@Prop` decorator.
@@ -18,9 +18,9 @@ import UseHelloComponent from '../data/UseHelloComponent.vue';
  */
 describe('@Prop decorator', () => {
   test('should work', async () => {
-    console.log('HelloComponent:', HelloComponent);
-    console.log('UseHelloComponent:', UseHelloComponent);
-    const wrapper = mount(UseHelloComponent);
+    console.log('PropComponent:', PropComponent);
+    console.log('UsePropComponent:', UsePropComponent);
+    const wrapper = mount(UsePropComponent);
     expect(wrapper.exists()).toBe(true);
     await nextTick();
     const msg = wrapper.get('#message');
@@ -29,6 +29,10 @@ describe('@Prop decorator', () => {
     expect(val1.text()).toBe('123');
     const val2 = wrapper.get('#value2');
     expect(val2.text()).toBe('0');
+    const personName = wrapper.get('#person-name');
+    expect(personName.text()).toBe('John');
+    const personAge = wrapper.get('#person-age');
+    expect(personAge.text()).toBe('30');
     const computed = wrapper.get('#computed');
     expect(computed.text()).toBe('123');
     const btn1 = wrapper.get('#button1');

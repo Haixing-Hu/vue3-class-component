@@ -7,8 +7,8 @@
   -
   ----------------------------------------------------------------------------->
 <template>
-  <div class="use-hello-component">
-    <hello-component
+  <div class="use-prop-component">
+    <prop-component
       :message="message"
       :value1="value1"
       :value2="value2"
@@ -34,15 +34,15 @@
   </div>
 </template>
 <script>
-import { Component, toVue, Prop } from '../../index';
-import HelloComponent from './HelloComponent.vue';
+import { Component, toVue } from '../../index';
+import PropComponent from './PropComponent.vue';
 
 @Component({
   components: {
-    HelloComponent,
+    PropComponent,
   },
 })
-class UseHelloComponent {
+class UsePropComponent {
   message = 'No Message';
 
   value1 = 123;
@@ -56,32 +56,32 @@ class UseHelloComponent {
   }
 
   mounted() {
-    console.log('UseHelloComponent.mounted: enter');
+    console.log('UsePropComponent.mounted: enter');
     console.log('this:', this);
     this.message = 'Hello World';
-    console.log('UseHelloComponent.mounted: exit');
+    console.log('UsePropComponent.mounted: exit');
   }
 
   increaseValue1() {
-    console.log('UseHelloComponent.increaseValue1: enter');
+    console.log('UsePropComponent.increaseValue1: enter');
     console.log('this:', this);
     this.value1++;
-    console.log('UseHelloComponent.increaseValue1: exit');
+    console.log('UsePropComponent.increaseValue1: exit');
   }
 
   increaseValue2() {
-    console.log('UseHelloComponent.increaseValue2: enter');
+    console.log('UsePropComponent.increaseValue2: enter');
     console.log('this:', this);
     this.value2++;
-    console.log('UseHelloComponent.increaseValue2: exit');
+    console.log('UsePropComponent.increaseValue2: exit');
   }
 
   setMessage(s) {
-    console.log('UseHelloComponent.setMessage: enter');
+    console.log('UsePropComponent.setMessage: enter');
     this.message = s;
-    console.log('UseHelloComponent.setMessage: exit');
+    console.log('UsePropComponent.setMessage: exit');
   }
 }
 
-export default toVue(UseHelloComponent);
+export default toVue(UsePropComponent);
 </script>
