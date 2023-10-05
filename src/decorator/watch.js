@@ -36,6 +36,9 @@ function WatchFactory(args, Class, defaultInstance, target, context, options) {
   const immediate = args.immediate ?? false;
   const flush = args.flush ?? 'pre';
   options.watch ??= {};
+  if (options.watch[path] !== undefined) {
+    throw new Error(`The @Watch decorator can only be used once on the path "${path}".`);
+  }
   options.watch[path] = {
     handler: target,
     deep,
