@@ -12,7 +12,6 @@
  *
  * @author Haixing Hu
  */
-// import {Component} from '../index';
 
 // Get the name of the class field of a class
 function getClassFields(cls) {
