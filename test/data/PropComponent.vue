@@ -14,10 +14,13 @@
     <div id="computed">{{ computedValue }}</div>
     <div id="person-name">{{ person.name }}</div>
     <div id="person-age">{{ person.age }}</div>
+    <div id="user-username">{{ user?.username }}</div>
+    <div id="user-password">{{ user?.password }}</div>
   </div>
 </template>
 <script>
 import { Component, toVue, Prop } from '../../index';
+import User from './user';
 
 @Component
 class PropComponent {
@@ -36,6 +39,9 @@ class PropComponent {
     age: 30,
   };
 
+  @Prop({ type: User })
+  user = null;
+
   mounted() {
     console.log('PropComponent.mounted: enter');
     console.log('this:', this);
@@ -43,6 +49,7 @@ class PropComponent {
     console.log('this.value1:', this.value1);
     console.log('this.value2:', this.value2);
     console.log('this.person:', this.person);
+    console.log('this.user:', this.user);
     console.log('PropComponent.mounted: exit');
   }
 

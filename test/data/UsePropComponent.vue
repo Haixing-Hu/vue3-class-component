@@ -12,6 +12,7 @@
       :message="message"
       :value1="value1"
       :value2="value2"
+      :user="user"
     />
     <button
         id="button1"
@@ -31,11 +32,18 @@
     >
       Change the message
     </button>
+    <button
+        id="button4"
+        @click="setUsername('guest')"
+    >
+      Change the user.username
+    </button>
   </div>
 </template>
 <script>
 import { Component, toVue } from '../../index';
 import PropComponent from './PropComponent.vue';
+import User from './user';
 
 @Component({
   components: {
@@ -46,6 +54,8 @@ class UsePropComponent {
   message = 'No Message';
 
   value1 = 123;
+
+  user = new User('admin', '123456');
 
   constructor() {
     this.value2 = 0;
@@ -80,6 +90,12 @@ class UsePropComponent {
     console.log('UsePropComponent.setMessage: enter');
     this.message = s;
     console.log('UsePropComponent.setMessage: exit');
+  }
+
+  setUsername(username) {
+    console.log('UsePropComponent.setUsername: enter');
+    this.user.username = username;
+    console.log('UsePropComponent.setUsername: exit');
   }
 }
 
