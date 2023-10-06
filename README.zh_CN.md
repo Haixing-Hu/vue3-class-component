@@ -14,9 +14,9 @@
 - 它支持 [Vue] v3.x.x（当前版本为 v3.3.4）。
 - 它使用纯 JavaScript 而非 TypeScript，这与 [vue-facing-decorator] 不同。
 - 它采用了最新的（截止到2023年5月） [JavaScript 装饰器第3阶段提案] 和 
-  [JavaScript 装饰器元数据第三阶段提案]。
+  [JavaScript 装饰器元数据第3阶段提案]。
 - 它提供了用于类式 Vue 组件的常用装饰器，如 @Prop、@Watch、@Provide 和 @Inject（更多详情
-  请参阅预定义装饰器部分）。简而言之，它结合了 [vue-class-component] 和 
+  请参阅[预定义装饰器](#predefined-decorators)部分）。简而言之，它结合了 [vue-class-component] 和 
   [vue-property-decorator] 的功能。
 
 ## 目录
