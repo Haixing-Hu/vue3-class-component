@@ -1,16 +1,24 @@
 # vue3-class-component
 
-This library lets you make your [Vue] components in the class-style syntax. 
-It's heavily inspired by [vue-class-component], except that:
-- It supports [Vue] v3.x.x (currently v3.3.4);
-- It's written in pure JavaScript instead of TypeScript, which is different 
-  from [vue-facing-decorator];
-- It uses the most recent (currently version 2023-05)
-  [stage 3 proposal of JavaScript decorators] and [stage 3 proposal of JavaScript decorator metadata].
-- It provides commonly used decorators for class-style Vue components, such as 
-  `@Prop`, `@Watch`, `@Provide`, `@Inject`. (see [Predefined Decorators](#predefined-decorators) 
-  section for more details). That is, it combines the functions of [vue-class-component]
-  and [vue-property-decorator].
+<p style="text-align: left">
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/static/v1?label=license&message=Apache&color=blue&style=flat" alt="License"/>
+  </a>
+  <a href="README.zh_CN.md"><img src="https://img.shields.io/badge/文档-中文版-blue.svg" alt="zh_CN doc"/></a>
+</p>
+
+This library allows you to create your [Vue] components using the class-style syntax.
+It draws heavy inspiration from [vue-class-component], with a few notable differences:
+
+- It supports [Vue] v3.x.x (currently v3.3.4).
+- It's written in pure JavaScript rather than TypeScript, distinguishing it 
+  from [vue-facing-decorator].
+- It adopts the most recent (as of May 2023) [stage 3 proposals for JavaScript decorators] 
+  and [stage 3 proposals for JavaScript decorator metadata].
+- It offers commonly used decorators for class-style Vue components, such as 
+  `@Prop`, `@Watch`, `@Provide`, and `@Inject` (for more details, see the
+  [Predefined Decorators] section). In essence, it combines the functionality 
+  of [vue-class-component] and [vue-property-decorator].
 
 ## Table of Contents
 
@@ -64,7 +72,6 @@ class HelloPage {
 export default toVue(MyComponent); // don't forget calling `toVue`
 </script>
 ```
-
 The above code is equivalent to the following code:
 ```vue
 <template>
@@ -107,6 +114,7 @@ export default {
 
 The `@Component` decorator can be used with an options argument, which will be 
 passed to the generated options of the Vue component. For example:
+
 ```js
 @Component({
   name: 'Hello',  // override the name of the class
@@ -172,44 +180,44 @@ export default {
 };
 ```
 
-The following table lists all the keywords in the Vue options API and whether it
+The following table lists all the keywords in the Vue options API and whether it 
 is supported in the argument of the `@Component` decorator:
 
-| Category    | Option            | Supported | Description                                                                                                                                   |
-|-------------|-------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| State       | `data`            | NO        | The reactive states of the component should be defined as class fields.                                                                       |
-| State       | `props`           | NO        | The properties of the component should be defined as class fields and marked with `@Prop` decorators.                                         |
-| State       | `computed`        | NO        | The computed properties should be defined as class getters.                                                                                   |
-| State       | `methods`         | NO        | The methods of a component should be defined as class methods.                                                                                |
-| State       | `watch`           | NO        | The watchers should be defined as class methods marked with `@Watch` decorators.                                                              |
-| State       | `emits`           | YES       | The custom events emitted by the Vue component could be declared in the options of `@Component`.                                              |
-| State       | `expose`          | YES       | The exposed public properties could be declared in the options of `@Component`.                                                               |
-| Rendering   | `template`        | YES       | The string template could be declared in the options of `@Component`.                                                                         |
-| Rendering   | `render`          | NO        | The render function should be defined as a class method.                                                                                      |
-| Rendering   | `compilerOptions` | YES       | The compiler options of the string template could be declared in the options of `@Component`.                                                 |
-| Rendering   | `slot`            | YES       | The slots of the Vue component could be declared in the options of `@Component`.                                                              |
-| Lifecycle   | `beforeCreate`    | NO        | The `beforeCreate` hook should be defined as a class method.                                                                                  |
-| Lifecycle   | `created`         | NO        | The `created` hook should be defined as a class method.                                                                                       |
-| Lifecycle   | `beforeMount`     | NO        | The `beforeMount` hook should be defined as a class method.                                                                                   |
-| Lifecycle   | `mounted`         | NO        | The `mounted` hook should be defined as a class method.                                                                                       |
-| Lifecycle   | `beforeUpdate`    | NO        | The `beforeUpdate` hook should be defined as a class method.                                                                                  |
-| Lifecycle   | `updated`         | NO        | The `updated` hook should be defined as a class method.                                                                                       |
-| Lifecycle   | `beforeUnmount`   | NO        | The `beforeUnmount` hook should be defined as a class method.                                                                                 |
-| Lifecycle   | `unmounted`       | NO        | The `unmounted` hook should be defined as a class method.                                                                                     |
-| Lifecycle   | `errorCaptured`   | NO        | The `errorCaptured` hook should be defined as a class method.                                                                                 |
-| Lifecycle   | `renderTracked`   | NO        | The `renderTracked` hook should be defined as a class method.                                                                                 |
-| Lifecycle   | `renderTriggered` | NO        | The `renderTriggered` hook should be defined as a class method.                                                                               |
-| Lifecycle   | `activated`       | NO        | The `activated` hook should be defined as a class method.                                                                                     |
-| Lifecycle   | `deactivated`     | NO        | The `deactivated` hook should be defined as a class method.                                                                                   |
-| Lifecycle   | `serverPrefetch`  | NO        | The `serverPrefetch` hook should be defined as a class method.                                                                                |
-| Composition | `provide`         | NO        | The `provide` properties should be defined as class fields and marked with `@Provide` decorators.                                             |
-| Composition | `inject`          | NO        | The `inject` properties should be defined as class fields and marked with `@Inject` decorators.                                               |
-| Composition | `mixins`          | YES       | The mixed in objects array could be declared in the options of `@Component`.                                                                  |
-| Composition | `extends`         | YES       | The base Vue component to extend from could be declared in the options of `@Component`.                                                       |
-| Misc        | `name`            | YES       | The name of the Vue component could be declared in the options of `@Component`; otherwise the class name of the decorated class will be used. |
-| Misc        | `inheritAttrs`    | YES       | The `inheritAttrs` could be declared in the options of `@Component`.                                                                          |
-| Misc        | `components`      | YES       | The registered components of the Vue component could be declared in the options of `@Component`.                                              |
-| Misc        | `directives`      | YES       | The registered directives of the Vue component could be declared in the options of `@Component`.                                              |
+| Category    | Option            | Supported | Description                                                                                                                    |
+|-------------|-------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------|
+| State       | `data`            | NO        | Reactive states of the component should be defined as class fields.                                                            |
+| State       | `props`           | NO        | Component properties should be defined as class fields and marked with `@Prop` decorators.                                     |
+| State       | `computed`        | NO        | Computed properties should be defined as class getters.                                                                        |
+| State       | `methods`         | NO        | Component methods should be defined as class methods.                                                                          |
+| State       | `watch`           | NO        | Watchers should be defined as class methods marked with `@Watch` decorators.                                                   |
+| State       | `emits`           | YES       | Custom events emitted by the Vue component can be declared in the `@Component` options.                                        |
+| State       | `expose`          | YES       | Exposed public properties can be declared in the `@Component` options.                                                         |
+| Rendering   | `template`        | YES       | The string template can be declared in the `@Component` options.                                                               |
+| Rendering   | `render`          | NO        | The render function should be defined as a class method.                                                                       |
+| Rendering   | `compilerOptions` | YES       | Compiler options for string templates can be declared in the `@Component` options.                                             |
+| Rendering   | `slot`            | YES       | Vue component slots can be declared in the `@Component` options.                                                               |
+| Lifecycle   | `beforeCreate`    | NO        | The `beforeCreate` hook should be defined as a class method.                                                                   |
+| Lifecycle   | `created`         | NO        | The `created` hook should be defined as a class method.                                                                        |
+| Lifecycle   | `beforeMount`     | NO        | The `beforeMount` hook should be defined as a class method.                                                                    |
+| Lifecycle   | `mounted`         | NO        | The `mounted` hook should be defined as a class method.                                                                        |
+| Lifecycle   | `beforeUpdate`    | NO        | The `beforeUpdate` hook should be defined as a class method.                                                                   |
+| Lifecycle   | `updated`         | NO        | The `updated` hook should be defined as a class method.                                                                        |
+| Lifecycle   | `beforeUnmount`   | NO        | The `beforeUnmount` hook should be defined as a class method.                                                                  |
+| Lifecycle   | `unmounted`       | NO        | The `unmounted` hook should be defined as a class method.                                                                      |
+| Lifecycle   | `errorCaptured`   | NO        | The `errorCaptured` hook should be defined as a class method.                                                                  |
+| Lifecycle   | `renderTracked`   | NO        | The `renderTracked` hook should be defined as a class method.                                                                  |
+| Lifecycle   | `renderTriggered` | NO        | The `renderTriggered` hook should be defined as a class method.                                                                |
+| Lifecycle   | `activated`       | NO        | The `activated` hook should be defined as a class method.                                                                      |
+| Lifecycle   | `deactivated`     | NO        | The `deactivated` hook should be defined as a class method.                                                                    |
+| Lifecycle   | `serverPrefetch`  | NO        | The `serverPrefetch` hook should be defined as a class method.                                                                 |
+| Composition | `provide`         | NO        | `provide` properties should be defined as class fields and marked with `@Provide` decorators.                                  |
+| Composition | `inject`          | NO        | `inject` properties should be defined as class fields and marked with `@Inject` decorators.                                    |
+| Composition | `mixins`          | YES       | Mixed-in objects array can be declared in the `@Component` options.                                                            |
+| Composition | `extends`         | YES       | Base Vue component to extend from can be declared in the `@Component` options.                                                 |
+| Misc        | `name`            | YES       | Vue component name can be declared in the `@Component` options; otherwise, the class name of the decorated class will be used. |
+| Misc        | `inheritAttrs`    | YES       | `inheritAttrs` can be declared in the `@Component` options.                                                                    |
+| Misc        | `components`      | YES       | Registered components of the Vue component can be declared in the `@Component` options.                                        |
+| Misc        | `directives`      | YES       | Registered directives of the Vue component can be declared in the `@Component` options.                                        |
 
 ## <span id="installation">Installation</span>
 
@@ -223,9 +231,9 @@ npm install vue3-class-component
 
 ## <span id="configuration">Configuration</span>
 
-This library uses the most recent (currently version 2023-05)
-[stage 3 proposal of JavaScript decorators], therefore you must configure the 
-[Babel] with the [@babel/plugin-transform-class-properties] and the 
+This library uses the most recent (currently May 2023)
+[stage 3 proposal of JavaScript decorators]. Therefore, you must configure
+[Babel] with [@babel/plugin-transform-class-properties] and the 
 [@babel/plugin-proposal-decorators] plugins.
 
 A possible [Babel] configuration file `babel.config.json` is as follows:
@@ -242,8 +250,8 @@ A possible [Babel] configuration file `babel.config.json` is as follows:
 }
 ``` 
 
-**IMPORTANT NOTE:** In order to support the [stage 3 proposal of JavaScript decorator metadata],
-the version of the babel plugin `@babel/plugin-proposal-decorators` must be 
+**IMPORTANT NOTE:** To support the [stage 3 proposal of JavaScript decorator metadata],
+the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be 
 at least `7.23.0`.
 
 ## <span id="predefined-decorators">Predefined Decorators</span>
@@ -258,8 +266,8 @@ Vue components:
 
 ### <span id="Prop">`@Prop` decorator</span>
 
-The `@Prop` decorator is marked on class fields to declare props of the Vue
-component. 
+The `@Prop` decorator is applied to class fields to declare the props of the Vue 
+component.
 
 For example:
 ```js
@@ -316,49 +324,47 @@ export default {
 The `@Prop` decorator may have an optional argument. The argument of the `@Prop` 
 decorator is an object with the following options:
 
-| Option      | Type       | Default     | Description                                               |
-|-------------|------------|-------------|-----------------------------------------------------------|
-| `type`      | `Function` | `undefined` | The type of the prop, which should be a type constructor. |
-| `required`  | `Boolean`  | `false`     | Whether the prop is required.                             |
-| `default`   | `any`      | `undefined` | The default value of the prop.                            |
-| `validator` | `Function` | `undefined` | The validator function of the prop.                       |
+| Option      | Type       | Default     | Description                                                        |
+|-------------|------------|-------------|--------------------------------------------------------------------|
+| `type`      | `Function` | `undefined` | The data type of the prop, which should be a constructor function. |
+| `required`  | `Boolean`  | `false`     | Indicates whether the prop is required or not.                     |
+| `default`   | `any`      | `undefined` | Specifies the default value of the prop.                           |
+| `validator` | `Function` | `undefined` | A custom validation function for the prop.                         |
 
-- `type`: The type of the prop, which can be one of the following native 
-  constructors: `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`, 
-  `Function`, `Symbol`, any custom constructor function or an array of those. 
-  In development mode, Vue will check if a prop's value matches the declared 
-  type, and will throw a warning if it doesn't. See [Prop Validation] for more 
-  details.
- 
-  Also note that a prop with `Boolean` type affects its value casting behavior in 
-  both development and production. See [Boolean Casting] for more details.
-  If this option is not specified, the library will infer the value of this
-  option from the initial value of the decorated class field.
- 
-  If this option is not specified, the library will automatically infer the
-  value of this option from the initial value of the decorated class field.
-- `default`: Specifies a default value for the prop when it is not passed by 
-  the parent or has undefined value. Object or array defaults must be returned 
-  using a factory function. The factory function also receives the raw props 
-  object as the argument.
- 
-  If this option is not specified, the library will automatically infer the
-  value of this option from the initial value of the decorated class field.
+- `type`: This option defines the expected data type of the prop, and it can be 
+  one of the following: `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`, 
+  `Function`, `Symbol`, a custom class, a custom constructor function, or an 
+  array of these types. In development mode, Vue will validate if the prop's 
+  value matches the declared type and will issue a warning if it doesn't. For 
+  more details, see [Prop Validation].
 
-  Note that the [Vue] library requires the non-primitive default values of 
-  props to be wrapped with factory functions, but this will be done by our
-  library automatically. Therefore, there is no need to wrap the non-primitive
-  default functions with factory functions when declaring props.
-- `required`: Defines if the prop is required. In a non-production environment, 
-  a console warning will be thrown if this value is truthy and the prop is not 
-  passed.
- 
-  If this option is not specified, the library will automatically infer the
-  value of this option from whether the initial value of the decorated class 
-  field is provided.
-- `validator`: Custom validator function that takes the prop value as the sole 
-  argument. In development mode, a console warning will be thrown if this 
-  function returns a falsy value (i.e. the validation fails).
+  Note that a prop with a `Boolean` type affects its value casting behavior both 
+  in development and production modes. See [Boolean Casting] for more details. 
+
+  If this option is not specified, the library will infer the type from the 
+  initial value of the decorated class field.
+
+- `default`:  Use this option to provide a default value for the prop when it is 
+  not passed by the parent component or has an undefined value. 
+  
+  If this option is not specified, the library will automatically infer the 
+  default value from the initial value of the decorated class field.
+
+  It's worth noting that the [Vue] library requires non-primitive default values 
+  of props to be wrapped with factory functions, but our library handles this 
+  automatically. Therefore, you don't need to wrap non-primitive default values 
+  with factory functions when declaring props.
+- `required`: Use this option to specify whether the prop is required or not. In 
+  a non-production environment, a console warning will be generated if this
+  value is truthy and the prop is not provided.
+
+  If this option is not specified, the library will automatically infer whether
+  the initial value of the decorated class field is provided to determine if the 
+  prop is required.
+- `validator`: This option allows you to define a custom validation function 
+  that takes the prop value as its sole argument. In development mode, a console 
+  warning will be generated if this function returns a falsy value, indicating 
+  that the validation has failed.
 
 ### <span id="Watch">`@Watch` decorator</span>
 
@@ -414,28 +420,31 @@ export default {
 };
 ```
 
-The `@Watch` decorator has one or two arguments. The first argument of the 
-`@Watch` decorator is the path of the watched states or watched properties. 
+The `@Watch` decorator can take one or two arguments. The first argument of the 
+`@Watch` decorator specifies the path of the watched states or watched properties. 
 The second optional argument of the `@Watch` decorator is an object with the 
 following options:
 
-| Option      | Type      | Default | Description                                                                             |
-|-------------|-----------|---------|-----------------------------------------------------------------------------------------|
-| `deep`      | `Boolean` | `false` | Whether the watcher should deep traversal of the source if it is an object or an array. |
-| `immediate` | `Boolean` | `false` | Whether the watcher should be called immediately after the watcher is created.          |
-| `flush`     | `String`  | `'pre'` | The flushing timing of the watcher. It can be one of `'pre'`, `'post'` or `'sync'`.     |
+| Option      | Type      | Default | Description                                                                                                             |
+|-------------|-----------|---------|-------------------------------------------------------------------------------------------------------------------------|
+| `deep`      | `Boolean` | `false` | Indicates whether the watcher should perform a deep traversal of the source, especially if it is an object or an array. |
+| `immediate` | `Boolean` | `false` | Specifies whether the watcher should be triggered immediately after its creation.                                       |
+| `flush`     | `String`  | `'pre'` | Defines the flushing timing of the watcher. It can be one of `'pre'`, `'post'`, or `'sync'`.                            |
 
-- `deep`: force deep traversal of the source if it is an object or an array, so 
-  that the callback fires on deep mutations. See [Deep Watchers].
-- `immediate`: trigger the callback immediately on watcher creation. Old value 
-  will be `undefined` on the first call. See [Eager Watchers].
-- `flush`: adjust the callback's flush timing. It can be one of `'pre'`, `'post'` 
-  or `'sync'`. See [Callback Flush Timing] and [watchEffect()].
+- `deep`: Forces a deep traversal of the source, particularly if it is an object
+  or an array, allowing the callback to be triggered on deep mutations. Refer to 
+  [Deep Watchers] for more information.
+- `immediate`: Triggers the callback immediately upon the creation of the watcher.
+  The old value will be `undefined` on the first call. Refer to [Eager Watchers] 
+  for more details.
+- `flush`: Adjusts the timing at which the callback is executed. It can be one 
+  of `'pre'`, `'post'`, or `'sync'`. See [Callback Flush Timing] and
+  [watchEffect()] for further details.
 
-**NOTE:** Unlike the `@Watch` decorator in [vue-property-decorator], the `@Watch`
-decorator in this library does not support watching the same state or property
-with more than one watching handlers. Since that is not a common use case, we
-decide to simplify the implementation of the `@Watch` decorator.
+**NOTE:** Unlike the `@Watch` decorator in [vue-property-decorator], the `@Watch` 
+decorator in this library does not support watching the same state or property 
+with more than one watching handler. As this is not a common use case, we have 
+chosen to simplify the implementation of the `@Watch` decorator.
 
 ### <span id="Provide">`@Provide` decorator</span>
 
@@ -493,36 +502,36 @@ export default {
   },
 };
 ```
+The `@Provide` and `@Inject` decorators are used together to enable an ancestor 
+component to serve as a dependency injector for all of its descendants, 
+regardless of how deep the component hierarchy goes, as long as they are in the
+same parent chain. For more details, please refer to [Provide / Inject].
 
-`@Provide` and `@Inject` decorators are used together to allow an ancestor 
-component to serve as a dependency injector for all its descendants, regardless 
-of how deep the component hierarchy is, as long as they are in the same parent 
-chain. See [Provide / Inject] for more details.
-
-The `@Provide` decorators may be used with an optional argument. The optional
+The `@Provide` decorators may be used with an optional argument. This optional 
 argument is an object with the following options:
 
-| Option     | Type               | Default     | Description                              |
-|------------|--------------------|-------------|------------------------------------------|
-| `key`      | `String \| Symbol` | `undefined` | The key of the provided value.           |
-| `reactive` | `Boolean`          | `false`     | Whether the provided value is reactive.  |
+| Option     | Type               | Default     | Description                                       |
+|------------|--------------------|-------------|---------------------------------------------------|
+| `key`      | `String \| Symbol` | `undefined` | The key of the provided value.                    |
+| `reactive` | `Boolean`          | `false`     | Indicates whether the provided value is reactive. |
 
-- `key`: The key is used by child components to locate the correct value to 
-  inject. The key could be either a string or a symbol. See [working with symbol keys] 
-  for more details. If this option is not specified, the name of the field 
-  decorated by the `@Provide` decorator will be used as the key. 
-- `reactive`: Indicates whether the provided value is reactive. By default, the
-  provided values are not reactive, i.e., changing the provided value in the 
-  ancestor component will not affect the injected value in the descendant 
-  components. If this option is set to `true`, the provided value will be
-  made reactive. See [working with reactivity] for more details.
+- `key`: The key is used by child components to locate the correct value to
+  inject. The key could be either a string or a symbol. Refer to
+  [working with symbol keys] for more details. If this option is not specified, 
+  the name of the field decorated by the `@Provide` decorator will be used as 
+  the key.
+- `reactive`: Specifies whether the provided value is reactive. By default, 
+  the provided values are not reactive, meaning that changing the provided 
+  value in the ancestor component will not affect the injected value in the
+  descendant components. If this option is set to `true`, the provided value 
+  will be made reactive. Refer to [working with reactivity] for more details.
 
-**NOTE:** The [vue-property-decorator] provides `@Provide` and `@ProvideReactive`
-decorators to declare non-reactive and reactive provided values respectively. 
-But this library simplifies the implementation by providing only one `@Provide`
-decorator with an optional `reactive` option. Since the provided values are
-usually non-reactive, we decide to make the default value of the `reactive`
-option to be `false`.
+**NOTE:** [vue-property-decorator] provides `@Provide` and `@ProvideReactive` 
+decorators to declare non-reactive and reactive provided values, respectively.
+However, this library simplifies the implementation by offering only one 
+`@Provide` decorator with an optional `reactive` option. Since provided values 
+are typically non-reactive, we have decided to set the default value of the 
+`reactive` option to `false`.
 
 ### <span id="Inject">`@Inject` decorator</span>
 
@@ -566,72 +575,72 @@ export default {
 };
 ```
 
-`@Provide` and `@Inject` decorators are used together to allow an ancestor
-component to serve as a dependency injector for all its descendants, regardless
-of how deep the component hierarchy is, as long as they are in the same parent
-chain. See [Provide / Inject] for more details.
+The `@Provide` and `@Inject` decorators are used together to enable an ancestor
+component to act as a dependency injector for all its descendants, regardless 
+of how deep the component hierarchy goes, as long as they are in the same parent
+chain. For more details, please refer to [Provide / Inject].
 
-The `@Inject` decorators may have an optional argument. The optional argument
-is an object with the following options:
+The `@Inject` decorators can have an optional argument, which is an object with 
+the following options:
 
 | Option    | Type               | Default     | Description                                          |
 |-----------|--------------------|-------------|------------------------------------------------------|
 | `from`    | `String \| Symbol` | `undefined` | The key of the source provided value to be injected. |
 | `default` | `any`              | `undefined` | The default value of the injected value.             |
 
-- `from`: The value of this option specifies the key of the provided value to be 
-  injected. The key could be either a string or a symbol. See [working with symbol keys]
-  for more details. If this option is not specified, the name of the field
-  decorated by the `@Injected` decorator will be used as the key.
-- `default`: The default value of the injected property. Note that similar to 
+- `from`: The value of this option specifies the key of the provided value to be
+  injected. The key could be either a string or a symbol. Refer to 
+  [working with symbol keys] for more details. If this option is not specified,
+  the name of the field decorated by the `@Injected` decorator will be used as
+  the key.
+- `default`: The default value of the injected property. Note that similar to
   the `default` option of the `@Prop` decorator, this library will automatically
-  transform the non-primitive default values to factory functions.
+  transform the non-primitive default values into factory functions.
 
 **NOTE:** If the provided value is non-reactive, the corresponding injected value
 is also non-reactive. If the provided value is reactive, the corresponding injected
-is also reactive. See [working with reactivity] for mor details.
+is also reactive. Refer to [working with reactivity] for more details.
 
-**NOTE:** The [vue-property-decorator] provides `@Inject` and `@InjectReactive`
-decorators to declare non-reactive and reactive injected values respectively.
-But this library simplifies the implementation by providing only one `@Inject`
+**NOTE:** [vue-property-decorator] provides `@Inject` and `@InjectReactive`
+decorators to declare non-reactive and reactive injected values, respectively.
+However, this library simplifies the implementation by providing only one `@Inject`
 decorator, and the reactivity of the injected value is determined by the reactivity
 of the provided value.
 
 ## <span id="customize-decorators">Customize Decorators</span>
 
-This library provide a `createDecorator()` function to help to create custom 
-decorators. The function takes a callback function as the argument, and returns
-a decorator function. The callback function will be called with the following
-arguments:
+This library provides a `createDecorator()` function for creating custom 
+decorators. The function takes a callback function as an argument and returns a
+decorator function. The callback function will be invoked with the following
+parameters:
 
 - `Class`: The constructor of the decorated class.
-- `defaultInstance`: The default constructed instance of the decorated class.
-  This default instance could be used to gets all class instance fields of the
-  decorated class.
-- `target`: The target value being decorated, which could be a class method,
-  a getter or a setter. Note that if the decorated target is a class field,
+- `defaultInstance`: The default constructed instance of the decorated class. 
+  This default instance can be used to access all the class instance fields of 
+  the decorated class.
+- `target`: The target value being decorated, which could be a class method, a 
+  getter, or a setter. Note that if the decorated target is a class field, 
   this argument will always be `undefined`.
-- `context`: The context object containing information about the target
-  being decorated, as described in [stage 3 proposal of JavaScript decorators] 
-  and [stage 3 proposal of JavaScript decorator metadata].
-- `options`: The Vue component options object. Changes for this object
-  will affect the provided component.
+- `context`: The context object containing information about the target being 
+  decorated, as described in [stage 3 proposal of JavaScript decorators] and
+  [stage 3 proposal of JavaScript decorator metadata].
+- `options`: The Vue component options object. Changes to this object will 
+  affect the provided component.
 
-The callback function will be called by the library to give it a chance to 
-modify the Vue component options. The returned value of the callback function
-will be ignored.
+The callback function is called by the library to allow it to modify the Vue 
+component options. The return value of the callback function will be ignored.
 
-The `createDecorator()` function will return a decorator function, which takes
-the following two arguments:
+The `createDecorator()` function returns a decorator function that takes the 
+following two arguments:
 
-- `target`: The target value being decorated, which could be class method,
-  class field, getter or setter. If the decorated target is a class field,
+- `target`: The target value being decorated, which could be a class method, 
+  class field, getter, or setter. If the decorated target is a class field, 
   this argument will always be `undefined`.
-- `context`: The context object containing information about the target
-  being decorated, as described in [stage 3 proposal of JavaScript decorators]
+- `context`: The context object containing information about the target being
+  decorated, as described in [stage 3 proposal of JavaScript decorators] 
   and [stage 3 proposal of JavaScript decorator metadata].
 
-An example usage is as follows:
+Here is an example of how to use it:
 ```js
 const Log = createDecorator((Class, defaultInstance, target, context, options) => {
   if (context?.kind !== 'method') {
@@ -646,8 +655,8 @@ const Log = createDecorator((Class, defaultInstance, target, context, options) =
 });
 ```
 
-The above example creates a `@Log` decorator which can be used to log the
-arguments of a class method. For example:
+The above example demonstrates how to create a `@Log` decorator, which can be
+employed to log the arguments of a class method. For instance:
 ```js
 @Component
 class HelloPage {
@@ -675,8 +684,8 @@ class HelloPage {
 export default toVue(MyComponent);
 ```
 
-**NOTE:** The above `@Log` decorator could not be applied to the getter nor setter
-of the component class.
+**NOTE:** The `@Log` decorator mentioned above cannot be applied to the getter 
+or setter of the component class.
 
 [Vue]: https://vuejs.org/
 [vue-class-component]: https://github.com/vuejs/vue-class-component
@@ -686,8 +695,6 @@ of the component class.
 [@babel/plugin-transform-class-properties]: https://babeljs.io/docs/babel-plugin-transform-class-properties
 [@babel/plugin-proposal-decorators]: https://babeljs.io/docs/babel-plugin-proposal-decorators
 [stage 3 proposal of JavaScript decorators]: https://github.com/tc39/proposal-decorators
-[stage 2 proposal of JavaScript decorators]: https://www.proposals.es/proposals/Decorators
-[legacy proposal of JavaScript decorators]: https://github.com/wycats/javascript-decorators
 [stage 3 proposal of JavaScript decorator metadata]: https://github.com/tc39/proposal-decorator-metadata
 [Prop Validation]: https://vuejs.org/guide/components/props.html#prop-validation
 [Boolean Casting]: https://vuejs.org/guide/components/props.html#boolean-casting

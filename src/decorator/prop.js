@@ -130,12 +130,12 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  * The decorator may be used with an optional argument. The argument is an
  * object containing the following options of the decorator:
  *
- * | Option      | Type       | Default     | Description                                               |
- * |-------------|------------|-------------|-----------------------------------------------------------|
- * | `type`      | `Function` | `undefined` | The type of the prop, which should be a type constructor. |
- * | `required`  | `Boolean`  | `false`     | Whether the prop is required.                             |
- * | `default`   | `any`      | `null`      | The default value of the prop.                            |
- * | `validator` | `Function` | `undefined` | The validator function of the prop.                       |
+ * | Option      | Type       | Default     | Description                                                        |
+ * |-------------|------------|-------------|--------------------------------------------------------------------|
+ * | `type`      | `Function` | `undefined` | The data type of the prop, which should be a constructor function. |
+ * | `required`  | `Boolean`  | `false`     | Indicates whether the prop is required or not.                     |
+ * | `default`   | `any`      | `undefined` | Specifies the default value of the prop.                           |
+ * | `validator` | `Function` | `undefined` | A custom validation function for the prop.                         |
  *
  * Usage example:
  * ```js
