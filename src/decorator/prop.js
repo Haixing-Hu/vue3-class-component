@@ -24,6 +24,8 @@ import { fixDefaultValue } from '../utils';
  *     the context object containing information about the field to be decorated.
  * @return {any | undefined}
  *     the inferred default value of the decorated field.
+ * @private
+ * @author Haixing Hu
  */
 function inferDefaultValue(defaultValue, initialValue, context) {
   if (initialValue === undefined) {
@@ -51,6 +53,8 @@ function inferDefaultValue(defaultValue, initialValue, context) {
  *     the context object containing information about the field to be decorated.
  * @return {Function | undefined}
  *     the inferred type of the decorated field.
+ * @private
+ * @author Haixing Hu
  */
 function inferType(type, defaultValue, context) {
   if (type === undefined) {
@@ -83,6 +87,7 @@ function inferType(type, defaultValue, context) {
  * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
+ * @private
  * @author Haixing Hu
  */
 function PropFactory(args, Class, defaultInstance, target, context, options) {
@@ -132,7 +137,30 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  * | `default`   | `any`      | `null`      | The default value of the prop.                            |
  * | `validator` | `Function` | `undefined` | The validator function of the prop.                       |
  *
- * @param {...} args
+ * Usage example:
+ * ```js
+ * &#064;Component
+ * class MyComponent {
+ *   &#064;Prop
+ *   message = 'hello';
+ *
+ *   &#064;Prop({ type: Number, validator: (v) => (v >= 0) })
+ *   value;
+ *
+ *   // non-primitive default value DO NOT need to be wrapped by a factory function
+ *   &#064;Prop
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ * }
+ *
+ * export default toVue(MyComponent);
+ * ```
+ *
+ * @param {...any} args
  *     The array of arguments for calling this decorator. If it has only one
  *     argument, the only argument is the optional options of this decorator,
  *     and this function should return another function which is the decorator
