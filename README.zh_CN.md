@@ -1,5 +1,12 @@
 # vue3-class-component
 
+<p style="text-align: left">
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/static/v1?label=license&message=Apache&color=blue&style=flat" alt="License"/>
+  </a>
+  <a href="README.md"><img src="https://img.shields.io/badge/Document-English-blue.svg" alt="zh_CN doc"/></a>
+</p>
+
 这个库允许您使用类式语法创建您的 [Vue] 组件。它从 [vue-class-component] 得到了很多灵感，但有一些显著的区别：
 
 - 它支持 [Vue] v3.x.x（当前版本为 v3.3.4）。
