@@ -16,7 +16,7 @@
     "deploy": "yarn & gulp build && npm publish --registry='https://registry.npmjs.com/' --access public"
   },
   "author": "Haixing Hu",
-  "license": "MIT",
+  "license": "Apache License 2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Haixing-Hu/vue3-class-component.git"
