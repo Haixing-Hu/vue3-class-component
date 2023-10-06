@@ -2,9 +2,11 @@
 
 <p style="text-align: left">
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
-    <img src="https://img.shields.io/static/v1?label=license&message=Apache&color=blue&style=flat" alt="License"/>
+    <img src="https://img.shields.io/badge/License-Apache-blue.svg" alt="License"/>
   </a>
-  <a href="README.zh_CN.md"><img src="https://img.shields.io/badge/文档-中文版-blue.svg" alt="zh_CN doc"/></a>
+  <a href="README.zh_CN.md">
+    <img src="https://img.shields.io/badge/文档-中文版-blue.svg" alt="zh_CN doc"/>
+  </a>
 </p>
 
 This library allows you to create your [Vue] components using the class-style syntax.
