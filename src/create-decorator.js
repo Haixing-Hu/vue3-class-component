@@ -34,7 +34,7 @@ import { DECORATORS_KEY } from './metadata-keys';
  */
 function createDecorator(factory) {
   if (typeof factory !== 'function') {
-    throw new TypeError('The first argument must be a function.');
+    throw new TypeError('The argument of `createDecorator()` must be a function.');
   }
   return (target, context) => {
     const metadata = context.metadata;
