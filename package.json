@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/vue3-class-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A JavaScript class decorator for Vue3 components",
   "main": "dist/vue3-class-component.min.js",
   "scripts": {
@@ -25,6 +25,13 @@
     "url": "https://github.com/Haixing-Hu/vue3-class-component/issues"
   },
   "homepage": "https://github.com/Haixing-Hu/vue3-class-component",
+  "keywords": [
+    "vue",
+    "vue3",
+    "class",
+    "decorator",
+    "babel"
+  ],
   "browserify": {
     "transform": [
       "babelify"
