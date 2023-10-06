@@ -15,12 +15,12 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
 - It supports [Vue] v3.x.x (currently v3.3.4).
 - It's written in pure JavaScript rather than TypeScript, distinguishing it 
   from [vue-facing-decorator].
-- It adopts the most recent (as of May 2023) [stage 3 proposals for JavaScript decorators] 
-  and [stage 3 proposals for JavaScript decorator metadata].
+- It adopts the most recent (as of May 2023) [stage 3 proposals of JavaScript decorators] 
+  and [stage 3 proposals of JavaScript decorator metadata].
 - It offers commonly used decorators for class-style Vue components, such as 
   `@Prop`, `@Watch`, `@Provide`, and `@Inject` (for more details, see the
-  [Predefined Decorators] section). In essence, it combines the functionality 
-  of [vue-class-component] and [vue-property-decorator].
+  [Predefined Decorators](#predefined-decorators) section). In essence, it 
+  combines the functionality of [vue-class-component] and [vue-property-decorator].
 
 ## Table of Contents
 
