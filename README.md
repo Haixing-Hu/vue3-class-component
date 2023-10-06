@@ -25,7 +25,7 @@ It's heavily inspired by [vue-class-component], except that:
   - [@Inject](#Inject)
 - [Customize Decorators](#customize-decorators)
 
-## Usage Example
+## <span id="usage-example">Usage Example</span>
 
 ```vue
 <template>
@@ -103,7 +103,7 @@ export default {
 </script>
 ```
 
-## Supported Options
+## <span id="supported-options">Supported Options</span>
 
 The `@Component` decorator can be used with an options argument, which will be 
 passed to the generated options of the Vue component. For example:
@@ -211,7 +211,7 @@ is supported in the argument of the `@Component` decorator:
 | Misc        | `components`      | YES       | The registered components of the Vue component could be declared in the options of `@Component`.                                              |
 | Misc        | `directives`      | YES       | The registered directives of the Vue component could be declared in the options of `@Component`.                                              |
 
-## Installation
+## <span id="installation">Installation</span>
 
 ```bash
 yarn add vue3-class-component
@@ -221,7 +221,7 @@ or
 npm install vue3-class-component
 ```
 
-## Configuration
+## <span id="configuration">Configuration</span>
 
 This library uses the most recent (currently version 2023-05)
 [stage 3 proposal of JavaScript decorators], therefore you must configure the 
@@ -246,7 +246,7 @@ A possible [Babel] configuration file `babel.config.json` is as follows:
 the version of the babel plugin `@babel/plugin-proposal-decorators` must be 
 at least `7.23.0`.
 
-## Predefined Decorators
+## <span id="predefined-decorators">Predefined Decorators</span>
 
 This library provides the following commonly used decorators for class-style 
 Vue components:
@@ -597,10 +597,86 @@ But this library simplifies the implementation by providing only one `@Inject`
 decorator, and the reactivity of the injected value is determined by the reactivity
 of the provided value.
 
-## Customize Decorators
+## <span id="customize-decorators">Customize Decorators</span>
 
-TODO
+This library provide a `createDecorator()` function to help to create custom 
+decorators. The function takes a callback function as the argument, and returns
+a decorator function. The callback function will be called with the following
+arguments:
 
+- `Class`: The constructor of the decorated class.
+- `defaultInstance`: The default constructed instance of the decorated class.
+  This default instance could be used to gets all class instance fields of the
+  decorated class.
+- `target`: The target value being decorated, which could be a class method,
+  a getter or a setter. Note that if the decorated target is a class field,
+  this argument will always be `undefined`.
+- `context`: The context object containing information about the target
+  being decorated, as described in [stage 3 proposal of JavaScript decorators] 
+  and [stage 3 proposal of JavaScript decorator metadata].
+- `options`: The Vue component options object. Changes for this object
+  will affect the provided component.
+
+The callback function will be called by the library to give it a chance to 
+modify the Vue component options. The returned value of the callback function
+will be ignored.
+
+The `createDecorator()` function will return a decorator function, which takes
+the following two arguments:
+
+- `target`: The target value being decorated, which could be class method,
+  class field, getter or setter. If the decorated target is a class field,
+  this argument will always be `undefined`.
+- `context`: The context object containing information about the target
+  being decorated, as described in [stage 3 proposal of JavaScript decorators]
+  and [stage 3 proposal of JavaScript decorator metadata].
+
+An example usage is as follows:
+```js
+const Log = createDecorator((Class, defaultInstance, target, context, options) => {
+  if (context?.kind !== 'method') {
+    throw new Error('The @Log decorator can only be used to decorate a class method.');
+  }
+  const methodName = context.name;
+  const originalMethod = options.methods[methodName];
+  options.methods[methodName] = function (...args) {
+    console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
+    return originalMethod.apply(this, args);
+  };
+});
+```
+
+The above example creates a `@Log` decorator which can be used to log the
+arguments of a class method. For example:
+```js
+@Component
+class HelloPage {
+  message = 'hello';
+  
+  value = 0;
+  
+  newMessage = '';
+  
+  @Log
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+  
+  get computedMessage() {
+    return this.message + '!';
+  }
+  
+  @Log
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent);
+```
+
+**NOTE:** The above `@Log` decorator could not be applied to the getter nor setter
+of the component class.
 
 [Vue]: https://vuejs.org/
 [vue-class-component]: https://github.com/vuejs/vue-class-component

@@ -26,6 +26,7 @@ import {
  * @return {Function}
  *     The decorated class, which contains the metadata of the options used to
  *     build a Vue component with the options API.
+ * @private
  * @author Haixing Hu
  */
 function buildOptions(Class, context, options) {

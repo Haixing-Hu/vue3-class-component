@@ -25,6 +25,7 @@ import createDecorator from '../create-decorator';
  * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
+ * @private
  * @author Haixing Hu
  */
 function WatchFactory(args, Class, defaultInstance, target, context, options) {
@@ -63,6 +64,34 @@ function WatchFactory(args, Class, defaultInstance, target, context, options) {
  * | `deep`      | `Boolean` | `false` | Whether the watcher should deep traversal of the source if it is an object or an array. |
  * | `immediate` | `Boolean` | `false` | Whether the watcher should be called immediately after the watcher is created.          |
  * | `flush`     | `String`  | `'pre'` | The flushing timing of the watcher. It can be one of `'pre'`, `'post'` or `'sync'`.     |
+ *
+ * Usage example:
+ * ```js
+ * &#064;Component
+ * class MyComponent {
+ *   value = 123;
+ *
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ *
+ *   &#064;Watch('value')
+ *   onValueChanged(val, oldVal) {
+ *     console.log(`The value is changed from ${oldVal} to ${val}.`);
+ *   }
+ *
+ *   &#064;Watch('person', { deep: true })
+ *   onPersonChanged(val, oldVal) {
+ *     console.log(`The person is changed from ${oldVal} to ${val}.`);
+ *   }
+ * }
+ *
+ * export default toVue(MyComponent);
+ * ```
+ *
  *
  * @param {string} path
  *     The path of the watched states or watched properties.

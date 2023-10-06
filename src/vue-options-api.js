@@ -10,6 +10,7 @@
  * The list of keywords and its declaring positions in the Vue options API.
  *
  * @type Array<Object>
+ * @private
  * @author Haixing Hu
  */
 const VUE_KEYWORDS = [
@@ -189,6 +190,7 @@ const VUE_KEYWORDS = [
  *
  * @type {string[]}
  * @see https://vuejs.org/api/options-lifecycle.html
+ * @private
  * @author Haixing Hu
  */
 const VUE_LIFECYCLE_HOOKS = [
@@ -213,6 +215,7 @@ const VUE_LIFECYCLE_HOOKS = [
  *
  * @type {string[]}
  * @see https://vuejs.org/api/options-rendering.html#render
+ * @private
  * @author Haixing Hu
  */
 const VUE_SPECIAL_FUNCTIONS = [

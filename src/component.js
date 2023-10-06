@@ -17,7 +17,53 @@ Symbol.metadata = Symbol('metadata');
  *
  * This decorator must be used to decorate a class.
  *
- * @param {...} args
+ * Usage Example:
+ *
+ * ```vue
+ * <template>
+ *   <div class="hello-page">
+ *     <div class="message">{{ message }}</div>
+ *     <div class="computed-message">{{ computedMessage }}</div>
+ *     <div class="value">{{ value }}</div>
+ *     <input v-model="newMessage">
+ *     <button @click="setMessage(newMessage)">Set Message</button>
+ *     <my-component />
+ *   </div>
+ * </template>
+ * <script>
+ * import { Component, toVue } from 'vue3-class-component';
+ * import MyComponent from './my-component.vue';
+ *
+ * &#064;Component({
+ *   components: {
+ *     MyComponent,
+ *   },
+ * })
+ * class HelloPage {
+ *   message = 'hello';
+ *
+ *   value = 0;
+ *
+ *   newMessage = '';
+ *
+ *   mounted() {
+ *     this.value = this.$route.params.value;
+ *   }
+ *
+ *   get computedMessage() {
+ *     return this.message + '!';
+ *   }
+ *
+ *   setMessage(s) {
+ *     this.message = s;
+ *   }
+ * }
+ *
+ * export default toVue(MyComponent); // don't forget calling `toVue`
+ * </script>
+ * ```
+ *
+ * @param {...any} args
  *     The array of arguments for calling this decorator. If it has only one
  *     argument, the only argument is the additional options of this decorator,
  *     and this function should return another function which is the decorator

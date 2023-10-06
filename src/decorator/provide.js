@@ -26,6 +26,7 @@ import createDecorator from '../create-decorator';
  * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
+ * @private
  * @author Haixing Hu
  */
 function ProvideFactory(args, Class, defaultInstance, target, context, options) {
@@ -66,7 +67,32 @@ function ProvideFactory(args, Class, defaultInstance, target, context, options) 
  * | `key`      | `String \| Symbol` | `undefined` | The key of the provided value.           |
  * | `reactive` | `Boolean`          | `false`     | Whether the provided value is reactive.  |
  *
- * @param {...} args
+ * Usage example:
+ * ```js
+ * const myInjectedKey = Symbol('myInjectedKey');
+ *
+ * &#064;Component
+ * class AncestorComponent {
+ *   &#064;Provide
+ *   message = 'hello';
+ *
+ *   &#064;Provide({key: myInjectedKey, reactive: true})
+ *   &#064;Prop
+ *   value = 123;
+ *
+ *   &#064;Provide({ reactive: true })
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ * }
+ *
+ * export default toVue(AncestorComponent);
+ * ```
+ *
+ * @param {...any} args
  *     The array of arguments for calling this decorator. If it has only one
  *     argument, the only argument is the optional options of this decorator,
  *     and this function should return another function which is the decorator

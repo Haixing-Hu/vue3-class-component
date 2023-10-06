@@ -28,7 +28,7 @@ describe('createDecorator() function', () => {
         messages.push(`Calling ${Class.name}.${methodName}() with arguments: ${args.join(', ')}`);
         console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
         return originalMethod.apply(this, args);
-      }
+      };
     });
     @Component({
       template: '<div>'

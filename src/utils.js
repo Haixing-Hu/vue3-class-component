@@ -22,6 +22,7 @@ import {
  *     the options to be checked.
  * @throws Error
  *     if the options contains invalid properties.
+ * @private
  * @author Haixing Hu
  */
 function checkOptions(options) {
@@ -52,6 +53,7 @@ function checkOptions(options) {
  *     the name of the method or setter/getter.
  * @param options
  *     the Vue component options object.
+ * @private
  * @author Haixing Hu
  */
 function collectMethod(obj, key, options) {
@@ -84,6 +86,7 @@ function collectMethod(obj, key, options) {
  *     the default constructed instance of the decorated class.
  * @param options
  *     the Vue component options object.
+ * @private
  * @author Haixing Hu
  */
 function collectData(defaultInstance, options) {
@@ -116,6 +119,7 @@ function collectData(defaultInstance, options) {
  *     the context of the information about the decorated class.
  * @param options
  *     the Vue component options object.
+ * @private
  * @author Haixing Hu
  */
 function collectDecorators(Class, defaultInstance, context, options) {
@@ -142,6 +146,8 @@ function collectDecorators(Class, defaultInstance, context, options) {
  * @return {any | Function}
  * @see <a href="https://vuejs.org/api/options-state.html#props">Props</a>
  * @see <a href="https://vuejs.org/api/options-composition.html#inject">Inject</a>
+ * @private
+ * @author Haixing Hu
  */
 function fixDefaultValue(value) {
   if (value === undefined) {

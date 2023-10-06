@@ -26,6 +26,7 @@ import { fixDefaultValue } from '../utils';
  * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
+ * @private
  * @author Haixing Hu
  */
 function InjectFactory(args, Class, defaultInstance, target, context, options) {
@@ -54,7 +55,25 @@ function InjectFactory(args, Class, defaultInstance, target, context, options) {
  * | `from`    | `String \| Symbol` | `undefined` | The key of the source provided value to be injected. |
  * | `default` | `any`              | `undefined` | The default value of the injected value.             |
  *
- * @param {...} args
+ * Usage example:
+ * ```js
+ * &#064;Component
+ * class DescendantComponent {
+ *   &#064;Inject
+ *   message;
+ *
+ *   &#064;Inject({from: myInjectedKey, default: 0})
+ *   injectedValue;
+ *
+ *   // non-primitive default value DO NOT need to be wrapped by a factory function
+ *   &#064;Inject({ default: {id: 0, name: 'unknown'} })
+ *   person;
+ * }
+ *
+ * export default toVue(DescendantComponent);
+ * ```
+ *
+ * @param {...any} args
  *     The array of arguments for calling this decorator. If it has only one
  *     argument, the only argument is the optional options of this decorator,
  *     and this function should return another function which is the decorator
