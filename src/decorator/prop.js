@@ -114,10 +114,8 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
     default: fixDefaultValue(defaultValue),
     validator,
   };
-  if (options.fields[context.name]) {
-    // remove the Prop name from the options.fields
-    delete options.fields[context.name];
-  }
+  // remove the Prop name from the options.fields
+  delete options.fields[context.name];
 }
 
 /**

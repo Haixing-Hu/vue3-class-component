@@ -30,12 +30,17 @@ describe('@Prop decorator', () => {
     expect(val1.text()).toBe('123');
     const val2 = wrapper.get('#value2');
     expect(val2.text()).toBe('0');
+    const computed = wrapper.get('#computed');
+    expect(computed.text()).toBe('123');
     const personName = wrapper.get('#person-name');
     expect(personName.text()).toBe('John');
     const personAge = wrapper.get('#person-age');
     expect(personAge.text()).toBe('30');
-    const computed = wrapper.get('#computed');
-    expect(computed.text()).toBe('123');
+    const username = wrapper.get('#user-username');
+    expect(username.text()).toBe('admin');
+    const password = wrapper.get('#user-password');
+    expect(password.text()).toBe('123456');
+
     const btn1 = wrapper.get('#button1');
     btn1.trigger('click');
     await nextTick();
@@ -50,6 +55,10 @@ describe('@Prop decorator', () => {
     btn3.trigger('click');
     await nextTick();
     expect(msg.text()).toBe('Changed');
+    const btn4 = wrapper.get('#button4');
+    btn4.trigger('click');
+    await nextTick();
+    expect(username.text()).toBe('guest');
   });
 
   test('invalid number of arguments', () => {
