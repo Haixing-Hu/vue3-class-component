@@ -21,16 +21,50 @@
 
 ## 目录
 
-- [使用示例](#usage-example)
-- [支持的选项](#supported-options)
 - [安装方式](#installation)
 - [配置方式](#configuration)
+- [使用示例](#usage-example)
+- [支持的选项](#supported-options)
 - [预定义装饰器](#predefined-decorators)
     - [@Prop 装饰器](#Prop)
     - [@Watch 装饰器](#Watch)
     - [@Provide 装饰器](#Provide)
     - [@Inject 装饰器](#Inject)
 - [自定义装饰器](#customize-decorators)
+
+## <span id="installation">安装方式</span>
+
+```bash
+yarn add @haixing_hu/vue3-class-component
+```
+or
+```bash
+npm install @haixing_hu/vue3-class-component
+```
+
+## <span id="configuration">配置方式</span>
+
+这个库使用了最新的（截止到2023年5月）[JavaScript 装饰器第3阶段提案] 和
+[JavaScript 装饰器元数据第3阶段提案]，因此您必须配置 [Babel]，
+使用 [@babel/plugin-transform-class-properties] 和
+[@babel/plugin-proposal-decorators] 插件。
+
+一个可能的 [Babel] 配置文件 `babel.config.json` 如下：
+```json
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+    "@babel/plugin-transform-class-properties"
+  ]
+}
+``` 
+
+**重要说明:** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
+插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
 
 ## <span id="usage-example">使用示例</span>
 
@@ -214,40 +248,6 @@ export default {
 | Misc        | `inheritAttrs`    | 是     | inheritAttrs 可以在 `@Component` 的选项中声明。          |
 | Misc        | `components`      | 是     | Vue 组件的注册组件可以在 `@Component` 的选项中声明。            |
 | Misc        | `directives`      | 是     | Vue 组件的注册指令可以在 `@Component` 的选项中声明。            |
-
-## <span id="installation">安装方式</span>
-
-```bash
-yarn add vue3-class-component
-```
-or
-```bash
-npm install vue3-class-component
-```
-
-## <span id="configuration">配置方式</span>
-
-这个库使用了最新的（截止到2023年5月）[JavaScript 装饰器第3阶段提案] 和
-[JavaScript 装饰器元数据第3阶段提案]，因此您必须配置 [Babel]，
-使用 [@babel/plugin-transform-class-properties] 和
-[@babel/plugin-proposal-decorators] 插件。
-
-一个可能的 [Babel] 配置文件 `babel.config.json` 如下：
-```json
-{
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-runtime",
-    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
-    "@babel/plugin-transform-class-properties"
-  ]
-}
-``` 
-
-**重要说明:** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
-插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
 
 ## <span id="predefined-decorators">预定义装饰器</span>
 

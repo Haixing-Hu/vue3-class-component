@@ -24,16 +24,51 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
 
 ## Table of Contents
 
-- [Usage Example](#usage-example)
-- [Supported Options](#supported-options)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Usage Example](#usage-example)
+- [Supported Options](#supported-options)
 - [Predefined Decorators](#predefined-decorators)
   - [@Prop](#Prop)
   - [@Watch](#Watch)
   - [@Provide](#Provide)
   - [@Inject](#Inject)
 - [Customize Decorators](#customize-decorators)
+
+## <span id="installation">Installation</span>
+
+```bash
+yarn add @haixing_hu/vue3-class-component
+```
+or
+```bash
+npm install @haixing_hu/vue3-class-component
+```
+
+## <span id="configuration">Configuration</span>
+
+This library uses the most recent (currently May 2023)
+[stage 3 proposal of JavaScript decorators]. Therefore, you must configure
+[Babel] with [@babel/plugin-transform-class-properties] and the
+[@babel/plugin-proposal-decorators] plugins.
+
+A possible [Babel] configuration file `babel.config.json` is as follows:
+```json
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+    "@babel/plugin-transform-class-properties"
+  ]
+}
+``` 
+
+**IMPORTANT NOTE:** To support the [stage 3 proposal of JavaScript decorator metadata],
+the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be
+at least `7.23.0`.
 
 ## <span id="usage-example">Usage Example</span>
 
@@ -220,41 +255,6 @@ is supported in the argument of the `@Component` decorator:
 | Misc        | `inheritAttrs`    | YES       | `inheritAttrs` can be declared in the `@Component` options.                                                                    |
 | Misc        | `components`      | YES       | Registered components of the Vue component can be declared in the `@Component` options.                                        |
 | Misc        | `directives`      | YES       | Registered directives of the Vue component can be declared in the `@Component` options.                                        |
-
-## <span id="installation">Installation</span>
-
-```bash
-yarn add vue3-class-component
-```
-or
-```bash
-npm install vue3-class-component
-```
-
-## <span id="configuration">Configuration</span>
-
-This library uses the most recent (currently May 2023)
-[stage 3 proposal of JavaScript decorators]. Therefore, you must configure
-[Babel] with [@babel/plugin-transform-class-properties] and the 
-[@babel/plugin-proposal-decorators] plugins.
-
-A possible [Babel] configuration file `babel.config.json` is as follows:
-```json
-{
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-runtime",
-    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
-    "@babel/plugin-transform-class-properties"
-  ]
-}
-``` 
-
-**IMPORTANT NOTE:** To support the [stage 3 proposal of JavaScript decorator metadata],
-the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be 
-at least `7.23.0`.
 
 ## <span id="predefined-decorators">Predefined Decorators</span>
 
