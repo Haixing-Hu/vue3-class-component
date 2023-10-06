@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>decorator/prop.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">decorator/prop.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import createDecorator from '../create-decorator';
+import { fixDefaultValue } from '../utils';
+
+/**
+ * Infers the default value of a Prop from the initial value of a class field.
+ *
+ * @param {any | undefined} defaultValue
+ *     the default value of the decorated field specified in the arguments
+ *     `default` of the `@Prop` decorator, which could be `undefined` if no
+ *     `default` argument specified.
+ * @param {any | undefined} initialValue
+ *     the initial value of the decorated field specified in the default
+ *     constructed instance of the class, which could be `undefined` if the
+ *     field is not initialized.
+ * @param {Object} context
+ *     the context object containing information about the field to be decorated.
+ * @return {any | undefined}
+ *     the inferred default value of the decorated field.
+ * @private
+ * @author Haixing Hu
+ */
+function inferDefaultValue(defaultValue, initialValue, context) {
+  if (initialValue === undefined) {
+    return defaultValue;
+  } else if (defaultValue === undefined) {
+    return initialValue;
+  } else if (defaultValue !== initialValue) {
+    throw new Error(`The default value of the field "${context.name}" is `
+        + 'different from the default value specified in arguments of the @Prop decorator.');
+  } else {
+    return defaultValue;
+  }
+}
+
+/**
+ * Infers the type of a Prop from the inferred default value of the Prop.
+ *
+ * @param {Function | undefined} type
+ *     The type of the decorated field specified in the arguments `type` of the
+ *     `@Prop` decorator, which could be `undefined` if no `type` argument
+ *     specified.
+ * @param {any | undefined} defaultValue
+ *     the inferred default value of the decorated field.
+ * @param {Object} context
+ *     the context object containing information about the field to be decorated.
+ * @return {Function | undefined}
+ *     the inferred type of the decorated field.
+ * @private
+ * @author Haixing Hu
+ */
+function inferType(type, defaultValue, context) {
+  if (type === undefined) {
+    if (defaultValue !== undefined &amp;&amp; defaultValue !== null) {
+      return defaultValue.constructor;
+    }
+  } else if ((defaultValue !== undefined)
+      &amp;&amp; (defaultValue !== null)
+      &amp;&amp; (String(type) !== String(defaultValue.constructor))) {
+    throw new Error(`The type of the field "${context.name}" is ${defaultValue.constructor.name}, `
+        + `which is different from the type ${type.name} specified in arguments of the @Prop decorator.`);
+  }
+  return type;
+}
+
+/**
+ * The factory of the `@Prop` decorator.
+ *
+ * @param {object} args
+ *     the optional arguments of the `@Prop` decorator.
+ * @param {function} Class
+ *     The constructor of the decorated class.
+ * @param {object} defaultInstance
+ *     The default constructed instance of the decorated class.
+ * @param {any} target
+ *     the decorated target. Since the `@Prop` decorator is used to decorate a
+ *     class field, this argument is always `undefined`.
+ * @param {object} context
+ *     the context about the information of the field to be decorated.
+ * @param {object} options
+ *     the Vue component options object. Changes for this object will affect the
+ *     provided component.
+ * @private
+ * @author Haixing Hu
+ */
+function PropFactory(args, Class, defaultInstance, target, context, options) {
+  if (context?.kind !== 'field') {
+    throw new Error('The @Prop decorator can only be used to decorate a class field.');
+  }
+  // get the initial value of the field from the default constructed instance
+  const initialValue = defaultInstance[context.name];
+  const defaultValue = inferDefaultValue(args.default, initialValue, context);
+  const type = inferType(args.type, defaultValue, context);
+  const required = args.required ?? (defaultValue === undefined);
+  const validator = args.validator;
+  if ((required === false) &amp;&amp; (defaultValue === undefined)) {
+    throw new Error(`The field "${context.name}" is not required, but it has no default value.`);
+  }
+  if (type === undefined || type === null) {
+    throw new Error(`The type of the field "${context.name}" is not specified.`);
+  }
+  if (typeof type !== 'function') {
+    throw new Error(`The type of the field "${context.name}" must be a constructor function.`);
+  }
+  if (validator !== undefined &amp;&amp; typeof validator !== 'function') {
+    throw new Error(`The validator of the field "${context.name}" must be a function.`);
+  }
+  options.props ??= {};
+  options.props[context.name] = {
+    type,
+    required,
+    default: fixDefaultValue(defaultValue),
+    validator,
+  };
+  // remove the Prop name from the options.fields
+  delete options.fields[context.name];
+}
+
+/**
+ * The `@Prop` decorator is marked on class fields to declare props of the Vue
+ * component.
+ *
+ * The decorator may be used with an optional argument. The argument is an
+ * object containing the following options of the decorator:
+ *
+ * | Option      | Type       | Default     | Description                                                        |
+ * |-------------|------------|-------------|--------------------------------------------------------------------|
+ * | `type`      | `Function` | `undefined` | The data type of the prop, which should be a constructor function. |
+ * | `required`  | `Boolean`  | `false`     | Indicates whether the prop is required or not.                     |
+ * | `default`   | `any`      | `undefined` | Specifies the default value of the prop.                           |
+ * | `validator` | `Function` | `undefined` | A custom validation function for the prop.                         |
+ *
+ * Usage example:
+ * ```js
+ * &amp;#064;Component
+ * class MyComponent {
+ *   &amp;#064;Prop
+ *   message = 'hello';
+ *
+ *   &amp;#064;Prop({ type: Number, validator: (v) => (v >= 0) })
+ *   value;
+ *
+ *   // non-primitive default value DO NOT need to be wrapped by a factory function
+ *   &amp;#064;Prop
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ * }
+ *
+ * export default toVue(MyComponent);
+ * ```
+ *
+ * @param {...any} args
+ *     The array of arguments for calling this decorator. If it has only one
+ *     argument, the only argument is the optional options of this decorator,
+ *     and this function should return another function which is the decorator
+ *     of a class field; If it has two arguments, the first argument is the
+ *     decorated field of a class, and the second argument is the context object
+ *     containing information about the field being decorated.
+ * @return {Function}
+ *     If this decorator has only one argument, this function returns another
+ *     function which is the decorator of a class field; otherwise, this function
+ *     returns the decorated class field.
+ * @author Haixing Hu
+ */
+function Prop(...args) {
+  if (args.length === 1) {        // the decorator is used with options
+    // returns a simple field decorator
+    const factory = PropFactory.bind(null, args[0]);
+    return createDecorator(factory);
+  } else if (args.length === 2) { // the decorator is used without options
+    const factory = PropFactory.bind(null, {});
+    const decor = createDecorator(factory);
+    return decor(args[0], args[1]);
+  } else {
+    throw new Error('Invalid use of the `@Prop` decorator.');
+  }
+}
+
+export default Prop;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>decorator/inject.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">decorator/inject.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import createDecorator from '../create-decorator';
+import { fixDefaultValue } from '../utils';
+
+/**
+ * The factory of the `@Inject` decorator.
+ *
+ * @param {object} args
+ *     the optional arguments of the `@Inject` decorator.
+ * @param {function} Class
+ *     The constructor of the decorated class.
+ * @param {object} defaultInstance
+ *     The default constructed instance of the decorated class.
+ * @param {any} target
+ *     the decorated target. Since the `@Inject` decorator is used to decorate
+ *     a class field, this argument is always `undefined`.
+ * @param {object} context
+ *     the context about the information of the field to be decorated.
+ * @param {object} options
+ *     the Vue component options object. Changes for this object will affect the
+ *     provided component.
+ * @private
+ * @author Haixing Hu
+ */
+function InjectFactory(args, Class, defaultInstance, target, context, options) {
+  if (context?.kind !== 'field') {
+    throw new Error('The @Inject decorator can only be used to decorate a class field.');
+  }
+  const key = context.name;
+  const from = args.from ?? key;
+  const defaultValue = args.default;
+  // Add inject
+  options.inject ??= {};
+  options.inject[key] = {
+    from,
+    default: fixDefaultValue(defaultValue),
+  };
+}
+
+/**
+ * The `@Inject` decorator is marked on class fields to declare injected values.
+ *
+ * The `@Inject` decorators may have an optional argument. The optional argument
+ * is an object with the following options:
+ *
+ * | Option    | Type               | Default     | Description                                          |
+ * |-----------|--------------------|-------------|------------------------------------------------------|
+ * | `from`    | `String \| Symbol` | `undefined` | The key of the source provided value to be injected. |
+ * | `default` | `any`              | `undefined` | The default value of the injected value.             |
+ *
+ * Usage example:
+ * ```js
+ * &amp;#064;Component
+ * class DescendantComponent {
+ *   &amp;#064;Inject
+ *   message;
+ *
+ *   &amp;#064;Inject({from: myInjectedKey, default: 0})
+ *   injectedValue;
+ *
+ *   // non-primitive default value DO NOT need to be wrapped by a factory function
+ *   &amp;#064;Inject({ default: {id: 0, name: 'unknown'} })
+ *   person;
+ * }
+ *
+ * export default toVue(DescendantComponent);
+ * ```
+ *
+ * @param {...any} args
+ *     The array of arguments for calling this decorator. If it has only one
+ *     argument, the only argument is the optional options of this decorator,
+ *     and this function should return another function which is the decorator
+ *     of a class field; If it has two arguments, the first argument is the
+ *     decorated field of a class, and the second argument is the context object
+ *     containing information about the field being decorated.
+ * @return {Function}
+ *     If this decorator has only one argument, this function returns another
+ *     function which is the decorator of a class field; otherwise, this function
+ *     returns the decorated class field.
+ * @author Haixing Hu
+ */
+function Inject(...args) {
+  if (args.length === 1) {        // the decorator is used with options
+    // returns a simple field decorator
+    const factory = InjectFactory.bind(null, args[0]);
+    return createDecorator(factory);
+  } else if (args.length === 2) { // the decorator is used without options
+    const factory = InjectFactory.bind(null, {});
+    const decor = createDecorator(factory);
+    return decor(args[0], args[1]);
+  } else {
+    throw new TypeError('Invalid use of the `@Inject` decorator.');
+  }
+}
+
+export default Inject;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

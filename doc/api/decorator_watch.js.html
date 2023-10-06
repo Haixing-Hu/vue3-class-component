@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>decorator/watch.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">decorator/watch.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import createDecorator from '../create-decorator';
+
+/**
+ * The factory of the `@Watch` decorator.
+ *
+ * @param {object} args
+ *     the arguments of the `@Watch` decorator.
+ * @param {function} Class
+ *     The constructor of the decorated class.
+ * @param {object} defaultInstance
+ *     The default constructed instance of the decorated class.
+ * @param {any} target
+ *     the decorated target. Since the `@Watch` decorator is used to decorate a
+ *     class method, this argument is the class method to be decorated.
+ * @param {object} context
+ *     the context about the information of the method to be decorated.
+ * @param {object} options
+ *     the Vue component options object. Changes for this object will affect the
+ *     provided component.
+ * @private
+ * @author Haixing Hu
+ */
+function WatchFactory(args, Class, defaultInstance, target, context, options) {
+  if (context?.kind !== 'method') {
+    throw new Error('The @Watch decorator can only be used to decorate a class method.');
+  }
+  const path = args.path;
+  const deep = args.deep ?? false;
+  const immediate = args.immediate ?? false;
+  const flush = args.flush ?? 'pre';
+  options.watch ??= {};
+  if (options.watch[path] !== undefined) {
+    throw new Error(`The @Watch decorator can only be used once on the path "${path}".`);
+  }
+  options.watch[path] = {
+    handler: target,
+    deep,
+    immediate,
+    flush,
+  };
+  // delete the handler method from options.methods
+  delete options.methods[context.name];
+}
+
+/**
+ * The `@Watch` decorator is marked on class methods to declare watchers of the
+ * Vue component.
+ *
+ * The `@Watch` decorator has one or two arguments. The first argument of the
+ * `@Watch` decorator is the path of the watched states or watched properties.
+ * The second optional argument of the `@Watch` decorator is an object with the
+ * following options:
+ *
+ * | Option      | Type      | Default | Description                                                                             |
+ * |-------------|-----------|---------|-----------------------------------------------------------------------------------------|
+ * | `deep`      | `Boolean` | `false` | Whether the watcher should deep traversal of the source if it is an object or an array. |
+ * | `immediate` | `Boolean` | `false` | Whether the watcher should be called immediately after the watcher is created.          |
+ * | `flush`     | `String`  | `'pre'` | The flushing timing of the watcher. It can be one of `'pre'`, `'post'` or `'sync'`.     |
+ *
+ * Usage example:
+ * ```js
+ * &amp;#064;Component
+ * class MyComponent {
+ *   value = 123;
+ *
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ *
+ *   &amp;#064;Watch('value')
+ *   onValueChanged(val, oldVal) {
+ *     console.log(`The value is changed from ${oldVal} to ${val}.`);
+ *   }
+ *
+ *   &amp;#064;Watch('person', { deep: true })
+ *   onPersonChanged(val, oldVal) {
+ *     console.log(`The person is changed from ${oldVal} to ${val}.`);
+ *   }
+ * }
+ *
+ * export default toVue(MyComponent);
+ * ```
+ *
+ *
+ * @param {string} path
+ *     The path of the watched states or watched properties.
+ * @param {object} options
+ *     The optional options of the `@Watch` decorator.
+ * @return {Function}
+ *     The decorator of a class method.
+ * @author Haixing Hu
+ */
+function Watch(path, options = {}) {
+  if (typeof path !== 'string') {
+    throw new TypeError('The path argument of `@Watch` decorator must be a string.');
+  }
+  const args = {
+    path,
+    ...options,
+  };
+  const factory = WatchFactory.bind(null, args);
+  return createDecorator(factory);
+}
+
+export default Watch;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

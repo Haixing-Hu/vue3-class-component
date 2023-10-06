@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>component.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">component.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import buildOptions from './build-options';
+
+// FIXME: Why we should define this symbol here?
+// see: https://github.com/babel/babel/blob/672b881e41228f5060bb80ea89f64315b4a1e05b/packages/babel-plugin-proposal-decorators/test/fixtures/metadata/element/exec.js
+Symbol.metadata = Symbol('metadata');
+
+/**
+ * The decorator of Vue class components.
+ *
+ * This decorator must be used to decorate a class.
+ *
+ * Usage Example:
+ *
+ * ```vue
+ * &lt;template>
+ *   &lt;div class="hello-page">
+ *     &lt;div class="message">{{ message }}&lt;/div>
+ *     &lt;div class="computed-message">{{ computedMessage }}&lt;/div>
+ *     &lt;div class="value">{{ value }}&lt;/div>
+ *     &lt;input v-model="newMessage">
+ *     &lt;button @click="setMessage(newMessage)">Set Message&lt;/button>
+ *     &lt;my-component />
+ *   &lt;/div>
+ * &lt;/template>
+ * &lt;script>
+ * import { Component, toVue } from 'vue3-class-component';
+ * import MyComponent from './my-component.vue';
+ *
+ * &amp;#064;Component({
+ *   components: {
+ *     MyComponent,
+ *   },
+ * })
+ * class HelloPage {
+ *   message = 'hello';
+ *
+ *   value = 0;
+ *
+ *   newMessage = '';
+ *
+ *   mounted() {
+ *     this.value = this.$route.params.value;
+ *   }
+ *
+ *   get computedMessage() {
+ *     return this.message + '!';
+ *   }
+ *
+ *   setMessage(s) {
+ *     this.message = s;
+ *   }
+ * }
+ *
+ * export default toVue(MyComponent); // don't forget calling `toVue`
+ * &lt;/script>
+ * ```
+ *
+ * @param {...any} args
+ *     The array of arguments for calling this decorator. If it has only one
+ *     argument, the only argument is the additional options of this decorator,
+ *     and this function should return another function which is the decorator
+ *     of a class; If it has two arguments, the first argument is the constructor
+ *     of the decorated class, and the second argument is the context object
+ *     containing information about the class being decorated.
+ * @return {Function}
+ *     If this decorator has only one argument, this function returns another
+ *     function which is the decorator of a class; otherwise, this function
+ *     returns the decorated class.
+ * @see https://babeljs.io/docs/babel-plugin-proposal-decorators#class-decorator
+ * @see https://github.com/tc39/proposal-decorators
+ * @author Haixing Hu
+ */
+function Component(...args) {
+  // console.log('Component: args = ', args);
+  if (args.length === 1) {        // the decorator is used with options
+    // returns a simple class decorator
+    return (Class, context) => buildOptions(Class, context, args[0]);
+  } else if (args.length === 2) { // the decorator is used without options
+    return buildOptions(args[0], args[1], {});
+  } else {
+    throw new TypeError('Invalid use of the `@Component` decorator.');
+  }
+}
+
+export default Component;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

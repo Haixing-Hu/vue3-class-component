@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Global - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Global</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="Component"><span class="type-signature"></span>Component<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The decorator of Vue class components.</p>
+<p>This decorator must be used to decorate a class.</p>
+<p>Usage Example:</p>
+<pre class="prettyprint source lang-vue"><code>&lt;template>
+  &lt;div class=&quot;hello-page&quot;>
+    &lt;div class=&quot;message&quot;>{{ message }}&lt;/div>
+    &lt;div class=&quot;computed-message&quot;>{{ computedMessage }}&lt;/div>
+    &lt;div class=&quot;value&quot;>{{ value }}&lt;/div>
+    &lt;input v-model=&quot;newMessage&quot;>
+    &lt;button @click=&quot;setMessage(newMessage)&quot;>Set Message&lt;/button>
+    &lt;my-component />
+  &lt;/div>
+&lt;/template>
+&lt;script>
+import { Component, toVue } from 'vue3-class-component';
+import MyComponent from './my-component.vue';
+
+&#064;Component({
+  components: {
+    MyComponent,
+  },
+})
+class HelloPage {
+  message = 'hello';
+
+  value = 0;
+
+  newMessage = '';
+
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+
+  get computedMessage() {
+    return this.message + '!';
+  }
+
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent); // don't forget calling `toVue`
+&lt;/script>
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="component.js.html">component.js</a>, <a href="component.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://babeljs.io/docs/babel-plugin-proposal-decorators#class-decorator">https://babeljs.io/docs/babel-plugin-proposal-decorators#class-decorator</a></li>
+        
+            <li><a href="https://github.com/tc39/proposal-decorators">https://github.com/tc39/proposal-decorators</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>any</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>The array of arguments for calling this decorator. If it has only one
+argument, the only argument is the additional options of this decorator,
+and this function should return another function which is the decorator
+of a class; If it has two arguments, the first argument is the constructor
+of the decorated class, and the second argument is the context object
+containing information about the class being decorated.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If this decorator has only one argument, this function returns another
+function which is the decorator of a class; otherwise, this function
+returns the decorated class.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="createDecorator"><span class="type-signature"></span>createDecorator<span class="signature">(factory)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Creates a customized decorator to extends the functionality of this library.</p>
+<p>An example usage is as follows:</p>
+<pre class="prettyprint source lang-js"><code>const Log = createDecorator((Class, defaultInstance, target, context, options) => {
+  if (context?.kind !== 'method') {
+    throw new Error('The @Log decorator can only be used to decorate a class method.');
+  }
+  const methodName = context.name;
+  const originalMethod = options.methods[methodName];
+  options.methods[methodName] = function (...args) {
+    console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
+    return originalMethod.apply(this, args);
+  };
+});
+</code></pre>
+<p>The above example creates a <code>@Log</code> decorator which can be used to log the
+arguments of a class method. For example:</p>
+<pre class="prettyprint source lang-js"><code>&#064;Component
+class HelloPage {
+  message = 'hello';
+
+  value = 0;
+
+  newMessage = '';
+
+  &#064;Log
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+
+  get computedMessage() {
+    return this.message + '!';
+  }
+
+  &#064;Log
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent);
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="create-decorator.js.html">create-decorator.js</a>, <a href="create-decorator.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://github.com/tc39/proposal-decorators">https://github.com/tc39/proposal-decorators</a></li>
+        
+            <li><a href="https://github.com/tc39/proposal-decorator-metadata">https://github.com/tc39/proposal-decorator-metadata</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>factory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>function</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A callback function which receives the following arguments:</p>
+<ul>
+<li><code>Class</code>: The constructor of the decorated class.</li>
+<li><code>defaultInstance</code>: The default constructed instance of the decorated class.
+This default instance could be used to gets all class instance fields of
+the decorated class.</li>
+<li><code>target</code>: The target value being decorated, which could be a class method,
+a getter or a setter. Note that if the decorated target is a class field,
+this argument will always be <code>undefined</code>.</li>
+<li><code>context</code>: The context object containing information about the target
+being decorated, as described in &quot;stage 3 proposal of JavaScript decorators&quot;
+and &quot;stage 3 proposal of JavaScript decorator metadata&quot;.</li>
+<li><code>options</code>: The Vue component options object. Changes for this object
+will affect the provided component.</li>
+</ul>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The customized decorator function, which takes two arguments:</p>
+<ul>
+<li><code>target</code>: The target value being decorated, which could be class method,
+class field, getter or setter.</li>
+<li><code>context</code>: The context object containing information about the target
+being decorated.</li>
+</ul>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="Inject"><span class="type-signature"></span>Inject<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The <code>@Inject</code> decorator is marked on class fields to declare injected values.</p>
+<p>The <code>@Inject</code> decorators may have an optional argument. The optional argument
+is an object with the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from</code></td>
+<td><code>String | Symbol</code></td>
+<td><code>undefined</code></td>
+<td>The key of the source provided value to be injected.</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td><code>any</code></td>
+<td><code>undefined</code></td>
+<td>The default value of the injected value.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage example:</p>
+<pre class="prettyprint source lang-js"><code>&#064;Component
+class DescendantComponent {
+  &#064;Inject
+  message;
+
+  &#064;Inject({from: myInjectedKey, default: 0})
+  injectedValue;
+
+  // non-primitive default value DO NOT need to be wrapped by a factory function
+  &#064;Inject({ default: {id: 0, name: 'unknown'} })
+  person;
+}
+
+export default toVue(DescendantComponent);
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="decorator_inject.js.html">decorator/inject.js</a>, <a href="decorator_inject.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>any</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>The array of arguments for calling this decorator. If it has only one
+argument, the only argument is the optional options of this decorator,
+and this function should return another function which is the decorator
+of a class field; If it has two arguments, the first argument is the
+decorated field of a class, and the second argument is the context object
+containing information about the field being decorated.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If this decorator has only one argument, this function returns another
+function which is the decorator of a class field; otherwise, this function
+returns the decorated class field.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="Prop"><span class="type-signature"></span>Prop<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The <code>@Prop</code> decorator is marked on class fields to declare props of the Vue
+component.</p>
+<p>The decorator may be used with an optional argument. The argument is an
+object containing the following options of the decorator:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>Function</code></td>
+<td><code>undefined</code></td>
+<td>The data type of the prop, which should be a constructor function.</td>
+</tr>
+<tr>
+<td><code>required</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Indicates whether the prop is required or not.</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td><code>any</code></td>
+<td><code>undefined</code></td>
+<td>Specifies the default value of the prop.</td>
+</tr>
+<tr>
+<td><code>validator</code></td>
+<td><code>Function</code></td>
+<td><code>undefined</code></td>
+<td>A custom validation function for the prop.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage example:</p>
+<pre class="prettyprint source lang-js"><code>&#064;Component
+class MyComponent {
+  &#064;Prop
+  message = 'hello';
+
+  &#064;Prop({ type: Number, validator: (v) => (v >= 0) })
+  value;
+
+  // non-primitive default value DO NOT need to be wrapped by a factory function
+  &#064;Prop
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+}
+
+export default toVue(MyComponent);
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="decorator_prop.js.html">decorator/prop.js</a>, <a href="decorator_prop.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>any</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>The array of arguments for calling this decorator. If it has only one
+argument, the only argument is the optional options of this decorator,
+and this function should return another function which is the decorator
+of a class field; If it has two arguments, the first argument is the
+decorated field of a class, and the second argument is the context object
+containing information about the field being decorated.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If this decorator has only one argument, this function returns another
+function which is the decorator of a class field; otherwise, this function
+returns the decorated class field.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="Provide"><span class="type-signature"></span>Provide<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The <code>@Provide</code> decorator is marked on class fields to declare provided values
+that can be injected by descendant components.</p>
+<p>The <code>@Provide</code> decorators may be used with an optional argument. The optional
+argument is an object with the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td><code>String | Symbol</code></td>
+<td><code>undefined</code></td>
+<td>The key of the provided value.</td>
+</tr>
+<tr>
+<td><code>reactive</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Whether the provided value is reactive.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage example:</p>
+<pre class="prettyprint source lang-js"><code>const myInjectedKey = Symbol('myInjectedKey');
+
+&#064;Component
+class AncestorComponent {
+  &#064;Provide
+  message = 'hello';
+
+  &#064;Provide({key: myInjectedKey, reactive: true})
+  &#064;Prop
+  value = 123;
+
+  &#064;Provide({ reactive: true })
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+}
+
+export default toVue(AncestorComponent);
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="decorator_provide.js.html">decorator/provide.js</a>, <a href="decorator_provide.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>any</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>The array of arguments for calling this decorator. If it has only one
+argument, the only argument is the optional options of this decorator,
+and this function should return another function which is the decorator
+of a class field; If it has two arguments, the first argument is the
+decorated field of a class, and the second argument is the context object
+containing information about the field being decorated.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>If this decorator has only one argument, this function returns another
+function which is the decorator of a class field; otherwise, this function
+returns the decorated class field.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="toVue"><span class="type-signature"></span>toVue<span class="signature">(Class)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Converts a Vue class component into the Vue component option.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="to-vue.js.html">to-vue.js</a>, <a href="to-vue.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Class</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The class.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The corresponding Vue component option.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="Watch"><span class="type-signature"></span>Watch<span class="signature">(path, options)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The <code>@Watch</code> decorator is marked on class methods to declare watchers of the
+Vue component.</p>
+<p>The <code>@Watch</code> decorator has one or two arguments. The first argument of the
+<code>@Watch</code> decorator is the path of the watched states or watched properties.
+The second optional argument of the <code>@Watch</code> decorator is an object with the
+following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deep</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Whether the watcher should deep traversal of the source if it is an object or an array.</td>
+</tr>
+<tr>
+<td><code>immediate</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Whether the watcher should be called immediately after the watcher is created.</td>
+</tr>
+<tr>
+<td><code>flush</code></td>
+<td><code>String</code></td>
+<td><code>'pre'</code></td>
+<td>The flushing timing of the watcher. It can be one of <code>'pre'</code>, <code>'post'</code> or <code>'sync'</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage example:</p>
+<pre class="prettyprint source lang-js"><code>&#064;Component
+class MyComponent {
+  value = 123;
+
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+
+  &#064;Watch('value')
+  onValueChanged(val, oldVal) {
+    console.log(`The value is changed from ${oldVal} to ${val}.`);
+  }
+
+  &#064;Watch('person', { deep: true })
+  onPersonChanged(val, oldVal) {
+    console.log(`The person is changed from ${oldVal} to ${val}.`);
+  }
+}
+
+export default toVue(MyComponent);
+</code></pre>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Haixing Hu</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="decorator_watch.js.html">decorator/watch.js</a>, <a href="decorator_watch.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The path of the watched states or watched properties.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The optional options of the <code>@Watch</code> decorator.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>function</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The decorator of a class method.</p>
+</div>
+
+    
+</div>
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

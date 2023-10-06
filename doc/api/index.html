@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>vue3-class-component</h1>
+<p style="text-align: left">
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/badge/License-Apache-blue.svg" alt="License"/>
+  </a>
+  <a href="README.zh_CN.md">
+    <img src="https://img.shields.io/badge/文档-中文版-blue.svg" alt="zh_CN doc"/>
+  </a>
+</p>
+<p>This library allows you to create your <a href="https://vuejs.org/">Vue</a> components using the class-style syntax.
+It draws heavy inspiration from <a href="https://github.com/vuejs/vue-class-component">vue-class-component</a>, with a few notable differences:</p>
+<ul>
+<li>It supports <a href="https://vuejs.org/">Vue</a> v3.x.x (currently v3.3.4).</li>
+<li>It's written in pure JavaScript rather than TypeScript, distinguishing it
+from <a href="https://github.com/facing-dev/vue-facing-decorator">vue-facing-decorator</a>.</li>
+<li>It adopts the most recent (as of May 2023) <a href="https://github.com/tc39/proposal-decorators">stage 3 proposal of JavaScript decorators</a>
+and <a href="https://github.com/tc39/proposal-decorator-metadata">stage 3 proposal of JavaScript decorator metadata</a>.</li>
+<li>It offers commonly used decorators for class-style Vue components, such as
+<code>@Prop</code>, <code>@Watch</code>, <code>@Provide</code>, and <code>@Inject</code> (for more details, see the
+<a href="#predefined-decorators">Predefined Decorators</a> section). In essence, it
+combines the functionality of <a href="https://github.com/vuejs/vue-class-component">vue-class-component</a> and <a href="https://github.com/kaorun343/vue-property-decorator">vue-property-decorator</a>.</li>
+</ul>
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#usage-example">Usage Example</a></li>
+<li><a href="#supported-options">Supported Options</a></li>
+<li><a href="#predefined-decorators">Predefined Decorators</a>
+<ul>
+<li><a href="#Prop">@Prop</a></li>
+<li><a href="#Watch">@Watch</a></li>
+<li><a href="#Provide">@Provide</a></li>
+<li><a href="#Inject">@Inject</a></li>
+</ul>
+</li>
+<li><a href="#customize-decorators">Customize Decorators</a></li>
+</ul>
+<h2><span id="installation">Installation</span></h2>
+<pre class="prettyprint source lang-bash"><code>yarn add @haixing_hu/vue3-class-component
+</code></pre>
+<p>or</p>
+<pre class="prettyprint source lang-bash"><code>npm install @haixing_hu/vue3-class-component
+</code></pre>
+<h2><span id="configuration">Configuration</span></h2>
+<p>This library uses the most recent (currently May 2023)
+<a href="https://github.com/tc39/proposal-decorators">stage 3 proposal of JavaScript decorators</a>. Therefore, you must configure
+<a href="https://babeljs.io/">Babel</a> with <a href="https://babeljs.io/docs/babel-plugin-transform-class-properties">@babel/plugin-transform-class-properties</a> and the
+<a href="https://babeljs.io/docs/babel-plugin-proposal-decorators">@babel/plugin-proposal-decorators</a> plugins.</p>
+<p>A possible <a href="https://babeljs.io/">Babel</a> configuration file <code>babel.config.json</code> is as follows:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;presets&quot;: [
+    &quot;@babel/preset-env&quot;
+  ],
+  &quot;plugins&quot;: [
+    &quot;@babel/plugin-transform-runtime&quot;,
+    [&quot;@babel/plugin-proposal-decorators&quot;, { &quot;version&quot;: &quot;2023-05&quot; }],
+    &quot;@babel/plugin-transform-class-properties&quot;
+  ]
+}
+</code></pre>
+<p><strong>IMPORTANT NOTE:</strong> To support the <a href="https://github.com/tc39/proposal-decorator-metadata">stage 3 proposal of JavaScript decorator metadata</a>,
+the version of the <a href="https://babeljs.io/">Babel</a> plugin <a href="https://babeljs.io/docs/babel-plugin-proposal-decorators">@babel/plugin-proposal-decorators</a> must be
+at least <code>7.23.0</code>.</p>
+<h2><span id="usage-example">Usage Example</span></h2>
+<pre class="prettyprint source lang-vue"><code>&lt;template>
+  &lt;div class=&quot;hello-page&quot;>
+    &lt;div class=&quot;message&quot;>{{ message }}&lt;/div>
+    &lt;div class=&quot;computed-message&quot;>{{ computedMessage }}&lt;/div>
+    &lt;div class=&quot;value&quot;>{{ value }}&lt;/div>
+    &lt;input v-model=&quot;newMessage&quot;>
+    &lt;button @click=&quot;setMessage(newMessage)&quot;>Set Message&lt;/button>
+  &lt;/div>
+&lt;/template>
+&lt;script>
+import { Component, toVue } from 'vue3-class-component';
+
+@Component
+class HelloPage {
+  message = 'hello';
+  
+  value = 0;
+  
+  newMessage = '';
+  
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+  
+  get computedMessage() {
+    return this.message + '!';
+  }
+  
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent); // don't forget calling `toVue`
+&lt;/script>
+</code></pre>
+<p>The above code is equivalent to the following code:</p>
+<pre class="prettyprint source lang-vue"><code>&lt;template>
+  &lt;div class=&quot;hello-page&quot;>
+    &lt;div class=&quot;message&quot;>{{ message }}&lt;/div>
+    &lt;div class=&quot;computed-message&quot;>{{ computedMessage }}&lt;/div>
+    &lt;div class=&quot;value&quot;>{{ value }}&lt;/div>
+    &lt;input v-model=&quot;newMessage&quot;>
+    &lt;button @click=&quot;setMessage(newMessage)&quot;>Set Message&lt;/button>
+  &lt;/div>
+&lt;/template>
+&lt;script>
+export default {
+  name: 'HelloPage',
+  data() {
+    return {
+      message: 'hello',
+      value: 0,
+      newMessage: '',
+    };
+  },
+  mounted() {
+    this.value = this.$route.params.value;
+  },
+  computed: {
+    computedMessage() {
+      return this.message + '!';
+    },
+  },
+  methods: {
+    setMessage(s) {
+      this.message = s;
+    },
+  },
+};
+&lt;/script>
+</code></pre>
+<h2><span id="supported-options">Supported Options</span></h2>
+<p>The <code>@Component</code> decorator can be used with an options argument, which will be
+passed to the generated options of the Vue component. For example:</p>
+<pre class="prettyprint source lang-js"><code>@Component({
+  name: 'Hello',  // override the name of the class
+  components: {
+    PhoneLink,
+  },
+  filters: {
+    capitalize: (s) => s.toUpperCase(),
+  },
+})
+class HelloPage {
+  message = 'hello';
+  
+  value = 0;
+  
+  newMessage = '';
+  
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+  
+  get computedMessage() {
+    return this.message + '!';
+  }
+  
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent); // don't forget calling `toVue`
+</code></pre>
+<p>is equivalent to:</p>
+<pre class="prettyprint source lang-js"><code>export default {
+  name: 'Hello',
+  components: {
+    PhoneLink,
+  },
+  filters: {
+    capitalize: (s) => s.toUpperCase(),
+  },
+  data() {
+    return {
+      message: 'hello',
+      value: 0,
+      newMessage: '',
+    };
+  },
+  mounted() {
+    this.value = this.$route.params.value;
+  },
+  computed: {
+    computedMessage() {
+      return this.message + '!';
+    },
+  },
+  methods: {
+    setMessage(s) {
+      this.message = s;
+    },
+  },
+};
+</code></pre>
+<p>The following table lists all the keywords in the Vue options API and whether it
+is supported in the argument of the <code>@Component</code> decorator:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Option</th>
+<th>Supported</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State</td>
+<td><code>data</code></td>
+<td>NO</td>
+<td>Reactive states of the component should be defined as class fields.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>props</code></td>
+<td>NO</td>
+<td>Component properties should be defined as class fields and marked with <code>@Prop</code> decorators.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>computed</code></td>
+<td>NO</td>
+<td>Computed properties should be defined as class getters.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>methods</code></td>
+<td>NO</td>
+<td>Component methods should be defined as class methods.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>watch</code></td>
+<td>NO</td>
+<td>Watchers should be defined as class methods marked with <code>@Watch</code> decorators.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>emits</code></td>
+<td>YES</td>
+<td>Custom events emitted by the Vue component can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>State</td>
+<td><code>expose</code></td>
+<td>YES</td>
+<td>Exposed public properties can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Rendering</td>
+<td><code>template</code></td>
+<td>YES</td>
+<td>The string template can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Rendering</td>
+<td><code>render</code></td>
+<td>NO</td>
+<td>The render function should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Rendering</td>
+<td><code>compilerOptions</code></td>
+<td>YES</td>
+<td>Compiler options for string templates can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Rendering</td>
+<td><code>slot</code></td>
+<td>YES</td>
+<td>Vue component slots can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>beforeCreate</code></td>
+<td>NO</td>
+<td>The <code>beforeCreate</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>created</code></td>
+<td>NO</td>
+<td>The <code>created</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>beforeMount</code></td>
+<td>NO</td>
+<td>The <code>beforeMount</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>mounted</code></td>
+<td>NO</td>
+<td>The <code>mounted</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>beforeUpdate</code></td>
+<td>NO</td>
+<td>The <code>beforeUpdate</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>updated</code></td>
+<td>NO</td>
+<td>The <code>updated</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>beforeUnmount</code></td>
+<td>NO</td>
+<td>The <code>beforeUnmount</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>unmounted</code></td>
+<td>NO</td>
+<td>The <code>unmounted</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>errorCaptured</code></td>
+<td>NO</td>
+<td>The <code>errorCaptured</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>renderTracked</code></td>
+<td>NO</td>
+<td>The <code>renderTracked</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>renderTriggered</code></td>
+<td>NO</td>
+<td>The <code>renderTriggered</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>activated</code></td>
+<td>NO</td>
+<td>The <code>activated</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>deactivated</code></td>
+<td>NO</td>
+<td>The <code>deactivated</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td><code>serverPrefetch</code></td>
+<td>NO</td>
+<td>The <code>serverPrefetch</code> hook should be defined as a class method.</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td><code>provide</code></td>
+<td>NO</td>
+<td><code>provide</code> properties should be defined as class fields and marked with <code>@Provide</code> decorators.</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td><code>inject</code></td>
+<td>NO</td>
+<td><code>inject</code> properties should be defined as class fields and marked with <code>@Inject</code> decorators.</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td><code>mixins</code></td>
+<td>YES</td>
+<td>Mixed-in objects array can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td><code>extends</code></td>
+<td>YES</td>
+<td>Base Vue component to extend from can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Misc</td>
+<td><code>name</code></td>
+<td>YES</td>
+<td>Vue component name can be declared in the <code>@Component</code> options; otherwise, the class name of the decorated class will be used.</td>
+</tr>
+<tr>
+<td>Misc</td>
+<td><code>inheritAttrs</code></td>
+<td>YES</td>
+<td><code>inheritAttrs</code> can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Misc</td>
+<td><code>components</code></td>
+<td>YES</td>
+<td>Registered components of the Vue component can be declared in the <code>@Component</code> options.</td>
+</tr>
+<tr>
+<td>Misc</td>
+<td><code>directives</code></td>
+<td>YES</td>
+<td>Registered directives of the Vue component can be declared in the <code>@Component</code> options.</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="predefined-decorators">Predefined Decorators</span></h2>
+<p>This library provides the following commonly used decorators for class-style
+Vue components:</p>
+<ul>
+<li><a href="#Prop"><code>@Prop</code></a></li>
+<li><a href="#Watch"><code>@Watch</code></a></li>
+<li><a href="#Provide"><code>@Provid</code></a></li>
+<li><a href="#Inject"><code>@Inject</code></a></li>
+</ul>
+<h3><span id="Prop"><code>@Prop</code> decorator</span></h3>
+<p>The <code>@Prop</code> decorator is applied to class fields to declare the props of the Vue
+component.</p>
+<p>For example:</p>
+<pre class="prettyprint source lang-js"><code>@Component
+class MyComponent {
+  @Prop
+  message = 'hello';
+  
+  @Prop({ type: Number, validator: (v) => (v >= 0) })
+  value;
+
+  // non-primitive default value DO NOT need to be wrapped by a factory function
+  @Prop
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+}
+
+export default toVue(MyComponent);
+</code></pre>
+<p>is equivalent to:</p>
+<pre class="prettyprint source lang-js"><code>export default {
+  name: 'MyComponent',
+  props: {
+    message: {
+      type: String,
+      default: 'hello',
+    },
+    value: {
+      type: Number,
+      required: true,
+      validator: (v) => {
+        return v >= 0
+      },
+    },
+    person: {
+      type: Object,
+      required: false,
+      default: () => ({
+        id: 1,
+        name: 'John',
+        age: 32,
+        gender: 'MALE',
+      }),
+    },
+  },
+};
+</code></pre>
+<p>The <code>@Prop</code> decorator may have an optional argument. The argument of the <code>@Prop</code>
+decorator is an object with the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>Function</code></td>
+<td><code>undefined</code></td>
+<td>The data type of the prop, which should be a constructor function.</td>
+</tr>
+<tr>
+<td><code>required</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Indicates whether the prop is required or not.</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td><code>any</code></td>
+<td><code>undefined</code></td>
+<td>Specifies the default value of the prop.</td>
+</tr>
+<tr>
+<td><code>validator</code></td>
+<td><code>Function</code></td>
+<td><code>undefined</code></td>
+<td>A custom validation function for the prop.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><code>type</code>: This option defines the expected data type of the prop, and it can be
+one of the following: <code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>Array</code>, <code>Object</code>, <code>Date</code>,
+<code>Function</code>, <code>Symbol</code>, a custom class, a custom constructor function, or an
+array of these types. In development mode, Vue will validate if the prop's
+value matches the declared type and will issue a warning if it doesn't. For
+more details, see <a href="https://vuejs.org/guide/components/props.html#prop-validation">Prop Validation</a>.</p>
+<p>Note that a prop with a <code>Boolean</code> type affects its value casting behavior both
+in development and production modes. See <a href="https://vuejs.org/guide/components/props.html#boolean-casting">Boolean Casting</a> for more details.</p>
+<p>If this option is not specified, the library will infer the type from the
+initial value of the decorated class field.</p>
+</li>
+<li>
+<p><code>default</code>:  Use this option to provide a default value for the prop when it is
+not passed by the parent component or has an undefined value.</p>
+<p>If this option is not specified, the library will automatically infer the
+default value from the initial value of the decorated class field.</p>
+<p>It's worth noting that the <a href="https://vuejs.org/">Vue</a> library requires non-primitive default values
+of props to be wrapped with factory functions, but our library handles this
+automatically. Therefore, you don't need to wrap non-primitive default values
+with factory functions when declaring props.</p>
+</li>
+<li>
+<p><code>required</code>: Use this option to specify whether the prop is required or not. In
+a non-production environment, a console warning will be generated if this
+value is truthy and the prop is not provided.</p>
+<p>If this option is not specified, the library will automatically infer whether
+the initial value of the decorated class field is provided to determine if the
+prop is required.</p>
+</li>
+<li>
+<p><code>validator</code>: This option allows you to define a custom validation function
+that takes the prop value as its sole argument. In development mode, a console
+warning will be generated if this function returns a falsy value, indicating
+that the validation has failed.</p>
+</li>
+</ul>
+<h3><span id="Watch"><code>@Watch</code> decorator</span></h3>
+<p>The <code>@Watch</code> decorator is marked on class methods to declare watchers of the
+Vue component.</p>
+<p>For example:</p>
+<pre class="prettyprint source lang-js"><code>@Component
+class MyComponent {
+  value = 123;
+  
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+  
+  @Watch('value')
+  onValueChanged(val, oldVal) {
+    console.log(`The value is changed from ${oldVal} to ${val}.`);
+  }
+  
+  @Watch('person', { deep: true })
+  onPersonChanged(val, oldVal) {
+    console.log(`The person is changed from ${oldVal} to ${val}.`);
+  }
+}
+
+export default toVue(MyComponent);
+</code></pre>
+<p>is equivalent to:</p>
+<pre class="prettyprint source lang-js"><code>export default {
+  name: 'MyComponent',
+  data() {
+    return {
+      value: 123,
+    };
+  },
+  watch: {
+    value(val, oldVal) {
+      console.log(`The value is changed from ${oldVal} to ${val}.`);
+    },
+    person: {
+      deep: true,
+      handler(val, oldVal) {
+        console.log(`The person is changed from ${oldVal} to ${val}.`);
+      },
+    },
+  },
+};
+</code></pre>
+<p>The <code>@Watch</code> decorator can take one or two arguments. The first argument of the
+<code>@Watch</code> decorator specifies the path of the watched states or watched properties.
+The second optional argument of the <code>@Watch</code> decorator is an object with the
+following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deep</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Indicates whether the watcher should perform a deep traversal of the source, especially if it is an object or an array.</td>
+</tr>
+<tr>
+<td><code>immediate</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Specifies whether the watcher should be triggered immediately after its creation.</td>
+</tr>
+<tr>
+<td><code>flush</code></td>
+<td><code>String</code></td>
+<td><code>'pre'</code></td>
+<td>Defines the flushing timing of the watcher. It can be one of <code>'pre'</code>, <code>'post'</code>, or <code>'sync'</code>.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>deep</code>: Forces a deep traversal of the source, particularly if it is an object
+or an array, allowing the callback to be triggered on deep mutations. Refer to
+<a href="https://vuejs.org/guide/essentials/watchers#deep-watchers">Deep Watchers</a> for more information.</li>
+<li><code>immediate</code>: Triggers the callback immediately upon the creation of the watcher.
+The old value will be <code>undefined</code> on the first call. Refer to <a href="https://vuejs.org/guide/essentials/watchers.html#eager-watchers">Eager Watchers</a>
+for more details.</li>
+<li><code>flush</code>: Adjusts the timing at which the callback is executed. It can be one
+of <code>'pre'</code>, <code>'post'</code>, or <code>'sync'</code>. See <a href="https://vuejs.org/guide/essentials/watchers#callback-flush-timing">Callback Flush Timing</a> and
+<a href="https://vuejs.org/api/reactivity-core#watcheffect">watchEffect()</a> for further details.</li>
+</ul>
+<p><strong>NOTE:</strong> Unlike the <code>@Watch</code> decorator in <a href="https://github.com/kaorun343/vue-property-decorator">vue-property-decorator</a>, the <code>@Watch</code>
+decorator in this library does not support watching the same state or property
+with more than one watching handler. As this is not a common use case, we have
+chosen to simplify the implementation of the <code>@Watch</code> decorator.</p>
+<h3><span id="Provide"><code>@Provide</code> decorator</span></h3>
+<p>The <code>@Provide</code> decorator is marked on class fields to declare provided values
+that can be injected by descendant components.</p>
+<p>For example:</p>
+<pre class="prettyprint source lang-js"><code>const myInjectedKey = Symbol('myInjectedKey');
+
+@Component
+class AncestorComponent {
+  @Provide
+  message = 'hello';
+  
+  @Provide({key: myInjectedKey, reactive: true})
+  @Prop
+  value = 123;
+
+  @Provide({ reactive: true })
+  person = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+}
+
+export default toVue(AncestorComponent);
+</code></pre>
+<p>is equivalent to:</p>
+<pre class="prettyprint source lang-js"><code>import { computed } from 'vue'
+
+export default {
+  name: 'AncestorComponent',
+  props: {
+    value: {
+      type: Number,
+      default: 123,
+      required: false,
+    },
+  },
+  data() {
+    return {
+      message: 'hello',
+    };
+  },
+  provide() {
+    return {
+      message: this.message,                        // non-reactive
+      [myInjectedKey]: computed(() => this.value),  // reactive
+      person: computed(() => this.person),          // reactive
+    };
+  },
+};
+</code></pre>
+<p>The <code>@Provide</code> and <code>@Inject</code> decorators are used together to enable an ancestor
+component to serve as a dependency injector for all of its descendants,
+regardless of how deep the component hierarchy goes, as long as they are in the
+same parent chain. For more details, please refer to <a href="https://vuejs.org/guide/components/provide-inject.html">Provide / Inject</a>.</p>
+<p>The <code>@Provide</code> decorators may be used with an optional argument. This optional
+argument is an object with the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td><code>String | Symbol</code></td>
+<td><code>undefined</code></td>
+<td>The key of the provided value.</td>
+</tr>
+<tr>
+<td><code>reactive</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Indicates whether the provided value is reactive.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>key</code>: The key is used by child components to locate the correct value to
+inject. The key could be either a string or a symbol. Refer to
+<a href="https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys">working with symbol keys</a> for more details. If this option is not specified,
+the name of the field decorated by the <code>@Provide</code> decorator will be used as
+the key.</li>
+<li><code>reactive</code>: Specifies whether the provided value is reactive. By default,
+the provided values are not reactive, meaning that changing the provided
+value in the ancestor component will not affect the injected value in the
+descendant components. If this option is set to <code>true</code>, the provided value
+will be made reactive. Refer to <a href="https://vuejs.org/guide/components/provide-inject#working-with-reactivity">working with reactivity</a> for more details.</li>
+</ul>
+<p><strong>NOTE:</strong> <a href="https://github.com/kaorun343/vue-property-decorator">vue-property-decorator</a> provides <code>@Provide</code> and <code>@ProvideReactive</code>
+decorators to declare non-reactive and reactive provided values, respectively.
+However, this library simplifies the implementation by offering only one
+<code>@Provide</code> decorator with an optional <code>reactive</code> option. Since provided values
+are typically non-reactive, we have decided to set the default value of the
+<code>reactive</code> option to <code>false</code>.</p>
+<h3><span id="Inject"><code>@Inject</code> decorator</span></h3>
+<p>The <code>@Inject</code> decorator is marked on class fields to declare injected values.</p>
+<p>For example:</p>
+<pre class="prettyprint source lang-js"><code>@Component
+class DescendantComponent {
+  @Inject
+  message;
+  
+  @Inject({from: myInjectedKey, default: 0})
+  injectedValue;
+
+  // non-primitive default value DO NOT need to be wrapped by a factory function
+  @Inject({ default: {id: 0, name: 'unknown'} }) 
+  person;
+}
+
+export default toVue(DescendantComponent);
+</code></pre>
+<p>is equivalent to:</p>
+<pre class="prettyprint source lang-js"><code>export default {
+  name: 'DescendantComponent',
+  inject: {
+    message: {              // non-reactive
+      from: 'message',
+      default: undefined,
+    },
+    injectedValue: {        // reactive, since the provided `myInjectedKey` is reactive
+      from: myInjectedKey,
+      default: 0,
+    },
+    person: {               // reactive, since the provided `person` is reactive
+      from: 'person',
+      default: () => ({id: 0, name: 'unknown'}),
+    },
+  },
+};
+</code></pre>
+<p>The <code>@Provide</code> and <code>@Inject</code> decorators are used together to enable an ancestor
+component to act as a dependency injector for all its descendants, regardless
+of how deep the component hierarchy goes, as long as they are in the same parent
+chain. For more details, please refer to <a href="https://vuejs.org/guide/components/provide-inject.html">Provide / Inject</a>.</p>
+<p>The <code>@Inject</code> decorators can have an optional argument, which is an object with
+the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from</code></td>
+<td><code>String | Symbol</code></td>
+<td><code>undefined</code></td>
+<td>The key of the source provided value to be injected.</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td><code>any</code></td>
+<td><code>undefined</code></td>
+<td>The default value of the injected value.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>from</code>: The value of this option specifies the key of the provided value to be
+injected. The key could be either a string or a symbol. Refer to
+<a href="https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys">working with symbol keys</a> for more details. If this option is not specified,
+the name of the field decorated by the <code>@Injected</code> decorator will be used as
+the key.</li>
+<li><code>default</code>: The default value of the injected property. Note that similar to
+the <code>default</code> option of the <code>@Prop</code> decorator, this library will automatically
+transform the non-primitive default values into factory functions.</li>
+</ul>
+<p><strong>NOTE:</strong> If the provided value is non-reactive, the corresponding injected value
+is also non-reactive. If the provided value is reactive, the corresponding injected
+is also reactive. Refer to <a href="https://vuejs.org/guide/components/provide-inject#working-with-reactivity">working with reactivity</a> for more details.</p>
+<p><strong>NOTE:</strong> <a href="https://github.com/kaorun343/vue-property-decorator">vue-property-decorator</a> provides <code>@Inject</code> and <code>@InjectReactive</code>
+decorators to declare non-reactive and reactive injected values, respectively.
+However, this library simplifies the implementation by providing only one <code>@Inject</code>
+decorator, and the reactivity of the injected value is determined by the reactivity
+of the provided value.</p>
+<h2><span id="customize-decorators">Customize Decorators</span></h2>
+<p>This library provides a <code>createDecorator()</code> function for creating custom
+decorators. The function takes a callback function as an argument and returns a
+decorator function. The callback function will be invoked with the following
+parameters:</p>
+<ul>
+<li><code>Class</code>: The constructor of the decorated class.</li>
+<li><code>defaultInstance</code>: The default constructed instance of the decorated class.
+This default instance can be used to access all the class instance fields of
+the decorated class.</li>
+<li><code>target</code>: The target value being decorated, which could be a class method, a
+getter, or a setter. Note that if the decorated target is a class field,
+this argument will always be <code>undefined</code>.</li>
+<li><code>context</code>: The context object containing information about the target being
+decorated, as described in <a href="https://github.com/tc39/proposal-decorators">stage 3 proposal of JavaScript decorators</a> and
+<a href="https://github.com/tc39/proposal-decorator-metadata">stage 3 proposal of JavaScript decorator metadata</a>.</li>
+<li><code>options</code>: The Vue component options object. Changes to this object will
+affect the provided component.</li>
+</ul>
+<p>The callback function is called by the library to allow it to modify the Vue
+component options. The return value of the callback function will be ignored.</p>
+<p>The <code>createDecorator()</code> function returns a decorator function that takes the
+following two arguments:</p>
+<ul>
+<li><code>target</code>: The target value being decorated, which could be a class method,
+class field, getter, or setter. If the decorated target is a class field,
+this argument will always be <code>undefined</code>.</li>
+<li><code>context</code>: The context object containing information about the target being
+decorated, as described in <a href="https://github.com/tc39/proposal-decorators">stage 3 proposal of JavaScript decorators</a>
+and <a href="https://github.com/tc39/proposal-decorator-metadata">stage 3 proposal of JavaScript decorator metadata</a>.</li>
+</ul>
+<p>Here is an example of how to use it:</p>
+<pre class="prettyprint source lang-js"><code>const Log = createDecorator((Class, defaultInstance, target, context, options) => {
+  if (context?.kind !== 'method') {
+    throw new Error('The @Log decorator can only be used to decorate a class method.');
+  }
+  const methodName = context.name;
+  const originalMethod = options.methods[methodName];
+  options.methods[methodName] = function (...args) {
+    console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
+    return originalMethod.apply(this, args);
+  };
+});
+</code></pre>
+<p>The above example demonstrates how to create a <code>@Log</code> decorator, which can be
+employed to log the arguments of a class method. For instance:</p>
+<pre class="prettyprint source lang-js"><code>@Component
+class HelloPage {
+  message = 'hello';
+  
+  value = 0;
+  
+  newMessage = '';
+  
+  @Log
+  mounted() {
+    this.value = this.$route.params.value;
+  }
+  
+  get computedMessage() {
+    return this.message + '!';
+  }
+  
+  @Log
+  setMessage(s) {
+    this.message = s;
+  }
+}
+
+export default toVue(MyComponent);
+</code></pre>
+<p><strong>NOTE:</strong> The <code>@Log</code> decorator mentioned above cannot be applied to the getter
+or setter of the component class.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

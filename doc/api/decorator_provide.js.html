@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>decorator/provide.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">decorator/provide.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import { computed } from 'vue';
+import createDecorator from '../create-decorator';
+
+/**
+ * The factory of the `@Provide` decorator.
+ *
+ * @param {object} args
+ *     the optional arguments of the `@Provide` decorator.
+ * @param {function} Class
+ *     The constructor of the decorated class.
+ * @param {object} defaultInstance
+ *     The default constructed instance of the decorated class.
+ * @param {any} target
+ *     the decorated target. Since the `@Provide` decorator is used to decorate
+ *     a class field, this argument is always `undefined`.
+ * @param {object} context
+ *     the context about the information of the field to be decorated.
+ * @param {object} options
+ *     the Vue component options object. Changes for this object will affect the
+ *     provided component.
+ * @private
+ * @author Haixing Hu
+ */
+function ProvideFactory(args, Class, defaultInstance, target, context, options) {
+  if (context?.kind !== 'field') {
+    throw new Error('The @Provide decorator can only be used to decorate a class field.');
+  }
+  const key = args.key ?? context.name;
+  const reactive = args.reactive ?? false;
+  // Add provide mixin
+  if (reactive) {
+    options.mixins.push({
+      provide() {
+        return {
+          [key]: computed(() => this[context.name]),
+        };
+      }
+    });
+  } else {
+    options.mixins.push({
+      provide() {
+        return {
+          [key]: this[context.name],
+        };
+      }
+    });
+  }
+}
+
+/**
+ * The `@Provide` decorator is marked on class fields to declare provided values
+ * that can be injected by descendant components.
+ *
+ * The `@Provide` decorators may be used with an optional argument. The optional
+ * argument is an object with the following options:
+ *
+ * | Option     | Type               | Default     | Description                              |
+ * |------------|--------------------|-------------|------------------------------------------|
+ * | `key`      | `String \| Symbol` | `undefined` | The key of the provided value.           |
+ * | `reactive` | `Boolean`          | `false`     | Whether the provided value is reactive.  |
+ *
+ * Usage example:
+ * ```js
+ * const myInjectedKey = Symbol('myInjectedKey');
+ *
+ * &amp;#064;Component
+ * class AncestorComponent {
+ *   &amp;#064;Provide
+ *   message = 'hello';
+ *
+ *   &amp;#064;Provide({key: myInjectedKey, reactive: true})
+ *   &amp;#064;Prop
+ *   value = 123;
+ *
+ *   &amp;#064;Provide({ reactive: true })
+ *   person = {
+ *     id: 1,
+ *     name: 'John',
+ *     age: 32,
+ *     gender: 'MALE',
+ *   };
+ * }
+ *
+ * export default toVue(AncestorComponent);
+ * ```
+ *
+ * @param {...any} args
+ *     The array of arguments for calling this decorator. If it has only one
+ *     argument, the only argument is the optional options of this decorator,
+ *     and this function should return another function which is the decorator
+ *     of a class field; If it has two arguments, the first argument is the
+ *     decorated field of a class, and the second argument is the context object
+ *     containing information about the field being decorated.
+ * @return {Function}
+ *     If this decorator has only one argument, this function returns another
+ *     function which is the decorator of a class field; otherwise, this function
+ *     returns the decorated class field.
+ * @author Haixing Hu
+ */
+function Provide(...args) {
+  if (args.length === 1) {        // the decorator is used with options
+    // returns a simple field decorator
+    const factory = ProvideFactory.bind(null, args[0]);
+    return createDecorator(factory);
+  } else if (args.length === 2) { // the decorator is used without options
+    const factory = ProvideFactory.bind(null, {});
+    const decor = createDecorator(factory);
+    return decor(args[0], args[1]);
+  } else {
+    throw new TypeError('Invalid use of the `@Provide` decorator.');
+  }
+}
+
+export default Provide;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sat Oct 07 2023 00:56:14 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>utils.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#buildOptions">buildOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkOptions">checkOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#collectData">collectData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#collectDecorators">collectDecorators</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#collectMethod">collectMethod</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Component">Component</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createDecorator">createDecorator</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#fixDefaultValue">fixDefaultValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#inferDefaultValue">inferDefaultValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#inferType">inferType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Inject">Inject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#InjectFactory">InjectFactory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Prop">Prop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#PropFactory">PropFactory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Provide">Provide</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#ProvideFactory">ProvideFactory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toVue">toVue</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#VUE_KEYWORDS">VUE_KEYWORDS</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#VUE_LIFECYCLE_HOOKS">VUE_LIFECYCLE_HOOKS</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#VUE_SPECIAL_FUNCTIONS">VUE_SPECIAL_FUNCTIONS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#Watch">Watch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#WatchFactory">WatchFactory</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*******************************************************************************
+ *
+ *    Copyright (c) 2022 - 2023.
+ *    Haixing Hu, Qubit Co. Ltd.
+ *
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+import {
+  VUE_KEYWORDS,
+  VUE_LIFECYCLE_HOOKS,
+  VUE_SPECIAL_FUNCTIONS,
+} from "./vue-options-api";
+import {
+  DECORATORS_KEY,
+} from "./metadata-keys";
+
+/**
+ * Checks the validity of the options of the `@Component` decorator.
+ *
+ * @param {Object} options
+ *     the options to be checked.
+ * @throws Error
+ *     if the options contains invalid properties.
+ * @author Haixing Hu
+ */
+function checkOptions(options) {
+  Object.keys(options).forEach((key) => {
+    const keyword = VUE_KEYWORDS.find((item) => (item.name === key));
+    if (!keyword) {
+      throw new Error(`The option "${key}" in the argument of @Component is not supported.`);
+    }
+    if (keyword.declared !== 'options') {
+      let msg = `The option "${key}" in the argument of @Component should be declared as the class ${keyword.declared}`;
+      if (keyword.decorated) {
+        msg += ` and decorated by ${keyword.decorated}`;
+      }
+      msg += '.';
+      throw new Error(msg);
+    }
+  });
+}
+
+/**
+ * Collects a class method or setter/getter and modify the existing Vue component
+ * options object.
+ *
+ * @param obj
+ *     the object, which usually be the prototype of a class or a instance of
+ *     a class.
+ * @param key
+ *     the name of the method or setter/getter.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
+function collectMethod(obj, key, options) {
+  if (key === 'constructor') {
+    return;
+  }
+  if (VUE_LIFECYCLE_HOOKS.includes(key) || VUE_SPECIAL_FUNCTIONS.includes(key)) {
+    // obj[key] must be a function
+    options[key] = obj[key];
+  } else {
+    const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+    if (typeof descriptor.value === 'function') {
+      // deal with class methods
+      options.methods[key] = descriptor.value;
+    } else if (descriptor.get || descriptor.set) {
+      // deal with computed properties
+      options.computed[key] = {
+        get: descriptor.get,
+        set: descriptor.set,
+      };
+    }
+  }
+}
+
+/**
+ * Collects all class fields from an instance of a class and modify the existing
+ * Vue component options object.
+ *
+ * @param defaultInstance
+ *     the default constructed instance of the decorated class.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
+function collectData(defaultInstance, options) {
+  const entries = Object.entries(defaultInstance);
+  options.fields = {};
+  entries.forEach(([key, value]) => {
+    if (typeof value === 'function') {
+      collectMethod(defaultInstance, key, options);
+    } else if (value !== undefined) {
+      options.fields[key] = value;
+    }
+  });
+  // Add data hook to collect class properties as Vue instance's data
+  options.mixins.push({
+    data() {
+      return options.fields;
+    }
+  });
+}
+
+/**
+ * Collects all decorators defined in a class and modify the existing Vue
+ * component options object.
+ *
+ * @param Class
+ *     the constructor of the decorated class.
+ * @param defaultInstance
+ *     the default constructed instance of the decorated class.
+ * @param context
+ *     the context of the information about the decorated class.
+ * @param options
+ *     the Vue component options object.
+ * @author Haixing Hu
+ */
+function collectDecorators(Class, defaultInstance, context, options) {
+  const metadata = context.metadata;
+  if (metadata[DECORATORS_KEY]) {
+    for (const decorator of metadata[DECORATORS_KEY]) {
+      decorator(Class, defaultInstance, options);
+    }
+  }
+}
+
+/**
+ * Fix the default value.
+ *
+ * Note that according to the document of Vue.js, if the default value of a Prop
+ * or a injected property is an Object or an Array, it must be defined with a
+ * factory function which returns the default value.
+ * See &lt;a href="https://vuejs.org/api/options-state.html#props">Props&lt;/a> and
+ * &lt;a href="https://vuejs.org/api/options-composition.html#inject">Inject&lt;/a>
+ * for details.
+ *
+ * @param {any} value
+ *     the inferred default value.
+ * @return {any | Function}
+ * @see &lt;a href="https://vuejs.org/api/options-state.html#props">Props&lt;/a>
+ * @see &lt;a href="https://vuejs.org/api/options-composition.html#inject">Inject&lt;/a>
+ */
+function fixDefaultValue(value) {
+  if (value === undefined) {
+    return undefined;
+  } else if (value === null) {
+    return null;
+  } else if (Array.isArray(value) || (value instanceof Object)) {
+    return () => value;   // returns the factory function
+  } else {
+    return value;
+  }
+}
+
+export {
+  checkOptions,
+  collectMethod,
+  collectData,
+  collectDecorators,
+  fixDefaultValue,
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Oct 06 2023 18:45:17 GMT+0800 (China Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
