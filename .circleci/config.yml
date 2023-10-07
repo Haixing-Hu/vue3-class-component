@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
+  coveralls: coveralls/coveralls@2.2.1
 
 jobs:
   test_and_build:
@@ -19,6 +20,9 @@ jobs:
       - run:
           name: Build the library
           command: yarn build
+      - coveralls/upload:
+          coverage_format: lcov
+          coverage_file: coverage/lcov.info
 
 workflows:
   test_and_build_workflow:

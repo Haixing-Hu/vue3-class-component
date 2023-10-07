@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![English Document](https://img.shields.io/badge/Document-English-blue.svg)](README.md)
-[![Build Status](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/vue3-class-component/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/vue3-class-component?branch=master)
 
 
 这个库允许您使用类式语法创建您的 [Vue] 组件。它从 [vue-class-component] 得到了很多灵感，但有一些显著的区别：
