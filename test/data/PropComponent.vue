@@ -11,6 +11,8 @@
     <div id="message">{{ message }}</div>
     <div id="value1">{{ value1 }}</div>
     <div id="value2">{{ value2 }}</div>
+    <div id="value3">{{ value3 }}</div>
+    <div id="value4">{{ value4 }}</div>
     <div id="computed">{{ computedValue }}</div>
     <div id="person-name">{{ person.name }}</div>
     <div id="person-age">{{ person.age }}</div>
@@ -42,12 +44,18 @@ class PropComponent {
   @Prop({ type: User })
   user = null;
 
+  value3 = 0;
+
+  value4 = 0;
+
   mounted() {
     console.log('PropComponent.mounted: enter');
     console.log('this:', this);
     console.log('this.message:', this.message);
     console.log('this.value1:', this.value1);
     console.log('this.value2:', this.value2);
+    console.log('this.value3:', this.value3);
+    console.log('this.value4:', this.value4);
     console.log('this.person:', this.person);
     console.log('this.user:', this.user);
     console.log('PropComponent.mounted: exit');
@@ -55,6 +63,15 @@ class PropComponent {
 
   get computedValue() {
     return this.value1 + this.value2;
+  }
+
+  set totalValue(val) {
+    console.log('PropComponent.set totalValue:', val);
+    this.value3 = Math.round(val / 2);
+    this.value4 = val - this.value3;
+    console.log('this.value3:', this.value3);
+    console.log('this.value4:', this.value4);
+    console.log('PropComponent.set totalValue: exit');
   }
 }
 

@@ -65,11 +65,9 @@ function collectMethod(obj, key, options) {
     options[key] = obj[key];
   } else {
     const descriptor = Object.getOwnPropertyDescriptor(obj, key);
-    if (typeof descriptor.value === 'function') {
-      // deal with class methods
+    if (descriptor.value) { // deal with class methods
       options.methods[key] = descriptor.value;
-    } else if (descriptor.get || descriptor.set) {
-      // deal with computed properties
+    } else {                // deal with computed properties
       options.computed[key] = {
         get: descriptor.get,
         set: descriptor.set,
