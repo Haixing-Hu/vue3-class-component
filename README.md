@@ -68,6 +68,11 @@ A possible [Babel] configuration file `babel.config.json` is as follows:
 the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be
 at least `7.23.0`.
 
+To learn how to create a new Vue.js project and utilize [vue3-class-component], please consult the following:
+
+- Demo project created by [vue-cli] and [webpack]: [vue3-class-component-demo-webpack]
+- Demo project created by [create-vue] and [vite]: [vue3-class-component-demo-vite]
+
 ## <span id="usage-example">Usage Example</span>
 
 ```vue
@@ -688,6 +693,10 @@ export default toVue(MyComponent);
 or setter of the component class.
 
 [Vue]: https://vuejs.org/
+[vue-cli]: https://cli.vuejs.org/
+[webpack]: https://webpack.js.org/
+[create-vue]: https://github.com/vuejs/create-vue
+[vite]: https://vitejs.dev/
 [vue-class-component]: https://github.com/vuejs/vue-class-component
 [vue-property-decorator]: https://github.com/kaorun343/vue-property-decorator
 [vue-facing-decorator]: https://github.com/facing-dev/vue-facing-decorator
@@ -705,3 +714,6 @@ or setter of the component class.
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
 [working with symbol keys]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [working with reactivity]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
+[vue3-class-component]: https://github.com/Haixing-Hu/vue3-class-component
+[vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
+[vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite

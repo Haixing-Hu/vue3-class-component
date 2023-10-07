@@ -65,6 +65,11 @@ npm install @haixing_hu/vue3-class-component
 **重要说明:** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
 插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
 
+要了解如何创建一个新的Vue.js项目并使用[vue3-class-component]，请查看以下内容：
+
+- 使用 [vue-cli] 和 [webpack] 创建的演示项目：[vue3-class-component-demo-webpack]
+- 使用 [create-vue] 和 [vite] 创建的演示项目：[vue3-class-component-demo-vite]
+
 ## <span id="usage-example">使用示例</span>
 
 ```vue
@@ -626,6 +631,10 @@ export default toVue(MyComponent);
 **注意：** 上述的 @Log 装饰器不能应用于组件类的 getter 或 setter。
 
 [Vue]: https://vuejs.org/
+[vue-cli]: https://cli.vuejs.org/
+[webpack]: https://webpack.js.org/
+[create-vue]: https://github.com/vuejs/create-vue
+[vite]: https://vitejs.dev/
 [vue-class-component]: https://github.com/vuejs/vue-class-component
 [vue-property-decorator]: https://github.com/kaorun343/vue-property-decorator
 [vue-facing-decorator]: https://github.com/facing-dev/vue-facing-decorator
@@ -643,3 +652,6 @@ export default toVue(MyComponent);
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
 [使用符号键]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [使用响应式]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
+[vue3-class-component]: https://github.com/Haixing-Hu/vue3-class-component
+[vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
+[vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite

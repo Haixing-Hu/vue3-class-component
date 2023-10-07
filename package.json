@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/vue3-class-component",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A JavaScript class decorator for Vue3 components",
   "main": "dist/vue3-class-component.min.js",
   "scripts": {
