@@ -15,6 +15,8 @@
 - 它提供了用于类式 Vue 组件的常用装饰器，如 @Prop、@Watch、@Provide 和 @Inject（更多详情
   请参阅[预定义装饰器](#predefined-decorators)部分）。简而言之，它结合了 [vue-class-component] 和
   [vue-property-decorator] 的功能。
+- 它经过了详细的单元测试，代码覆盖率达到了100%。
+- 代码已经全面重写，装饰器功能经过重新设计，更加合理。
 
 ## 目录
 

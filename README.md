@@ -13,10 +13,12 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
   from [vue-facing-decorator].
 - It adopts the most recent (as of May 2023) [stage 3 proposal of JavaScript decorators]
   and [stage 3 proposal of JavaScript decorator metadata].
-- It offers commonly used decorators for class-style Vue components, such as
+- It offers a set of commonly used decorators for class-style Vue components, such as
   `@Prop`, `@Watch`, `@Provide`, and `@Inject` (for more details, see the
   [Predefined Decorators](#predefined-decorators) section). In essence, it
   combines the functionality of [vue-class-component] and [vue-property-decorator].
+- It has undergone extensive unit testing, achieving a remarkable 100% code coverage.
+- The code has undergone a complete rewrite, and the functionality of decorators has been redesigned for improved coherence and efficiency.
 
 ## Table of Contents
 
