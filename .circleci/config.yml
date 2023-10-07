@@ -5,9 +5,10 @@ orbs:
 
 jobs:
   test_and_build:
-    executor: node/default
-      resource_class: medium
+    executor:
+      name: node/default
       tag: 20.8.0
+      resource_class: medium
     steps:
       - checkout
       - node/install-packages:
