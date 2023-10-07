@@ -6,9 +6,8 @@ orbs:
 jobs:
   test_and_build:
     executor: node/default
-      parameters:
-        resource_class: medium
-        tag: 20.8.0
+      resource_class: medium
+      tag: 20.8.0
     steps:
       - checkout
       - node/install-packages:
