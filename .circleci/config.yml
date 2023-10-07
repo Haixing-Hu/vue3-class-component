@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.1.0
+  coveralls: coveralls/coveralls@2.2.1
+
+jobs:
+  test_and_build:
+    executor: node/default
+      parameters:
+        resource_class: medium
+        tag: 20.8.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          with-cache: true
+      - node/test:
+          test-results-for: jest
+      - run:
+          name: Build the library
+          command: yarn build
+
+workflows:
+  test_and_build_workflow:
+    jobs:
+      - test_and_build
