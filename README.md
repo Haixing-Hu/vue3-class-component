@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![中文文档](https://img.shields.io/badge/文档-中文版-blue.svg)](README.zh_CN.md)
-[![Build Status](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/vue3-class-component/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/vue3-class-component?branch=master)
 
 This library allows you to create your [Vue] components using the class-style syntax.
 It draws heavy inspiration from [vue-class-component], with a few notable differences:
