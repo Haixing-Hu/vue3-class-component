@@ -13,8 +13,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           with-cache: true
-      - node/test:
-          test-results-for: jest
+      - run:
+          name: Test the library
+          command: yarn test
       - run:
           name: Build the library
           command: yarn build
