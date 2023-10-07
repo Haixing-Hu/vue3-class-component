@@ -1,22 +1,18 @@
 # vue3-class-component
 
-<p style="text-align: left">
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">
-    <img src="https://img.shields.io/badge/License-Apache-blue.svg" alt="License"/>
-  </a>
-  <a href="README.md">
-    <img src="https://img.shields.io/badge/Document-English-blue.svg" alt="en_US doc"/>
-  </a>
-</p>
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![English Document](https://img.shields.io/badge/Document-English-blue.svg)](README.md)
+[![Build Status](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://circleci.com/gh/Haixing-Hu/vue3-class-component/tree/master)
+
 
 这个库允许您使用类式语法创建您的 [Vue] 组件。它从 [vue-class-component] 得到了很多灵感，但有一些显著的区别：
 
 - 它支持 [Vue] v3.x.x（当前版本为 v3.3.4）。
 - 它使用纯 JavaScript 而非 TypeScript，这与 [vue-facing-decorator] 不同。
-- 它采用了最新的（截止到2023年5月） [JavaScript 装饰器第3阶段提案] 和 
+- 它采用了最新的（截止到2023年5月） [JavaScript 装饰器第3阶段提案] 和
   [JavaScript 装饰器元数据第3阶段提案]。
 - 它提供了用于类式 Vue 组件的常用装饰器，如 @Prop、@Watch、@Provide 和 @Inject（更多详情
-  请参阅[预定义装饰器](#predefined-decorators)部分）。简而言之，它结合了 [vue-class-component] 和 
+  请参阅[预定义装饰器](#predefined-decorators)部分）。简而言之，它结合了 [vue-class-component] 和
   [vue-property-decorator] 的功能。
 
 ## 目录
@@ -61,7 +57,7 @@ npm install @haixing_hu/vue3-class-component
     "@babel/plugin-transform-class-properties"
   ]
 }
-``` 
+```
 
 **重要说明:** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
 插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
@@ -84,19 +80,19 @@ import { Component, toVue } from 'vue3-class-component';
 @Component
 class HelloPage {
   message = 'hello';
-  
+
   value = 0;
-  
+
   newMessage = '';
-  
+
   mounted() {
     this.value = this.$route.params.value;
   }
-  
+
   get computedMessage() {
     return this.message + '!';
   }
-  
+
   setMessage(s) {
     this.message = s;
   }
@@ -159,19 +155,19 @@ export default {
 })
 class HelloPage {
   message = 'hello';
-  
+
   value = 0;
-  
+
   newMessage = '';
-  
+
   mounted() {
     this.value = this.$route.params.value;
   }
-  
+
   get computedMessage() {
     return this.message + '!';
   }
-  
+
   setMessage(s) {
     this.message = s;
   }
@@ -268,7 +264,7 @@ export default {
 class MyComponent {
   @Prop
   message = 'hello';
-  
+
   @Prop({ type: Number, validator: (v) => (v >= 0) })
   value;
 
@@ -330,7 +326,7 @@ export default {
 
   请注意，具有 `Boolean` 类型的 prop 在开发和生产模式下都会影响其值的类型转换行为。有关更多
   详情，请参阅[布尔型强制转换]。
- 
+
   如果未指定此选项，则库将从装饰的类字段的初始值中推断出类型。
 
 - `default`: 使用此选项为 prop 指定默认值，当它未由父组件传递或具有未定义的值时将会生效。对
@@ -356,19 +352,19 @@ export default {
 @Component
 class MyComponent {
   value = 123;
-  
+
   person = {
     id: 1,
     name: 'John',
     age: 32,
     gender: 'MALE',
   };
-  
+
   @Watch('value')
   onValueChanged(val, oldVal) {
     console.log(`The value is changed from ${oldVal} to ${val}.`);
   }
-  
+
   @Watch('person', { deep: true })
   onPersonChanged(val, oldVal) {
     console.log(`The person is changed from ${oldVal} to ${val}.`);
@@ -416,7 +412,7 @@ export default {
 - `flush`: 调整回调的刷新时机。可以是 `'pre'`、`'post'` 或 `'sync'` 中的一个。
   请参阅[回调刷新时机]和[watchEffect()]。
 
-**注意：** 与 [vue-property-decorator] 中的 `@Watch` 装饰器不同，此库中的 `@Watch` 
+**注意：** 与 [vue-property-decorator] 中的 `@Watch` 装饰器不同，此库中的 `@Watch`
 装饰器不支持使用多个观察处理程序同时监视相同的状态或属性。因为这不是常见用例，所以我们决定简
 化`@Watch`装饰器的实现。
 
@@ -432,7 +428,7 @@ const myInjectedKey = Symbol('myInjectedKey');
 class AncestorComponent {
   @Provide
   message = 'hello';
-  
+
   @Provide({key: myInjectedKey, reactive: true})
   @Prop
   value = 123;
@@ -507,12 +503,12 @@ export default {
 class DescendantComponent {
   @Inject
   message;
-  
+
   @Inject({from: myInjectedKey, default: 0})
   injectedValue;
 
   // non-primitive default value DO NOT need to be wrapped by a factory function
-  @Inject({ default: {id: 0, name: 'unknown'} }) 
+  @Inject({ default: {id: 0, name: 'unknown'} })
   person;
 }
 
@@ -579,7 +575,7 @@ export default {
 
 - `target`：被装饰的目标值，可以是类方法、类字段、getter 或 setter。如果被装饰的目标是类字
   段，此参数将始终为 `undefined`。
-- `context`：包含有关被装饰目标的信息的上下文对象，如 [JavaScript 装饰器第3阶段提案] 和 
+- `context`：包含有关被装饰目标的信息的上下文对象，如 [JavaScript 装饰器第3阶段提案] 和
   [JavaScript 装饰器元数据第3阶段提案] 中所述。
 
 以下是一个示例用法：
@@ -601,20 +597,20 @@ const Log = createDecorator((Class, defaultInstance, target, context, options) =
 @Component
 class HelloPage {
   message = 'hello';
-  
+
   value = 0;
-  
+
   newMessage = '';
-  
+
   @Log
   mounted() {
     this.value = this.$route.params.value;
   }
-  
+
   get computedMessage() {
     return this.message + '!';
   }
-  
+
   @Log
   setMessage(s) {
     this.message = s;
