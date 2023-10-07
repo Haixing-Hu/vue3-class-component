@@ -9,34 +9,41 @@
 <template>
   <div class="use-prop-component">
     <prop-component
+      ref="propComponent"
       :message="message"
       :value1="value1"
       :value2="value2"
       :user="user"
     />
     <button
-        id="button1"
-        @click="increaseValue1"
+      id="button1"
+      @click="increaseValue1"
     >
       Increase Value1
     </button>
     <button
-        id="button2"
-        @click="increaseValue2"
+      id="button2"
+      @click="increaseValue2"
     >
       Increase Value2
     </button>
     <button
-        id="button3"
-        @click="setMessage('Changed')"
+      id="button3"
+      @click="setMessage('Changed')"
     >
       Change the message
     </button>
     <button
-        id="button4"
-        @click="setUsername('guest')"
+      id="button4"
+      @click="setUsername('guest')"
     >
       Change the user.username
+    </button>
+    <button
+      id="button5"
+      @click="setTotalValue(101)"
+    >
+      Set the totalValue
     </button>
   </div>
 </template>
@@ -96,6 +103,13 @@ class UsePropComponent {
     console.log('UsePropComponent.setUsername: enter');
     this.user.username = username;
     console.log('UsePropComponent.setUsername: exit');
+  }
+
+  setTotalValue(val) {
+    console.log('UsePropComponent.setTotalValue: enter, val = ', val);
+    const comp = this.$refs.propComponent;
+    comp.totalValue = val;
+    console.log('UsePropComponent.setTotalValue: exit');
   }
 }
 

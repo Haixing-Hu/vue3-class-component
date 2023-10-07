@@ -30,6 +30,10 @@ describe('@Prop decorator', () => {
     expect(val1.text()).toBe('123');
     const val2 = wrapper.get('#value2');
     expect(val2.text()).toBe('0');
+    const val3 = wrapper.get('#value3');
+    expect(val3.text()).toBe('0');
+    const val4 = wrapper.get('#value4');
+    expect(val4.text()).toBe('0');
     const computed = wrapper.get('#computed');
     expect(computed.text()).toBe('123');
     const personName = wrapper.get('#person-name');
@@ -59,6 +63,12 @@ describe('@Prop decorator', () => {
     btn4.trigger('click');
     await nextTick();
     expect(username.text()).toBe('guest');
+
+    const btn5 = wrapper.get('#button5');
+    btn5.trigger('click');
+    await nextTick();
+    expect(val3.text()).toBe('51');
+    expect(val4.text()).toBe('50');
   });
 
   test('invalid number of arguments', () => {
