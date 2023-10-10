@@ -1,22 +1,23 @@
 # vue3-class-component
 
+[![npm package](https://img.shields.io/npm/v/@haixing_hu/vue3-class-component.svg)](https://npmjs.com/package/@haixing_hu/vue3-class-component)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![English Document](https://img.shields.io/badge/Document-English-blue.svg)](README.md)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/vue3-class-component/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/vue3-class-component?branch=master)
 
-
 这个库允许您使用类式语法创建您的 [Vue] 组件。它从 [vue-class-component] 得到了很多灵感，但有一些显著的区别：
 
 - 它支持 [Vue] v3.x.x（当前版本为 v3.3.4）。
-- 它使用纯 JavaScript 而非 TypeScript，这与 [vue-facing-decorator] 不同。
+- 与 [vue-facing-decorator] 不同，它使用纯 JavaScript 而非 TypeScript 编写，不再需要配置使用 TypeScript。
 - 它采用了最新的（截止到2023年5月） [JavaScript 装饰器第3阶段提案] 和
   [JavaScript 装饰器元数据第3阶段提案]。
 - 它提供了用于类式 Vue 组件的常用装饰器，如 @Prop、@Watch、@Provide 和 @Inject（更多详情
   请参阅[预定义装饰器](#predefined-decorators)部分）。简而言之，它结合了 [vue-class-component] 和
   [vue-property-decorator] 的功能。
-- 它经过了详细的单元测试，代码覆盖率达到了100%。
-- 代码已经全面重写，装饰器功能经过重新设计，更加合理。
+- 同时提供 UMD 和 ESM 打包格式，支持[webpack]和[vite]。更多详细信息，请参阅[配置](#configuration)部分。
+- 经过详细单元测试，代码覆盖率达到了100%。
+- 代码全面重写，装饰器功能经过重新设计，更加合理。
 
 ## 目录
 
@@ -48,26 +49,101 @@ npm install @haixing_hu/vue3-class-component
 使用 [@babel/plugin-transform-class-properties] 和
 [@babel/plugin-proposal-decorators] 插件。
 
-一个可能的 [Babel] 配置文件 `babel.config.json` 如下：
-```json
-{
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-runtime",
-    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
-    "@babel/plugin-transform-class-properties"
-  ]
-}
-```
-
-**重要说明:** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
+**注意：** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
 插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
 
-要了解如何创建一个新的Vue.js项目并使用[vue3-class-component]，请查看以下内容：
+### <span id="webpack">使用 [webpack] 打包</span>
 
+1.  安装需要的依赖：
+    ```bash 
+    yarn add @haixing_hu/vue3-class-component
+    yarn add --dev @babel/core @babel/runtime @babel/preset-env 
+    yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
+    ```
+2.  配置 [Babel]，使用 [@babel/plugin-transform-class-properties] 和
+    [@babel/plugin-proposal-decorators] 插件。一个可能的 [Babel] 配置文件 `babelrc.json` 如下：
+    ```json
+    {
+      "presets": [
+        "@babel/preset-env"
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        "@babel/plugin-transform-class-properties"
+      ]
+    }
+    ```
+
+详细配置过程可以参考：
 - 使用 [vue-cli] 和 [webpack] 创建的演示项目：[vue3-class-component-demo-webpack]
+
+### <span id="vite">使用 [vite] 打包</span>
+
+1.  安装需要的依赖：
+    ```bash 
+    yarn add @haixing_hu/vue3-class-component
+    yarn add --dev @babel/core @babel/runtime @babel/preset-env 
+    yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
+    ```
+2.  配置 [Babel]，使用 [@babel/plugin-transform-class-properties] 和
+    [@babel/plugin-proposal-decorators] 插件。一个可能的 [Babel] 配置文件 `babelrc.json` 如下：
+    ```json
+    {
+      "presets": [
+        ["@babel/preset-env", { "modules": false }]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        "@babel/plugin-transform-class-properties"
+      ]
+    }
+    ```
+    **注意：** 使用 [vite] 打包需要将 `@babel/preset-env` 的参数 `modules` 设置为 `false`。
+3.  配置 [vite]，修改 `vite.config.js` 文件，使其支持 [Babel]。一个可能的 `vite.config.js` 文件如下：
+    ```javascript
+    import { fileURLToPath, URL } from 'node:url';
+    import { defineConfig } from 'vite';
+    import vue from '@vitejs/plugin-vue';
+    import * as babel from '@babel/core';
+    
+    // A very simple Vite plugin support babel transpilation
+    const babelPlugin = {
+      name: 'plugin-babel',
+      transform: (src, id) => {
+        if (/\.(jsx?|vue)$/.test(id)) {               // the pattern of the file to handle
+          return babel.transform(src, {
+            filename: id,
+            babelrc: true,
+          });
+        }
+      },
+    };
+    // https://vitejs.dev/config/
+    export default defineConfig({
+      plugins: [
+        vue({
+          script: {
+            babelParserPlugins: ['decorators'],     // must enable decorators support
+          },
+        }),
+        babelPlugin,                                // must after the vue plugin
+      ],
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+        },
+      },
+    });
+    ```
+    **注意：** 在上面配置文件中我们实现了一个简单的 [Vite] 插件用于将 [vite-plugin-vue] 
+    插件处理过的代码通过 [babel] 转译。虽然有个 [vite-plugin-babel] 插件声称可以让 [vite]
+    支持 [babel]，但我们发现它无法正确处理 [vue] 的 SFC 格式 (`*.vue`格式文件）。仔细研究
+    它的源码后，我们发现要实现正确的转译，必须在 [vite-plugin-vue] 插件处理过源码之后再使用 
+    [babel] 进行转译，因此只需上面非常简单的插件函数即可实现我们需要的功能。
+
+详细配置过程可以参考：
 - 使用 [create-vue] 和 [vite] 创建的演示项目：[vue3-class-component-demo-vite]
 
 ## <span id="usage-example">使用示例</span>
@@ -655,3 +731,5 @@ export default toVue(MyComponent);
 [vue3-class-component]: https://github.com/Haixing-Hu/vue3-class-component
 [vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
 [vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite
+[vite-plugin-vue]: https://www.npmjs.com/package/@vitejs/plugin-vue
+[vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
