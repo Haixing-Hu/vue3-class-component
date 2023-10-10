@@ -16,20 +16,10 @@ const { merge } = require('webpack-merge');
  */
 const commonConfig = {
   entry: resolve(__dirname, 'index.js'),
-  output: {
-    filename: 'vue3-class-component.js',
-    library: {
-      name: 'vue3ClassComponent',
-      type: 'umd',
-    },
-    globalObject: 'this',
-  },
   devtool: 'source-map',
-  mode: 'development',
   stats: 'summary',
-  target: ['web', 'es5'],
   externals: {
-    'vue': 'Vue',
+    'vue': 'vue',
   },
   module: {
     rules: [{
@@ -49,19 +39,96 @@ const commonConfig = {
 };
 
 /**
- * Configuration for production environment.
+ * Configuration for UMD output format in the development environment.
  */
-const productionConfig = {
+const umdDevelopmentConfig = {
+  mode: 'development',
+  target: ['web', 'es5'],
   output: {
-    filename: 'vue3-class-component.min.js',
+    filename: 'vue3-class-component.umd.js',
+    library: {
+      name: 'Vue3ClassComponent',
+      type: 'umd',
+    },
+    globalObject: 'this',
   },
-  devtool: 'source-map',
+};
+
+/**
+ * Configuration for UMD output format in the production environment.
+ */
+const umdProductionConfig = {
   mode: 'production',
+  target: ['web', 'es5'],
+  output: {
+    filename: 'vue3-class-component.umd.min.js',
+    library: {
+      name: 'Vue3ClassComponent',
+      type: 'umd',
+    },
+    globalObject: 'this',
+  },
   optimization: {
     minimize: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
+          compress: {
+            drop_debugger: true,
+            drop_console: false,
+          },
+        },
+      }),
+    ],
+  },
+};
+
+/**
+ * Configuration for ESM output format in the development environment.
+ */
+const esmDevelopmentConfig = {
+  mode: 'development',
+  target: ['web', 'es6'],
+  experiments: {
+    outputModule: true,
+  },
+  output: {
+    filename: 'vue3-class-component.esm.js',
+    library: {
+      // name: 'Vue3ClassComponent',
+      type: 'module',
+    },
+    globalObject: 'this',
+		chunkFormat: 'module',
+		module: true,
+  },
+};
+
+/**
+ * Configuration for ESM output format in the production environment.
+ */
+const esmProductionConfig = {
+  mode: 'production',
+  target: ['web', 'es6'],
+  experiments: {
+    outputModule: true,
+  },
+  output: {
+    filename: 'vue3-class-component.esm.min.js',
+    library: {
+      // name: 'Vue3ClassComponent',
+      type: 'module',
+    },
+    globalObject: 'this',
+		chunkFormat: 'module',
+		module: true,
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          module: true,
           compress: {
             drop_debugger: true,
             drop_console: false,
@@ -82,10 +149,28 @@ const analyzerConfig = {
 };
 
 let config = commonConfig;
-if (process.env.NODE_ENV === 'production') {
-  config = merge(config, productionConfig);
+switch (process.env.LIBRARY_TYPE) {
+  case 'umd':
+    if (process.env.NODE_ENV === 'production') {
+      config = merge(config, umdProductionConfig);
+    } else {
+      config = merge(config, umdDevelopmentConfig);
+    }
+    if (process.env.USE_ANALYZER) {
+      config = merge(config, analyzerConfig);
+    }
+    break;
+  case 'esm':
+    if (process.env.NODE_ENV === 'production') {
+      config = merge(config, esmProductionConfig);
+    } else {
+      config = merge(config, esmDevelopmentConfig);
+    }
+    break;
+  default:
+    throw new Error('Unsupported library type: ' + process.env.LIBRARY_TYPE);
 }
-if (process.env.USE_ANALYZER) {
-  config = merge(config, analyzerConfig);
-}
+
+console.log(`Building vue3-class-component in "${process.env.NODE_ENV}" mode as "${process.env.LIBRARY_TYPE}" library...`);
+
 module.exports = config;

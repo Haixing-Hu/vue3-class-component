@@ -1,11 +1,22 @@
 {
   "name": "@haixing_hu/vue3-class-component",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "A JavaScript class decorator for Vue3 components",
-  "main": "dist/vue3-class-component.min.js",
+  "main": "dist/vue3-class-component.umd.min.js",
+  "module": "dist/vue3-class-component.esm.min.js",
+  "exports": {
+    ".": {
+      "require": "./dist/vue3-class-component.umd.min.js",
+      "import": "./dist/vue3-class-component.esm.min.js"
+    }
+  },
   "scripts": {
-    "build": "cross-env NODE_ENV=production gulp build",
-    "build:dev": "cross-env NODE_ENV=development gulp build",
+    "build:umd": "cross-env NODE_ENV=production LIBRARY_TYPE=umd gulp build",
+    "build:umd:dev": "cross-env NODE_ENV=development LIBRARY_TYPE=umd gulp build",
+    "build:esm": "cross-env NODE_ENV=production LIBRARY_TYPE=esm gulp build",
+    "build:esm:dev": "cross-env NODE_ENV=development LIBRARY_TYPE=esm gulp build",
+    "build": "yarn run build:umd && yarn run build:esm",
+    "build:dev": "yarn run build:umd:dev && yarn run build:esm:dev",
     "test": "gulp test",
     "lint": "gulp lint",
     "doc": "gulp doc",
@@ -13,7 +24,7 @@
     "analyze": "cross-env USE_ANALYZER=true NODE_ENV=production gulp build",
     "analyze:dev": "cross-env USE_ANALYZER=true NODE_ENV=development gulp build",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "yarn & gulp build && npm publish --registry='https://registry.npmjs.com/' --access public"
+    "deploy": "yarn && yarn test && yarn build:dev && yarn build && npm publish --registry='https://registry.npmjs.com/' --access public"
   },
   "author": "Haixing Hu",
   "license": "Apache License 2.0",
