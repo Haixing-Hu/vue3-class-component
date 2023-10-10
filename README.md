@@ -10,7 +10,7 @@ This library allows you to create your [Vue] components using the class-style sy
 It draws heavy inspiration from [vue-class-component], with a few notable differences:
 
 - It supports [Vue] v3.x.x (currently v3.3.4).
-- Unlike [vue-facing-decorator], it's written in pure JavaScript rather than TypeScript, 
+- Unlike [vue-facing-decorator], it's written in pure JavaScript rather than TypeScript,
   eliminating the need for TypeScript configuration.
 - It adopts the most recent (as of May 2023) [stage 3 proposal of JavaScript decorators]
   and [stage 3 proposal of JavaScript decorator metadata].
@@ -60,8 +60,13 @@ at least `7.23.0`.
 ### <span id="webpack">Bundling with [webpack]</span>
 
 1.  Install the required dependencies:
+    ```shell
+    yarn add @haixing_hu/vue3-class-component
+    yarn add --dev @babel/core @babel/runtime @babel/preset-env
+    yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
+    ```
 2.  Configure [Babel] by using the [@babel/plugin-transform-class-properties]
-    and [@babel/plugin-proposal-decorators] plugins. A possible [Babel] 
+    and [@babel/plugin-proposal-decorators] plugins. A possible [Babel]
     configuration file `babelrc.json` is as follows:
     ```json
     {
@@ -86,9 +91,9 @@ For detailed configuration instructions, you can refer to:
     yarn add @haixing_hu/vue3-class-component
     yarn add --dev @babel/core @babel/runtime @babel/preset-env
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
-    ``` 
+    ```
 2.  Configure [Babel] by using [@babel/plugin-transform-class-properties] and
-    [@babel/plugin-proposal-decorators] plugins. A possible [Babel] configuration 
+    [@babel/plugin-proposal-decorators] plugins. A possible [Babel] configuration
     file `babelrc.json` is as follows:
     ```json
     {
@@ -102,16 +107,16 @@ For detailed configuration instructions, you can refer to:
       ]
     }
     ```
-    **Note:** When bundling with [vite], make sure to set the `modules` parameter 
+    **Note:** When bundling with [vite], make sure to set the `modules` parameter
     of `@babel/preset-env` to `false`.
-3.  Configure [vite] by modifying the `vite.config.js` file to add support for 
-    [Babel]. A possible `vite.config.js` file is as follows: 
+3.  Configure [vite] by modifying the `vite.config.js` file to add support for
+    [Babel]. A possible `vite.config.js` file is as follows:
     ```js
     import { fileURLToPath, URL } from 'node:url';
     import { defineConfig } from 'vite';
     import vue from '@vitejs/plugin-vue';
     import * as babel from '@babel/core';
-    
+
     // A very simple Vite plugin support babel transpilation
     const babelPlugin = {
       name: 'plugin-babel',
@@ -141,13 +146,13 @@ For detailed configuration instructions, you can refer to:
       },
     });
     ```
-    **Note:** In the above configuration file, we've implemented a simple [Vite] 
-    plugin to transpile the code processed by the [vite-plugin-vue] plugin using 
-    [Babel]. Although there's a [vite-plugin-babel] plugin that claims to add 
-    [Babel] support to [vite], we found it doesn't correctly handle [vue] Single 
-    File Components (SFCs). After closely examining its source code, we 
-    determined that to achieve correct transpilation, we need to apply [Babel] 
-     after [vite-plugin-vue] processes the source code. Therefore, the very 
+    **Note:** In the above configuration file, we've implemented a simple [Vite]
+    plugin to transpile the code processed by the [vite-plugin-vue] plugin using
+    [Babel]. Although there's a [vite-plugin-babel] plugin that claims to add
+    [Babel] support to [vite], we found it doesn't correctly handle [vue] Single
+    File Components (SFCs). After closely examining its source code, we
+    determined that to achieve correct transpilation, we need to apply [Babel]
+     after [vite-plugin-vue] processes the source code. Therefore, the very
     simple plugin function above suffices for our needs.
 
 For detailed configuration instructions, you can refer to:
