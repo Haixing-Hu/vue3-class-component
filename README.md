@@ -35,6 +35,8 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
   - [@Provide](#Provide)
   - [@Inject](#Inject)
 - [Customize Decorators](#customize-decorators)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## <span id="installation">Installation</span>
 
@@ -148,7 +150,8 @@ For detailed configuration instructions, you can refer to:
     File Components (SFCs). After closely examining its source code, we 
     determined that to achieve correct transpilation, we need to apply [Babel] 
      after [vite-plugin-vue] processes the source code. Therefore, the very 
-    simple plugin function above suffices for our needs.
+    simple plugin function above suffices for our needs. As an alternative,
+    you can use [our version of vite-plugin-babel]. 
 
 For detailed configuration instructions, you can refer to:
 - A sample project created with [create-vue] and [vite]: [vue3-class-component-demo-vite]
@@ -772,6 +775,16 @@ export default toVue(MyComponent);
 **NOTE:** The `@Log` decorator mentioned above cannot be applied to the getter
 or setter of the component class.
 
+## <span id="contributing">Contributing</span>
+
+If you find any issues or have suggestions for improvements, please feel free
+to open an issue or submit a pull request to the [GitHub repository].
+
+## <span id="license">License</span>
+
+This plugin is distributed under the Apache 2.0 license. See the [LICENSE](LICENSE) file for more details.
+
+
 [Vue]: https://vuejs.org/
 [vue-cli]: https://cli.vuejs.org/
 [webpack]: https://webpack.js.org/
@@ -794,8 +807,10 @@ or setter of the component class.
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
 [working with symbol keys]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [working with reactivity]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
-[vue3-class-component]: https://github.com/Haixing-Hu/vue3-class-component
+[vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component
 [vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
 [vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite
 [vite-plugin-vue]: https://www.npmjs.com/package/@vitejs/plugin-vue
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
+[our version of vite-plugin-babel]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
+[GitHub repository]: https://github.com/Haixing-Hu/vue3-class-component

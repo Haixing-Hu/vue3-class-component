@@ -31,6 +31,8 @@
     - [@Provide 装饰器](#Provide)
     - [@Inject 装饰器](#Inject)
 - [自定义装饰器](#customize-decorators)
+- [贡献](#contributing)
+- [许可](#license)
 
 ## <span id="installation">安装方式</span>
 
@@ -141,7 +143,8 @@ npm install @haixing_hu/vue3-class-component
     插件处理过的代码通过 [babel] 转译。虽然有个 [vite-plugin-babel] 插件声称可以让 [vite]
     支持 [babel]，但我们发现它无法正确处理 [vue] 的 SFC 格式 (`*.vue`格式文件）。仔细研究
     它的源码后，我们发现要实现正确的转译，必须在 [vite-plugin-vue] 插件处理过源码之后再使用 
-    [babel] 进行转译，因此只需上面非常简单的插件函数即可实现我们需要的功能。
+    [babel] 进行转译，因此只需上面非常简单的插件函数即可实现我们需要的功能。作为一个替代选择，
+    你可以使用 [我们的 vite-plugin-babel 插件]。
 
 详细配置过程可以参考：
 - 使用 [create-vue] 和 [vite] 创建的演示项目：[vue3-class-component-demo-vite]
@@ -706,6 +709,14 @@ export default toVue(MyComponent);
 
 **注意：** 上述的 @Log 装饰器不能应用于组件类的 getter 或 setter。
 
+## <span id="contributing">贡献</span>
+
+如果你发现任何问题或有改进建议，欢迎提交 issue 或者 PR 到本项目的 [GitHub 仓库]。
+
+## <span id="license">许可</span>
+
+此插件采用 Apache 2.0 许可证。详细信息请查阅 [LICENSE](LICENSE) 文件。
+
 [Vue]: https://vuejs.org/
 [vue-cli]: https://cli.vuejs.org/
 [webpack]: https://webpack.js.org/
@@ -728,8 +739,10 @@ export default toVue(MyComponent);
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
 [使用符号键]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [使用响应式]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
-[vue3-class-component]: https://github.com/Haixing-Hu/vue3-class-component
+[vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component
 [vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
 [vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite
 [vite-plugin-vue]: https://www.npmjs.com/package/@vitejs/plugin-vue
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
+[我们的 vite-plugin-babel 插件]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
+[GitHub 仓库]: https://github.com/Haixing-Hu/vue3-class-component
