@@ -649,12 +649,15 @@ export default {
 数，并返回一个装饰器函数。回调函数将使用以下参数进行调用：
 
 - `Class`：被装饰类的构造函数。
-- `defaultInstance`：被装饰类的默认构造实例。此默认实例可用于获取被装饰类的所有实例字段。
+- `instance`：被装饰类的默认构造实例。此默认实例可用于获取被装饰类的所有实例字段。
 - `target`：被装饰的目标值，可以是类方法、getter 或 setter。请注意，如果被装饰的目标是类字
   段，此参数将始终为 `undefined`。
 - `context`：包含有关被装饰目标的信息的上下文对象，如 [JavaScript 装饰器第3阶段提案] 和
   [JavaScript 装饰器元数据第3阶段提案] 中所述。
-- `options`：Vue 组件选项对象。对此对象的更改将影响提供的组件。
+- `options`：Vue 组件选项对象。对此对象的更改将影响提供的组件。该对象包含了 Vue 组件选项对象应具备的所有属性，
+  还额外包含一个名为 `fields` 的属性，它是一个包含了 Vue 组件的所有响应式状态的对象; 也就是说，
+  它是 Vue 组件的 `data()` 函数返回的对象。修改 `options` 的 `fields` 属性允许您更改 Vue
+  组件的 `data()` 函数返回的响应式状态。
 
 此库将调用回调函数，以便给它一个机会来修改 Vue 组件选项。回调函数的返回值将被忽略。
 
@@ -667,7 +670,7 @@ export default {
 
 以下是一个示例用法：
 ```js
-const Log = createDecorator((Class, defaultInstance, target, context, options) => {
+const Log = createDecorator((Class, instance, target, context, options) => {
   if (context?.kind !== 'method') {
     throw new Error('The @Log decorator can only be used to decorate a class method.');
   }

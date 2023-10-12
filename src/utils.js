@@ -89,7 +89,6 @@ function collectMethod(obj, key, options) {
  */
 function collectData(defaultInstance, options) {
   const entries = Object.entries(defaultInstance);
-  options.fields = {};
   entries.forEach(([key, value]) => {
     if (typeof value === 'function') {
       collectMethod(defaultInstance, key, options);

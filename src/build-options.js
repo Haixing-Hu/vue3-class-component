@@ -49,6 +49,8 @@ function buildOptions(Class, context, options) {
   options.mixins ??= [];
   // initialize the options.computed
   options.computed ??= {};
+  // initialize the options.fields
+  options.fields ??= {};
   // collect the class methods defined in the Class
   const proto = Class.prototype;
   const keys = Object.getOwnPropertyNames(proto);

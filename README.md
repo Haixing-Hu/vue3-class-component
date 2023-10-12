@@ -708,7 +708,7 @@ decorator function. The callback function will be invoked with the following
 parameters:
 
 - `Class`: The constructor of the decorated class.
-- `defaultInstance`: The default constructed instance of the decorated class.
+- `instance`: The default constructed instance of the decorated class.
   This default instance can be used to access all the class instance fields of
   the decorated class.
 - `target`: The target value being decorated, which could be a class method, a
@@ -718,7 +718,13 @@ parameters:
   decorated, as described in [stage 3 proposal of JavaScript decorators] and
   [stage 3 proposal of JavaScript decorator metadata].
 - `options`: The Vue component options object. Changes to this object will
-  affect the provided component.
+  impact the provided component. This object encompasses all the properties
+  that a Vue component options object should possess, and it includes an
+  additional property, `fields`, which is an object containing all the
+  reactive states of the Vue component. In other words, it's the object
+  returned by the `data()` function of the Vue component. Modifying the
+  `fields` property of `options` allows you to alter the reactive states
+  returned by the Vue component's `data()` function.
 
 The callback function is called by the library to allow it to modify the Vue
 component options. The return value of the callback function will be ignored.
@@ -735,7 +741,7 @@ following two arguments:
 
 Here is an example of how to use it:
 ```js
-const Log = createDecorator((Class, defaultInstance, target, context, options) => {
+const Log = createDecorator((Class, instance, target, context, options) => {
   if (context?.kind !== 'method') {
     throw new Error('The @Log decorator can only be used to decorate a class method.');
   }

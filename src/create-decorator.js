@@ -69,8 +69,14 @@ import { DECORATORS_KEY } from './metadata-keys';
  *    - `context`: The context object containing information about the target
  *       being decorated, as described in "stage 3 proposal of JavaScript decorators"
  *       and "stage 3 proposal of JavaScript decorator metadata".
- *    - `options`: The Vue component options object. Changes for this object
- *       will affect the provided component.
+ *    - `options`: The Vue component options object. Changes to this object will
+ *      impact the provided component. This object encompasses all the properties
+ *      that a Vue component options object should possess, and it includes an
+ *      additional property, `fields`, which is an object containing all the
+ *      reactive states of the Vue component. In other words, it's the object
+ *      returned by the `data()` function of the Vue component. Modifying the
+ *      `fields` property of `options` allows you to alter the reactive states
+ *      returned by the Vue component's `data()` function.
  * @return {Function}
  *    The customized decorator function, which takes two arguments:
  *    - `target`: The target value being decorated, which could be class method,
@@ -89,7 +95,7 @@ function createDecorator(factory) {
     const metadata = context.metadata;
     metadata[DECORATORS_KEY] ??= [];
     metadata[DECORATORS_KEY].push(
-        (Class, defaultInstance, options) => factory(Class, defaultInstance, target, context, options)
+      (Class, instance, options) => factory(Class, instance, target, context, options)
     );
   };
 }
