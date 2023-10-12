@@ -24,7 +24,7 @@ describe('createDecorator() function', () => {
       }
       const methodName = context.name;
       const originalMethod = options.methods[methodName];
-      options.methods[methodName] = function (...args) {
+      options.methods[methodName] = (...args) => {
         messages.push(`Calling ${Class.name}.${methodName}() with arguments: ${args.join(', ')}`);
         console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
         return originalMethod.apply(this, args);
@@ -34,10 +34,11 @@ describe('createDecorator() function', () => {
       template: '<div>'
           + '<div id="value">{{ value }}</div>'
           + '<div><button id="button" @click="addToValue(1)">Click</button></div>'
-          + '</div>'
+          + '</div>',
     })
     class MyComponent {
       value = 123;
+
       @Log
       addToValue(val) {
         this.value += val;
@@ -54,7 +55,7 @@ describe('createDecorator() function', () => {
     await nextTick();
     expect(value.text()).toBe('124');
     expect(messages).toEqual([
-        'Calling MyComponent.addToValue() with arguments: 1',
+      'Calling MyComponent.addToValue() with arguments: 1',
     ]);
     button.trigger('click');
     await nextTick();

@@ -10,7 +10,7 @@ import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import ProvideComponent from '../data/ProvideComponent.vue';
 import InjectComponent from '../data/InjectComponent.vue';
-import { Component, Prop, Provide, Inject } from '../../index';
+import { Component, Provide, Inject } from '../../index';
 
 /**
  * Unit tests the `@Provide`, `@Inject` decorators.
@@ -92,9 +92,10 @@ describe('@Provide, @Inject decorator', () => {
         @Provide({}, 'arg1', 'arg2')
         value1 = 123;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'Invalid use of the `@Provide` decorator.',
+      Error,
+      'Invalid use of the `@Provide` decorator.',
     );
   });
 
@@ -105,9 +106,10 @@ describe('@Provide, @Inject decorator', () => {
         @Provide
         hello() {}
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The @Provide decorator can only be used to decorate a class field.',
+      Error,
+      'The @Provide decorator can only be used to decorate a class field.',
     );
   });
 
@@ -118,9 +120,10 @@ describe('@Provide, @Inject decorator', () => {
         @Inject({}, 'arg1', 'arg2')
         value1 = 123;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'Invalid use of the `@Inject` decorator.',
+      Error,
+      'Invalid use of the `@Inject` decorator.',
     );
   });
 
@@ -131,9 +134,10 @@ describe('@Provide, @Inject decorator', () => {
         @Inject
         hello() {}
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The @Inject decorator can only be used to decorate a class field.',
+      Error,
+      'The @Inject decorator can only be used to decorate a class field.',
     );
   });
 });

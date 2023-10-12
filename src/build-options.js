@@ -12,7 +12,7 @@ import {
   collectMethod,
   collectData,
   collectDecorators,
-} from "./utils";
+} from './utils';
 
 /**
  * Builds a Vue component from a class.

@@ -18,22 +18,26 @@ describe('toVue function', () => {
     @Component
     class Foo {
       x = 1;
+
       y;
+
       constructor() {
         this.z = 3;
       }
+
       test() {}
 
       hello = () => { console.log('hello'); };
 
       get a() { return 1; }
+
       set a(value) { console.log('a = ', value); }
 
       mounted() {
         console.log('Foo.mounted');
       }
     }
-    const options = toVue(Foo)
+    const options = toVue(Foo);
     expect(options.name).toBe('Foo');
     expect(options.mounted).toBe(Foo.prototype.mounted);
     expect(options.methods.test).toBe(Foo.prototype.test);
@@ -42,8 +46,8 @@ describe('toVue function', () => {
     const mixin = {
       data() {
         return { x: 1, z: 3 };
-      }
-    }
+      },
+    };
     expect(String(options.mixins[0])).toBe(String(mixin));
     const a_descriptor = Object.getOwnPropertyDescriptor(Foo.prototype, 'a');
     expect(options.computed.a.get).toBe(a_descriptor.get);
@@ -55,19 +59,23 @@ describe('toVue function', () => {
       name: 'Too',
       components: {
         MyComponent,
-      }
+      },
     })
     class Goo {
       x = 1;
+
       y;
+
       constructor() {
         this.z = 3;
       }
+
       test() {}
 
       hello = () => { console.log('hello'); };
 
       get a() { return 1; }
+
       set a(value) { console.log('a = ', value); }
 
       mounted() {
@@ -84,8 +92,8 @@ describe('toVue function', () => {
     const mixin = {
       data() {
         return { x: 1, z: 3 };
-      }
-    }
+      },
+    };
     expect(String(options.mixins[0])).toBe(String(mixin));
     const a_descriptor = Object.getOwnPropertyDescriptor(Goo.prototype, 'a');
     expect(options.computed.a.get).toBe(a_descriptor.get);

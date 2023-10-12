@@ -10,7 +10,7 @@ import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import PropComponent from '../data/PropComponent.vue';
 import UsePropComponent from '../data/UsePropComponent.vue';
-import {Component, Prop, Watch} from '../../index';
+import { Component, Prop } from '../../index';
 
 /**
  * Unit tests the `@Prop` decorator.
@@ -78,9 +78,10 @@ describe('@Prop decorator', () => {
         @Prop({}, 'arg1', 'arg2')
         value1 = 123;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'Invalid use of the `@Prop` decorator.',
+      Error,
+      'Invalid use of the `@Prop` decorator.',
     );
   });
 
@@ -91,9 +92,10 @@ describe('@Prop decorator', () => {
         @Prop
         hello() {}
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The @Prop decorator can only be used to decorate a class field.',
+      Error,
+      'The @Prop decorator can only be used to decorate a class field.',
     );
   });
 
@@ -101,12 +103,13 @@ describe('@Prop decorator', () => {
     expect(() => {
       @Component
       class F1 {
-        @Prop({default: 0})
+        @Prop({ default: 0 })
         value = 123;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The default value of the field "value" is different from the default '
+      Error,
+      'The default value of the field "value" is different from the default '
         + 'value specified in arguments of the @Prop decorator.',
     );
   });
@@ -115,12 +118,13 @@ describe('@Prop decorator', () => {
     expect(() => {
       @Component
       class F1 {
-        @Prop({type: String, default: 0})
+        @Prop({ type: String, default: 0 })
         value;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The type of the field "value" is Number, which is different from the type '
+      Error,
+      'The type of the field "value" is Number, which is different from the type '
         + 'String specified in arguments of the @Prop decorator.',
     );
   });
@@ -129,12 +133,13 @@ describe('@Prop decorator', () => {
     expect(() => {
       @Component
       class F1 {
-        @Prop({type: Number, required: false})
+        @Prop({ type: Number, required: false })
         value;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The field "value" is not required, but it has no default value.',
+      Error,
+      'The field "value" is not required, but it has no default value.',
     );
   });
 
@@ -145,9 +150,10 @@ describe('@Prop decorator', () => {
         @Prop
         value;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The type of the field "value" is not specified.',
+      Error,
+      'The type of the field "value" is not specified.',
     );
   });
 
@@ -155,12 +161,13 @@ describe('@Prop decorator', () => {
     expect(() => {
       @Component
       class F1 {
-        @Prop({type:'number'})
+        @Prop({ type: 'number' })
         value;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The type of the field "value" must be a constructor function.',
+      Error,
+      'The type of the field "value" must be a constructor function.',
     );
   });
 
@@ -168,12 +175,13 @@ describe('@Prop decorator', () => {
     expect(() => {
       @Component
       class F1 {
-        @Prop({type: Number, validator: 'null'})
+        @Prop({ type: Number, validator: 'null' })
         value;
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The validator of the field "value" must be a function.',
+      Error,
+      'The validator of the field "value" must be a function.',
     );
   });
 });

@@ -19,4 +19,4 @@ export {
   FIELDS_KEY,
   DECORATORS_KEY,
   OPTIONS_KEY,
-}
+};

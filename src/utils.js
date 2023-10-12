@@ -10,10 +10,10 @@ import {
   VUE_KEYWORDS,
   VUE_LIFECYCLE_HOOKS,
   VUE_SPECIAL_FUNCTIONS,
-} from "./vue-options-api";
+} from './vue-options-api';
 import {
   DECORATORS_KEY,
-} from "./metadata-keys";
+} from './metadata-keys';
 
 /**
  * Checks the validity of the options of the `@Component` decorator.
@@ -100,7 +100,7 @@ function collectData(defaultInstance, options) {
   options.mixins.push({
     data() {
       return options.fields;
-    }
+    },
   });
 }
 

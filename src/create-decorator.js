@@ -95,7 +95,7 @@ function createDecorator(factory) {
     const metadata = context.metadata;
     metadata[DECORATORS_KEY] ??= [];
     metadata[DECORATORS_KEY].push(
-      (Class, instance, options) => factory(Class, instance, target, context, options)
+      (Class, instance, options) => factory(Class, instance, target, context, options),
     );
   };
 }

@@ -42,7 +42,7 @@ function ProvideFactory(args, Class, defaultInstance, target, context, options) 
         return {
           [key]: computed(() => this[context.name]),
         };
-      }
+      },
     });
   } else {
     options.mixins.push({
@@ -50,7 +50,7 @@ function ProvideFactory(args, Class, defaultInstance, target, context, options) 
         return {
           [key]: this[context.name],
         };
-      }
+      },
     });
   }
 }

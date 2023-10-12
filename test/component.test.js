@@ -19,15 +19,19 @@ describe('@Component decorator', () => {
     @Component
     class Foo {
       x = 1;
+
       y;
+
       constructor() {
         this.z = 3;
       }
+
       test() {}
 
       hello = () => { console.log('hello'); };
 
       get a() { return 1; }
+
       set a(value) { console.log('a = ', value); }
 
       mounted() {
@@ -47,8 +51,8 @@ describe('@Component decorator', () => {
     const mixin = {
       data() {
         return { x: 1, z: 3 };
-      }
-    }
+      },
+    };
     expect(String(options.mixins[0])).toBe(String(mixin));
     const a_descriptor = Object.getOwnPropertyDescriptor(Foo.prototype, 'a');
     expect(options.computed.a.get).toBe(a_descriptor.get);
@@ -59,19 +63,23 @@ describe('@Component decorator', () => {
     @Component({
       components: {
         MyComponent,
-      }
+      },
     })
     class Goo {
       x = 1;
+
       y;
+
       constructor() {
         this.z = 3;
       }
+
       test() {}
 
       hello = () => { console.log('hello'); };
 
       get a() { return 1; }
+
       set a(value) { console.log('a = ', value); }
 
       mounted() {
@@ -92,8 +100,8 @@ describe('@Component decorator', () => {
     const mixin = {
       data() {
         return { x: 1, z: 3 };
-      }
-    }
+      },
+    };
     expect(String(options.mixins[0])).toBe(String(mixin));
     const a_descriptor = Object.getOwnPropertyDescriptor(Goo.prototype, 'a');
     expect(options.computed.a.get).toBe(a_descriptor.get);
@@ -101,15 +109,17 @@ describe('@Component decorator', () => {
   });
   test('@Component with invalid options', () => {
     expect(() => {
-      @Component({name: 'F1'}, {id: 2})
+      @Component({ name: 'F1' }, { id: 2 })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       TypeError,
       'The `@Component` can only decorate a class.',
     );
     expect(() => {
-      @Component({name: 'F1'}, {id: 2}, {x: 3})
+      @Component({ name: 'F1' }, { id: 2 }, { x: 3 })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       TypeError,
       'Invalid use of the `@Component` decorator.',
@@ -121,6 +131,7 @@ describe('@Component decorator', () => {
         foo: 'foo',
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "foo" in the argument of @Component is not supported.',
@@ -129,11 +140,10 @@ describe('@Component decorator', () => {
   test('@Component on class with invalid Vue keyword `data`', () => {
     expect(() => {
       @Component({
-        data: () => {
-          return { x: 1 };
-        },
+        data: () => ({ x: 1 }),
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "data" in the argument of @Component should be declared as '
@@ -146,6 +156,7 @@ describe('@Component decorator', () => {
         props: ['x'],
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "props" in the argument of @Component should be declared as '
@@ -162,6 +173,7 @@ describe('@Component decorator', () => {
         },
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "computed" in the argument of @Component should be declared '
@@ -178,6 +190,7 @@ describe('@Component decorator', () => {
         },
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "methods" in the argument of @Component should be declared '
@@ -194,6 +207,7 @@ describe('@Component decorator', () => {
         },
       })
       class F1 {}
+      new F1();
     }).toThrowWithMessage(
       Error,
       'The option "watch" in the argument of @Component should be declared '

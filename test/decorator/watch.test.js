@@ -109,11 +109,13 @@ describe('@Watch decorator', () => {
         @Watch(123)
         onValue1Change(val, oldVal) {
           console.log('val = ', val);
+          console.log('oldVal = ', oldVal);
         }
       }
+      new F1();
     }).toThrowWithMessage(
-        TypeError,
-        'The path argument of `@Watch` decorator must be a string.',
+      TypeError,
+      'The path argument of `@Watch` decorator must be a string.',
     );
   });
 
@@ -126,9 +128,10 @@ describe('@Watch decorator', () => {
         @Watch('value1')
         message = 'hello';
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The @Watch decorator can only be used to decorate a class method.',
+      Error,
+      'The @Watch decorator can only be used to decorate a class method.',
     );
   });
 
@@ -148,9 +151,10 @@ describe('@Watch decorator', () => {
           console.log('val = ', val, ', oldVal = ', oldVal);
         }
       }
+      new F1();
     }).toThrowWithMessage(
-        Error,
-        'The @Watch decorator can only be used once on the path "value".',
+      Error,
+      'The @Watch decorator can only be used once on the path "value".',
     );
   });
 });
