@@ -60,15 +60,15 @@ import { DECORATORS_KEY } from './metadata-keys';
  * @param {Function} factory
  *    A callback function which receives the following arguments:
  *    - `Class`: The constructor of the decorated class.
- *    - `defaultInstance`: The default constructed instance of the decorated class.
+ *    - `instance`: The default constructed instance of the decorated class.
  *      This default instance could be used to gets all class instance fields of
  *      the decorated class.
  *    - `target`: The target value being decorated, which could be a class method,
- *       a getter or a setter. Note that if the decorated target is a class field,
- *       this argument will always be `undefined`.
+ *      a getter or a setter. Note that if the decorated target is a class field,
+ *      this argument will always be `undefined`.
  *    - `context`: The context object containing information about the target
- *       being decorated, as described in "stage 3 proposal of JavaScript decorators"
- *       and "stage 3 proposal of JavaScript decorator metadata".
+ *      being decorated, as described in "stage 3 proposal of JavaScript decorators"
+ *      and "stage 3 proposal of JavaScript decorator metadata".
  *    - `options`: The Vue component options object. Changes to this object will
  *      impact the provided component. This object encompasses all the properties
  *      that a Vue component options object should possess, and it includes an

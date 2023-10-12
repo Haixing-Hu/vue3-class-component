@@ -24,7 +24,8 @@ describe('createDecorator() function', () => {
       }
       const methodName = context.name;
       const originalMethod = options.methods[methodName];
-      options.methods[methodName] = (...args) => {
+      // note that the following function can NOT be an arrow function
+      options.methods[methodName] = function (...args) {
         messages.push(`Calling ${Class.name}.${methodName}() with arguments: ${args.join(', ')}`);
         console.log(`${Class.name}.${methodName}: ${args.join(', ')}`);
         return originalMethod.apply(this, args);
