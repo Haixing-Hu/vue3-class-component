@@ -24,7 +24,7 @@
     "analyze": "cross-env USE_ANALYZER=true NODE_ENV=production gulp build",
     "analyze:dev": "cross-env USE_ANALYZER=true NODE_ENV=development gulp build",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "yarn && yarn test && yarn build:dev && yarn build && npm publish --registry='https://registry.npmjs.com/' --access public"
+    "deploy": "yarn && yarn lint && yarn test && yarn build:dev && yarn build && npm publish --registry='https://registry.npmjs.com/' --access public"
   },
   "author": "Haixing Hu",
   "license": "Apache License 2.0",
