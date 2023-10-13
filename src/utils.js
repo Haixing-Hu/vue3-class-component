@@ -99,7 +99,7 @@ function collectData(defaultInstance, options) {
   // Add data hook to collect class properties as Vue instance's data
   options.mixins.push({
     data() {
-      return options.fields;
+      return { ...options.fields };  // shadow clone the options.fields
     },
   });
 }
