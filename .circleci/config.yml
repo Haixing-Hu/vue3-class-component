@@ -15,6 +15,9 @@ jobs:
           pkg-manager: yarn
           with-cache: true
       - run:
+          name: Lint Source Code
+          command: yarn lint
+      - run:
           name: Test the library
           command: yarn test
       - run:
@@ -27,4 +30,7 @@ jobs:
 workflows:
   test_and_build_workflow:
     jobs:
-      - test_and_build
+      - test_and_build:
+          filters:
+            branches:
+              only: master
