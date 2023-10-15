@@ -8,7 +8,8 @@
  ******************************************************************************/
 
 module.exports = {
-  verbose: false,
+  verbose: true,
+  testMatch: ['**/test/**/*.test.js'],
   testEnvironment: 'jest-environment-jsdom-global',
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
