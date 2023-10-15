@@ -165,7 +165,7 @@ sympy-plots-for-*.tex/
 test-case
 
 # generated API documents
-doc/api
+doc
 
 # code coverage report
 coverage

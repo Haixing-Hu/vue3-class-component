@@ -1851,10 +1851,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/jsdoc-minami@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@haixing_hu/jsdoc-minami@npm:1.4.0"
-  checksum: 0468de6ee2c05d90f274435eca50499c3cd77770469235428cfc7cffa371b18d46090bc60a34f5c7cb6d700c761a3d8030ad9d59ee5f1bfbedfd6da66890ad10
+"@haixing_hu/jsdoc-minami@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@haixing_hu/jsdoc-minami@npm:1.5.0"
+  dependencies:
+    jsdoc: ^4.0.2
+    taffydb: ^2.7.3
+  checksum: 17f8f6f027a43a58c164948eaa841e00425bd64fa9c1d89efc1e4fdb2d32ef548c48e5011e7665b823e1242f2ac78f041f5ec9a0ffb5bfb18f2ac5927c2694bb
   languageName: node
   linkType: hard
 
@@ -1879,7 +1882,7 @@ __metadata:
     "@babel/preset-env": ^7.22.20
     "@babel/runtime": ^7.23.2
     "@haixing_hu/eslint-config": ^1.0.4
-    "@haixing_hu/jsdoc-minami": ^1.4.0
+    "@haixing_hu/jsdoc-minami": ^1.5.0
     "@haixing_hu/vite-plugin-babel": ^1.4.0
     "@jest/core": ^29.7.0
     "@rollup/plugin-babel": ^6.0.4
@@ -11458,6 +11461,13 @@ __metadata:
   version: 2.6.2
   resolution: "taffydb@npm:2.6.2"
   checksum: 8fea9cdff71735a40320c4beeb80cb98837076cb89614bc55ac5d67561f35ebae158cfc07a193a1099b5e32746433b2c086b0cd6d56f29aa7c7678e74968335b
+  languageName: node
+  linkType: hard
+
+"taffydb@npm:^2.7.3":
+  version: 2.7.3
+  resolution: "taffydb@npm:2.7.3"
+  checksum: 40b1c3d463c9479e1b7154018eee5da8725ce46bfbe88be9bce1f84a73459280d79cbef7a597446997bcbf66372251257981e7578b882755dedbd8e203f4e6e0
   languageName: node
   linkType: hard
 
