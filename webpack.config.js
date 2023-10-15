@@ -15,7 +15,7 @@ const { merge } = require('webpack-merge');
  * Common configuration across all environments.
  */
 const commonConfig = {
-  entry: resolve(__dirname, 'index.js'),
+  entry: resolve(__dirname, 'src/index.js'),
   devtool: 'source-map',
   stats: 'summary',
   externals: {
@@ -25,7 +25,6 @@ const commonConfig = {
     rules: [{
       test: /\.js$/,
       include: [
-        resolve(__dirname, 'index.js'),
         resolve(__dirname, 'src'),
       ],
       loader: 'babel-loader',

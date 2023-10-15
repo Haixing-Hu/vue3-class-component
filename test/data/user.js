@@ -9,6 +9,7 @@
 
 class User {
   username = '';
+
   password = '';
 
   constructor(username = '', password = '') {

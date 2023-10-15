@@ -10,7 +10,7 @@ import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import WatchComponent from '../data/WatchComponent.vue';
 import UseWatchComponent from '../data/UseWatchComponent.vue';
-import { Component, Watch } from '../../index';
+import { Component, Watch } from '../../src';
 
 /**
  * Unit tests the `@Watch` decorator.

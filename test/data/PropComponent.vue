@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue, Prop } from '../../index';
+import { Component, toVue, Prop } from '../../src';
 import User from './user';
 
 @Component

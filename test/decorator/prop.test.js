@@ -10,7 +10,7 @@ import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import PropComponent from '../data/PropComponent.vue';
 import UsePropComponent from '../data/UsePropComponent.vue';
-import { Component, Prop } from '../../index';
+import { Component, Prop } from '../../src';
 
 /**
  * Unit tests the `@Prop` decorator.

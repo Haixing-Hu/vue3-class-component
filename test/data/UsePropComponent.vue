@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue } from '../../index';
+import { Component, toVue } from '../../src';
 import PropComponent from './PropComponent.vue';
 import User from './user';
 

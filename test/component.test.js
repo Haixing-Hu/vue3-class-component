@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { Component } from '../index';
+import { Component } from '../src';
 import { OPTIONS_KEY } from '../src/metadata-keys';
 
 /**

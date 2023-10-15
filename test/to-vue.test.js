@@ -6,7 +6,7 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import { Component, toVue } from '../index';
+import { Component, toVue } from '../src';
 
 /**
  * Unit test of the `toVue` function.

@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue, Prop, Watch } from '../../index';
+import { Component, toVue, Prop, Watch } from '../../src';
 
 @Component
 class WatchComponent {

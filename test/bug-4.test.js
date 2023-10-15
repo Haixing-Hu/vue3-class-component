@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 import { mount } from '@vue/test-utils';
-import { Component, toVue } from '../index';
+import { Component, toVue } from '../src';
 
 @Component
 class TestComponent {

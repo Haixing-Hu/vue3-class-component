@@ -8,7 +8,7 @@
  ******************************************************************************/
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import { Component, toVue, createDecorator } from '../index';
+import { Component, toVue, createDecorator } from '../src';
 
 /**
  * Unit test of the `createDecorator()` function.

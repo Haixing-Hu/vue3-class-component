@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue } from '../../index';
+import { Component, toVue } from '../../src';
 
 @Component({
   name: 'Hello',

@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue, Inject } from '../../index';
+import { Component, toVue, Inject } from '../../src';
 import myInjectedKey from './inject-key-symbol';
 
 @Component

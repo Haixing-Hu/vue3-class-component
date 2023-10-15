@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import { Component, toVue, Provide } from '../../index';
+import { Component, toVue, Provide } from '../../src';
 import myInjectedKey from './inject-key-symbol';
 import InjectComponent from './InjectComponent';
 

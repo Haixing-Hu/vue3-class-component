@@ -6,13 +6,13 @@
  *    All rights reserved.
  *
  ******************************************************************************/
-import Component from './src/component';
-import toVue from './src/to-vue';
-import createDecorator from './src/create-decorator';
-import Prop from './src/decorator/prop';
-import Watch from './src/decorator/watch';
-import Provide from './src/decorator/provide';
-import Inject from './src/decorator/inject';
+import Component from './component';
+import toVue from './to-vue';
+import createDecorator from './create-decorator';
+import Prop from './decorator/prop';
+import Watch from './decorator/watch';
+import Provide from './decorator/provide';
+import Inject from './decorator/inject';
 
 export {
   Component,
