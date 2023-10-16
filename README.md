@@ -793,8 +793,8 @@ to open an issue or submit a pull request to the [GitHub repository].
 
 ## <span id="license">License</span>
 
-This plugin is distributed under the Apache 2.0 license. See the [LICENSE](LICENSE) file for more details.
-
+[vue3-class-component] is distributed under the Apache 2.0 license. 
+See the [LICENSE](LICENSE) file for more details.
 
 [Vue]: https://vuejs.org/
 [vue-cli]: https://cli.vuejs.org/

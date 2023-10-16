@@ -718,7 +718,7 @@ export default toVue(MyComponent);
 
 ## <span id="license">许可</span>
 
-此插件采用 Apache 2.0 许可证。详细信息请查阅 [LICENSE](LICENSE) 文件。
+[vue3-class-component] 采用 Apache 2.0 许可证。详细信息请查阅 [LICENSE](LICENSE) 文件。
 
 [Vue]: https://vuejs.org/
 [vue-cli]: https://cli.vuejs.org/
