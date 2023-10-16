@@ -61,7 +61,9 @@ function collectMethod(obj, key, options) {
     return;
   }
   if (VUE_LIFECYCLE_HOOKS.includes(key) || VUE_SPECIAL_FUNCTIONS.includes(key)) {
-    // obj[key] must be a function
+    if (typeof obj[key] !== 'function') {
+      throw new Error(`The property "${key}" of the class must be a Vue component function.`);
+    }
     options[key] = obj[key];
   } else {
     const descriptor = Object.getOwnPropertyDescriptor(obj, key);

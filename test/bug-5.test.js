@@ -10,7 +10,7 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { Component, toVue } from '../src';
 
-function AddMessage(target, context) {
+function AddMessage(target) {
   // add a new field to the target class
   target.prototype.message = 'Hello';
 }
@@ -23,7 +23,6 @@ class Test {
   value = 123;
 }
 const TestComponent = toVue(Test);
-
 
 describe('bug #5', () => {
   test('Should handle the class field added to the prototype of the class', async () => {

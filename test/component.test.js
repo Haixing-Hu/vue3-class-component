@@ -214,4 +214,18 @@ describe('@Component decorator', () => {
       + 'as the class method and decorated by @Watch.',
     );
   });
+  test('@Component on class with invalid Vue method `created`', () => {
+    expect(() => {
+      function AddCreated(target) {
+        target.prototype.created = 'Hello';
+      }
+      @Component
+      @AddCreated
+      class F1 {}
+      new F1();
+    }).toThrowWithMessage(
+      Error,
+      'The property "created" of the class must be a Vue component function.',
+    );
+  });
 });
