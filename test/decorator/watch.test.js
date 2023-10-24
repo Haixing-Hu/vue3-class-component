@@ -1,11 +1,11 @@
-/*******************************************************************************
- *
- *    Copyright (c) 2022 - 2023.
- *    Haixing Hu, Qubit Co. Ltd.
- *
- *    All rights reserved.
- *
- ******************************************************************************/
+////////////////////////////////////////////////////////////////////////////////
+//
+//    Copyright (c) 2022 - 2023.
+//    Haixing Hu, Qubit Co. Ltd.
+//
+//    All rights reserved.
+//
+////////////////////////////////////////////////////////////////////////////////
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import WatchComponent from '../data/WatchComponent.vue';
