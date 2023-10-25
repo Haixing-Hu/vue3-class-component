@@ -2,6 +2,7 @@
   "opts": {
     "destination": "./doc",
     "recurse": true,
+    "verbose": true,
     "encoding": "utf8",
     "template": "./node_modules/@haixing_hu/jsdoc-minami"
   },
