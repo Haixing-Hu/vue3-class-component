@@ -156,7 +156,30 @@ For detailed configuration instructions, you can refer to:
     determined that to achieve correct transpilation, we need to apply [Babel] 
     after [vite-plugin-vue] processes the source code. Therefore, the very 
     simple plugin function above suffices for our needs. As an alternative,
-    you can use [our version of vite-plugin-babel].
+    you can use [our version of vite-plugin-babel], and the following is an 
+    example configuration:
+    ```js
+    import { fileURLToPath, URL } from 'node:url';
+    import { defineConfig } from 'vite';
+    import vue from '@vitejs/plugin-vue';
+    import babel from '@haixing_hu/vite-plugin-babel';
+
+    export default defineConfig({
+      plugins: [
+        vue({
+          script: {
+            babelParserPlugins: ['decorators'],     // must enable decorators support
+          },
+        }),
+        babel(),
+      ],
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+        },
+      },
+    });
+    ```
 
 For detailed configuration instructions, you can refer to:
 - A sample project created with [create-vue] and [vite]: [vue3-class-component-demo-vite]

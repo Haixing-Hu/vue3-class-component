@@ -144,7 +144,29 @@ npm install @haixing_hu/vue3-class-component
     支持 [babel]，但我们发现它无法正确处理 [vue] 的 SFC 格式 (`*.vue`格式文件）。仔细研究
     它的源码后，我们发现要实现正确的转译，必须在 [vite-plugin-vue] 插件处理过源码之后再使用 
     [babel] 进行转译，因此只需上面非常简单的插件函数即可实现我们需要的功能。作为一个替代选择，
-    你可以使用 [我们的 vite-plugin-babel 插件]。
+    你可以使用 [我们的 vite-plugin-babel 插件]，下面是一个配置示例：
+    ```js
+    import { fileURLToPath, URL } from 'node:url';
+    import { defineConfig } from 'vite';
+    import vue from '@vitejs/plugin-vue';
+    import babel from '@haixing_hu/vite-plugin-babel';
+
+    export default defineConfig({
+      plugins: [
+        vue({
+          script: {
+            babelParserPlugins: ['decorators'],     // must enable decorators support
+          },
+        }),
+        babel(),
+      ],
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+        },
+      },
+    });
+    ```
 
 详细配置过程可以参考：
 - 使用 [create-vue] 和 [vite] 创建的演示项目：[vue3-class-component-demo-vite]
