@@ -30,7 +30,6 @@ import {
  * @author Haixing Hu
  */
 function buildOptions(Class, context, options) {
-  // console.log('Class = ', Class, 'context = ', context, 'options = ', options);
   if (context === null || typeof context !== 'object') {
     throw new TypeError('The context must be an object.');
   }

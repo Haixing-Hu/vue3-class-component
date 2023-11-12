@@ -71,7 +71,7 @@ Symbol.metadata = Symbol('metadata');
  *     of the decorated class, and the second argument is the context object
  *     containing information about the class being decorated.
  * @return {Function}
- *     If this decorator has only one argument, this function returns another
+ *     If this function has only one argument, this function returns another
  *     function which is the decorator of a class; otherwise, this function
  *     returns the decorated class.
  * @see https://babeljs.io/docs/babel-plugin-proposal-decorators#class-decorator
