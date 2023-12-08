@@ -1520,30 +1520,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/eslint-config@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@haixing_hu/eslint-config@npm:1.3.0"
+"@haixing_hu/eslint-config@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@haixing_hu/eslint-config@npm:1.3.1"
   dependencies:
     eslint: ^8.12.0
     eslint-config-airbnb-base: ^15.0.0
     eslint-plugin-import: ^2.28.1
-  checksum: 67b1457b0171964f29770a3ea24ab4420782d0cf24d340312cb2e8dce50d70cb23077c5f23a8e277bcba055513093283bf0c74b52722e505276971c48517f0f5
+  checksum: 2bb5fffe93032ca43d0fd93e926c0bf5327c5a7a164103657cc57419bbe3aec32f284d380836219b062ab1d9618df28844e6f0dac198c216f00252b5d32d3771
   languageName: node
   linkType: hard
 
-"@haixing_hu/jsdoc-minami@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@haixing_hu/jsdoc-minami@npm:1.5.0"
+"@haixing_hu/jsdoc-minami@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "@haixing_hu/jsdoc-minami@npm:1.5.1"
   dependencies:
     jsdoc: ^4.0.2
     taffydb: ^2.7.3
-  checksum: 17f8f6f027a43a58c164948eaa841e00425bd64fa9c1d89efc1e4fdb2d32ef548c48e5011e7665b823e1242f2ac78f041f5ec9a0ffb5bfb18f2ac5927c2694bb
+  checksum: 3abd1cef9da466ba3a3976d6051d6b8269af8abde003125e93812b6732c62b52aeba0bf5a953220da70ef8d7af740c650d51d898a8bfad43ab9f057d89c1a73b
   languageName: node
   linkType: hard
 
-"@haixing_hu/rollup-builder@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@haixing_hu/rollup-builder@npm:1.0.2"
+"@haixing_hu/rollup-builder@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@haixing_hu/rollup-builder@npm:1.3.0"
   peerDependencies:
     "@babel/core": ^7.23.2
     "@babel/plugin-transform-runtime": ^7.23.2
@@ -1555,7 +1555,7 @@ __metadata:
     "@rollup/plugin-terser": ^0.4.4
     rollup: ^4.1.4
     rollup-plugin-analyzer: ^4.0.0
-  checksum: 8caf1e2451a755df108406e4fc55641ea0bb6b19a85853932b4546ba72c80e9c1c112401535d36ee2d949aee9ac4c4ac8cefcf4b72318bf76f65cfafd94252cd
+  checksum: 007efa9a3da2a5abb8a38278f9a333faef213e2545799d7ce43ccc34f3da502da93c4da4c857a305af6e0093bcfda012d95b51b2dfdd681030533e568d90bf3d
   languageName: node
   linkType: hard
 
@@ -1570,9 +1570,9 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.23.2
     "@babel/preset-env": ^7.23.2
     "@babel/runtime": ^7.23.2
-    "@haixing_hu/eslint-config": ^1.3.0
-    "@haixing_hu/jsdoc-minami": ^1.5.0
-    "@haixing_hu/rollup-builder": ^1.0.2
+    "@haixing_hu/eslint-config": ^1.3.1
+    "@haixing_hu/jsdoc-minami": ^1.5.1
+    "@haixing_hu/rollup-builder": ^1.3.0
     "@jest/core": ^29.7.0
     "@rollup/plugin-alias": ^5.0.1
     "@rollup/plugin-babel": ^6.0.4
