@@ -1541,9 +1541,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/rollup-builder@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@haixing_hu/rollup-builder@npm:1.4.0"
+"@haixing_hu/rollup-builder@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@haixing_hu/rollup-builder@npm:1.5.0"
   peerDependencies:
     "@babel/core": ^7.23.2
     "@babel/plugin-transform-runtime": ^7.23.2
@@ -1555,7 +1555,7 @@ __metadata:
     "@rollup/plugin-terser": ^0.4.4
     rollup: ^4.1.4
     rollup-plugin-analyzer: ^4.0.0
-  checksum: 112759159a6a07ec150c3a1acdfdd5f896fc5a63b592136ed444aae4ed96fa00183db8d2b7bab708b18548c3815f4e2d13ab2080ce35d6d773ed5e3ce36dbc93
+  checksum: 06633ffb003d01fa37268ed4161c12e00c16601d07ef3bdba506f1ffa6fb0cedbd95437cad80ac70317fa815effb968f8f70e0eafe431a8e1897fcafdae107c6
   languageName: node
   linkType: hard
 
@@ -1572,7 +1572,7 @@ __metadata:
     "@babel/runtime": ^7.23.2
     "@haixing_hu/eslint-config": ^1.3.1
     "@haixing_hu/jsdoc-minami": ^1.5.1
-    "@haixing_hu/rollup-builder": ^1.4.0
+    "@haixing_hu/rollup-builder": ^1.5.0
     "@jest/core": ^29.7.0
     "@rollup/plugin-alias": ^5.0.1
     "@rollup/plugin-babel": ^6.0.4
