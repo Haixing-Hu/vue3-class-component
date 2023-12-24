@@ -13,6 +13,7 @@ import Prop from './decorator/prop';
 import Watch from './decorator/watch';
 import Provide from './decorator/provide';
 import Inject from './decorator/inject';
+import VModel from './decorator/v-model';
 
 export {
   Component,
@@ -22,4 +23,5 @@ export {
   Watch,
   Provide,
   Inject,
+  VModel,
 };

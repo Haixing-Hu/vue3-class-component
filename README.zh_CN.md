@@ -27,6 +27,7 @@
 - [支持的选项](#supported-options)
 - [预定义装饰器](#predefined-decorators)
     - [@Prop 装饰器](#Prop)
+    - [@VModel 装饰器](#VModel)
     - [@Watch 装饰器](#Watch)
     - [@Provide 装饰器](#Provide)
     - [@Inject 装饰器](#Inject)
@@ -358,10 +359,11 @@ export default {
 
 这个库为类式 Vue 组件提供了以下常用装饰器：
 
-- [`@Prop`](#Prop)
-- [`@Watch`](#Watch)
-- [`@Provid`](#Provide)
-- [`@Inject`](#Inject)
+- [`@Prop` 装饰器](#Prop)
+- [`@VModel` 装饰器](#VModel)
+- [`@Watch` 装饰器](#Watch)
+- [`@Provid` 装饰器](#Provide)
+- [`@Inject` 装饰器](#Inject)
 
 ### <span id="Prop">`@Prop` 装饰器</span>
 
@@ -451,6 +453,73 @@ export default {
   如果未指定此选项，则库将自动推断装饰的类字段的初始值是否已提供，以确定是否需要 prop。
 - `validator`: 此选项允许您定义一个自定义验证函数，该函数以 prop 值作为其唯一参数。在开发模
   式下，如果此函数返回假值（即验证失败），则会生成控制台警告。
+
+### <span id="VModel">`@VModel` 装饰器</span>
+
+`@VModel` 装饰器与 `@Prop` 装饰器类似，不同之处在于它支持 `v-model` 绑定。
+有关更多详细信息，请参见[组件 v-model]。
+
+例如：
+```vue
+<template>
+  <div class="my-component">
+    <input v-model="message" />
+  </div>
+</template>
+<script>
+  import { Component, VModel, toVue } from '@haixing_hu/vue3-class-component';
+
+  @Component
+  class MyComponent {
+    @VModel({ type: String, validator: (v) => (v.length >= 0) })
+    message;
+  }
+
+  export default toVue(MyComponent);
+</script>
+```
+等同于：
+```vue
+<template>
+  <div class="my-component">
+    <input v-model="message" />
+  </div>
+</template>
+<script>
+export default {
+  name: 'MyComponent',
+  props: {
+    modelValue: {
+      type: String,
+      required: true,
+      validator: (v) => {
+        return v.length >= 0;
+      },
+    },
+  },
+  emits: ['update:modelValue'],
+  computed: {
+    message: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      },
+    },
+  },
+};
+</script>
+```
+
+**注意：**
+- 默认的 `v-model` 绑定属性名 `'modelValue'` 不应用作类字段名或类方法名。
+- 为了简化实现，这个库**不**支持多个 `v-model` 绑定。此外，它也**不**支持 `v-model` 修饰符，
+  **也不**允许更改默认的 `v-model` 绑定属性名。
+
+类似于 `@Prop` 装饰器，`@VModel` 装饰器也可以接受一个可选参数。这个用于 `@VModel` 
+装饰器的参数是一个包含附加选项的对象。`@VModel` 可用的选项与 `@Prop` 支持的选项完全相同。
+有关更多详细信息，请参见 [@Prop 装饰器](#Prop)。
 
 ### <span id="Watch">`@Watch` 装饰器</span>
 
@@ -762,6 +831,7 @@ export default toVue(MyComponent);
 [回调刷新时机]: https://vuejs.org/guide/essentials/watchers#callback-flush-timing
 [watchEffect()]: https://vuejs.org/api/reactivity-core#watcheffect
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
+[组件 v-model]: https://vuejs.org/guide/components/v-model.html#component-v-model
 [使用符号键]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [使用响应式]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
 [vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component

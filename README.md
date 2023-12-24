@@ -30,10 +30,11 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
 - [Usage Example](#usage-example)
 - [Supported Options](#supported-options)
 - [Predefined Decorators](#predefined-decorators)
-  - [@Prop](#Prop)
-  - [@Watch](#Watch)
-  - [@Provide](#Provide)
-  - [@Inject](#Inject)
+  - [@Prop decorator](#Prop)
+  - [@VModel decorator](#VModel)
+  - [@Watch decorator](#Watch)
+  - [@Provide decorator](#Provide)
+  - [@Inject decorator](#Inject)
 - [Customize Decorators](#customize-decorators)
 - [Contributing](#contributing)
 - [License](#license)
@@ -375,10 +376,11 @@ is supported in the argument of the `@Component` decorator:
 This library provides the following commonly used decorators for class-style
 Vue components:
 
-- [`@Prop`](#Prop)
-- [`@Watch`](#Watch)
-- [`@Provid`](#Provide)
-- [`@Inject`](#Inject)
+- [`@Prop` decorator](#Prop)
+- [`@VModel` decorator](#VModel)
+- [`@Watch` decorator](#Watch)
+- [`@Provid` decorator](#Provide)
+- [`@Inject` decorator](#Inject)
 
 ### <span id="Prop">`@Prop` decorator</span>
 
@@ -481,6 +483,77 @@ decorator is an object with the following options:
   that takes the prop value as its sole argument. In development mode, a console
   warning will be generated if this function returns a falsy value, indicating
   that the validation has failed.
+
+### <span id="VModel">`@VModel` decorator</span>
+
+The `@VModel` decorator is similar to the `@Prop` decorator, except that it
+supports the `v-model` binding. See [Component v-model] for more details.
+
+For example:
+```vue
+<template>
+  <div class="my-component">
+    <input v-model="message" />
+  </div>
+</template>
+<script>
+import { Component, VModel, toVue } from '@haixing_hu/vue3-class-component';  
+  
+@Component
+class MyComponent {
+  @VModel({ type: String, validator: (v) => (v.length >= 0) })
+  message;
+}
+
+export default toVue(MyComponent);
+</script>
+```
+is equivalent to:
+```vue
+<template>
+  <div class="my-component">
+    <input v-model="message" />
+  </div>
+</template>
+<script>
+export default {
+  name: 'MyComponent',
+  props: {
+    modelValue: {
+      type: String,
+      required: true,
+      validator: (v) => {
+        return v.length >= 0;
+      },
+    },
+  },
+  emits: ['update:modelValue'],
+  computed: {
+    message: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      },
+    },
+  },
+};
+</script>
+```
+
+**NOTE:**
+- The default `v-model` binding property name `'modelValue'` should not be used
+  as a class field name or a class method name.
+- For the sake of simplifying implementation, this library does **not** support
+  multiple `v-model` bindings. Additionally, it does **not** support `v-model`
+  modifiers, **nor** does it allow for changing the default `v-model` binding
+  property name.
+
+Similar to the `@Prop` decorator, the `@VModel` decorator can also accept an
+optional argument. This argument for the `@VModel` decorator is an object
+containing additional options. The options available for `@VModel` are identical
+to those supported by `@Prop`. See [@Prop decorator](#Prop) for more details.
 
 ### <span id="Watch">`@Watch` decorator</span>
 
@@ -839,6 +912,7 @@ See the [LICENSE](LICENSE) file for more details.
 [Callback Flush Timing]: https://vuejs.org/guide/essentials/watchers#callback-flush-timing
 [watchEffect()]: https://vuejs.org/api/reactivity-core#watcheffect
 [Provide / Inject]: https://vuejs.org/guide/components/provide-inject.html
+[Component v-model]: https://vuejs.org/guide/components/v-model.html#component-v-model
 [working with symbol keys]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [working with reactivity]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
 [vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component
