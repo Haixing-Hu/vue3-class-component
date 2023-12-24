@@ -6,69 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import addProp from './impl/add-prop';
 import createDecorator from '../create-decorator';
-import { fixDefaultValue } from '../utils';
-
-/**
- * Infers the default value of a Prop from the initial value of a class field.
- *
- * @param {any | undefined} defaultValue
- *     the default value of the decorated field specified in the arguments
- *     `default` of the `@Prop` decorator, which could be `undefined` if no
- *     `default` argument specified.
- * @param {any | undefined} initialValue
- *     the initial value of the decorated field specified in the default
- *     constructed instance of the class, which could be `undefined` if the
- *     field is not initialized.
- * @param {Object} context
- *     the context object containing information about the field to be decorated.
- * @return {any | undefined}
- *     the inferred default value of the decorated field.
- * @private
- * @author Haixing Hu
- */
-function inferDefaultValue(defaultValue, initialValue, context) {
-  if (initialValue === undefined) {
-    return defaultValue;
-  } else if (defaultValue === undefined) {
-    return initialValue;
-  } else if (defaultValue !== initialValue) {
-    throw new Error(`The default value of the field "${context.name}" is `
-        + 'different from the default value specified in arguments of the @Prop decorator.');
-  } else {
-    return defaultValue;
-  }
-}
-
-/**
- * Infers the type of a Prop from the inferred default value of the Prop.
- *
- * @param {Function | undefined} type
- *     The type of the decorated field specified in the arguments `type` of the
- *     `@Prop` decorator, which could be `undefined` if no `type` argument
- *     specified.
- * @param {any | undefined} defaultValue
- *     the inferred default value of the decorated field.
- * @param {Object} context
- *     the context object containing information about the field to be decorated.
- * @return {Function | undefined}
- *     the inferred type of the decorated field.
- * @private
- * @author Haixing Hu
- */
-function inferType(type, defaultValue, context) {
-  if (type === undefined) {
-    if (defaultValue !== undefined && defaultValue !== null) {
-      return defaultValue.constructor;
-    }
-  } else if ((defaultValue !== undefined)
-      && (defaultValue !== null)
-      && (String(type) !== String(defaultValue.constructor))) {
-    throw new Error(`The type of the field "${context.name}" is ${defaultValue.constructor.name}, `
-        + `which is different from the type ${type.name} specified in arguments of the @Prop decorator.`);
-  }
-  return type;
-}
 
 /**
  * The factory of the `@Prop` decorator.
@@ -87,40 +26,13 @@ function inferType(type, defaultValue, context) {
  * @param {object} options
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
- * @private
  * @author Haixing Hu
  */
 function PropFactory(args, Class, defaultInstance, target, context, options) {
   if (context?.kind !== 'field') {
-    throw new Error('The @Prop decorator can only be used to decorate a class field.');
+    throw new SyntaxError('The @Prop decorator can only be used to decorate a class field.');
   }
-  // get the initial value of the field from the default constructed instance
-  const initialValue = defaultInstance[context.name];
-  const defaultValue = inferDefaultValue(args.default, initialValue, context);
-  const type = inferType(args.type, defaultValue, context);
-  const required = args.required ?? (defaultValue === undefined);
-  const validator = args.validator;
-  if ((required === false) && (defaultValue === undefined)) {
-    throw new Error(`The field "${context.name}" is not required, but it has no default value.`);
-  }
-  if (type === undefined || type === null) {
-    throw new Error(`The type of the field "${context.name}" is not specified.`);
-  }
-  if (typeof type !== 'function') {
-    throw new Error(`The type of the field "${context.name}" must be a constructor function.`);
-  }
-  if (validator !== undefined && typeof validator !== 'function') {
-    throw new Error(`The validator of the field "${context.name}" must be a function.`);
-  }
-  options.props ??= {};
-  options.props[context.name] = {
-    type,
-    required,
-    default: fixDefaultValue(defaultValue),
-    validator,
-  };
-  // remove the Prop name from the options.fields
-  delete options.fields[context.name];
+  addProp(args, Class, defaultInstance, context.name, context.name, options);
 }
 
 /**
@@ -183,7 +95,7 @@ function Prop(...args) {
     const decor = createDecorator(factory);
     return decor(args[0], args[1]);
   } else {
-    throw new Error('Invalid use of the `@Prop` decorator.');
+    throw new SyntaxError('Invalid use of the `@Prop` decorator.');
   }
 }
 

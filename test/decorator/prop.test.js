@@ -80,7 +80,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'Invalid use of the `@Prop` decorator.',
     );
   });
@@ -94,7 +94,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The @Prop decorator can only be used to decorate a class field.',
     );
   });
@@ -108,9 +108,9 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The default value of the field "value" is different from the default '
-        + 'value specified in arguments of the @Prop decorator.',
+        + 'value specified in arguments of the decorator.',
     );
   });
 
@@ -123,9 +123,9 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      TypeError,
       'The type of the field "value" is Number, which is different from the type '
-        + 'String specified in arguments of the @Prop decorator.',
+        + 'String specified in arguments of the decorator.',
     );
   });
 
@@ -138,7 +138,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The field "value" is not required, but it has no default value.',
     );
   });
@@ -152,7 +152,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      TypeError,
       'The type of the field "value" is not specified.',
     );
   });
@@ -166,7 +166,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      TypeError,
       'The type of the field "value" must be a constructor function.',
     );
   });
@@ -180,7 +180,7 @@ describe('@Prop decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      TypeError,
       'The validator of the field "value" must be a function.',
     );
   });

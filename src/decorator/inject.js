@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import createDecorator from '../create-decorator';
-import { fixDefaultValue } from '../utils';
+import fixDefaultValue from './impl/fix-default-value';
 
 /**
  * The factory of the `@Inject` decorator.
