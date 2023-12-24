@@ -356,25 +356,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helpers@npm:^7.23.0":
-  version: 7.23.1
-  resolution: "@babel/helpers@npm:7.23.1"
+"@babel/helpers@npm:7.23.0":
+  version: 7.23.0
+  resolution: "@babel/helpers@npm:7.23.0"
   dependencies:
     "@babel/template": ^7.22.15
     "@babel/traverse": ^7.23.0
     "@babel/types": ^7.23.0
-  checksum: acfc345102045c24ea2a4d60e00dcf8220e215af3add4520e2167700661338e6a80bd56baf44bb764af05ec6621101c9afc315dc107e18c61fa6da8acbdbb893
-  languageName: node
-  linkType: hard
-
-"@babel/helpers@npm:^7.23.2":
-  version: 7.23.2
-  resolution: "@babel/helpers@npm:7.23.2"
-  dependencies:
-    "@babel/template": ^7.22.15
-    "@babel/traverse": ^7.23.2
-    "@babel/types": ^7.23.0
-  checksum: aaf4828df75ec460eaa70e5c9f66e6dadc28dae3728ddb7f6c13187dbf38030e142194b83d81aa8a31bbc35a5529a5d7d3f3cf59d5d0b595f5dd7f9d8f1ced8e
+  checksum: ad8509f9507757600f216a6d37eb7e4450727895ec01ba6a2ebc0bf675bb86ffd54f83b1d36094246ebc9e7c41e5609c4a2ac41a325a296ef77ecfab3be7d4cf
   languageName: node
   linkType: hard
 
@@ -1566,7 +1555,6 @@ __metadata:
     "@babel/core": ^7.23.2
     "@babel/eslint-parser": ^7.17.0
     "@babel/plugin-proposal-decorators": ^7.23.2
-    "@babel/plugin-transform-class-properties": ^7.22.5
     "@babel/plugin-transform-runtime": ^7.23.2
     "@babel/preset-env": ^7.23.2
     "@babel/runtime": ^7.23.2
