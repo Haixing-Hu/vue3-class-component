@@ -210,5 +210,4 @@ describe('@VModel decorator', () => {
       'The special name "modelValue" cannot be used as class method name.',
     );
   });
-
 });

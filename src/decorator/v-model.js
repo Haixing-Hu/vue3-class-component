@@ -39,7 +39,7 @@ function VModelFactory(args, Class, defaultInstance, target, context, options) {
   }
   // check whether there is a data field named with 'modelValue'
   if ((options.fields) && (options.fields['modelValue'] !== undefined)) {
-     throw new SyntaxError('The special name "modelValue" cannot be used as data field name.');
+    throw new SyntaxError('The special name "modelValue" cannot be used as data field name.');
   }
   // check whether there is a method named with 'modelValue'
   if ((options.methods) && (options.methods['modelValue'] !== undefined)) {
