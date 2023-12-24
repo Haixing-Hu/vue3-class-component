@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/vue3-class-component",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "A JavaScript class decorator for Vue3 components",
   "main": "dist/vue-class-component.cjs.min.js",
   "module": "dist/vue-class-component.esm.min.mjs",
@@ -51,7 +51,6 @@
     "@babel/core": "^7.23.2",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-decorators": "^7.23.2",
-    "@babel/plugin-transform-class-properties": "^7.22.5",
     "@babel/plugin-transform-runtime": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
     "@babel/runtime": "^7.23.2",
@@ -86,5 +85,9 @@
     "vue": "^3.3.4",
     "vue-template-compiler": "^2.7.14"
   },
+  "resolutions": {
+    "@babel/helpers": "7.23.0"
+  },
+  "_comment": "There is a bug in @babel/helpers > 7.23.0. See #16179, #16180",
   "packageManager": "yarn@3.6.3"
 }
