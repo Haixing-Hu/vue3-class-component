@@ -27,6 +27,7 @@ import createDecorator from '../create-decorator';
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
  * @author Haixing Hu
+ * @private
  */
 function PropFactory(args, Class, defaultInstance, target, context, options) {
   if (context?.kind !== 'field') {

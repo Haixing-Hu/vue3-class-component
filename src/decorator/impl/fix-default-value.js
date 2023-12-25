@@ -24,6 +24,7 @@
  * @see <a href="https://vuejs.org/api/options-state.html#props">Props</a>
  * @see <a href="https://vuejs.org/api/options-composition.html#inject">Inject</a>
  * @author Haixing Hu
+ * @private
  */
 function fixDefaultValue(value) {
   if (value === undefined) {

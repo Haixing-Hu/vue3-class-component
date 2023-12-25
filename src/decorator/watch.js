@@ -30,7 +30,7 @@ import createDecorator from '../create-decorator';
  */
 function WatchFactory(args, Class, defaultInstance, target, context, options) {
   if (context?.kind !== 'method') {
-    throw new Error('The @Watch decorator can only be used to decorate a class method.');
+    throw new SyntaxError('The @Watch decorator can only be used to decorate a class method.');
   }
   const path = args.path;
   const deep = args.deep ?? false;
@@ -38,7 +38,7 @@ function WatchFactory(args, Class, defaultInstance, target, context, options) {
   const flush = args.flush ?? 'pre';
   options.watch ??= {};
   if (options.watch[path] !== undefined) {
-    throw new Error(`The @Watch decorator can only be used once on the path "${path}".`);
+    throw new SyntaxError(`The @Watch decorator can only be used once on the path "${path}".`);
   }
   options.watch[path] = {
     handler: target,

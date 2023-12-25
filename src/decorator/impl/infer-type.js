@@ -21,6 +21,7 @@
  * @return {function | undefined}
  *     the inferred type of the decorated field.
  * @author Haixing Hu
+ * @private
  */
 function inferType(type, defaultValue, field) {
   if (type === undefined) {

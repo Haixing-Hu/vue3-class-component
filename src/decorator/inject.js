@@ -31,7 +31,7 @@ import fixDefaultValue from './impl/fix-default-value';
  */
 function InjectFactory(args, Class, defaultInstance, target, context, options) {
   if (context?.kind !== 'field') {
-    throw new Error('The @Inject decorator can only be used to decorate a class field.');
+    throw new SyntaxError('The @Inject decorator can only be used to decorate a class field.');
   }
   const key = context.name;
   const from = args.from ?? key;
@@ -96,7 +96,7 @@ function Inject(...args) {
     const decor = createDecorator(factory);
     return decor(args[0], args[1]);
   } else {
-    throw new TypeError('Invalid use of the `@Inject` decorator.');
+    throw new SyntaxError('Invalid use of the `@Inject` decorator.');
   }
 }
 

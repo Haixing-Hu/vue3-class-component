@@ -27,6 +27,7 @@ import createDecorator from '../create-decorator';
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
  * @author Haixing Hu
+ * @private
  * @see [Component v-model](https://vuejs.org/guide/components/v-model.html#component-v-model)
  */
 function VModelFactory(args, Class, defaultInstance, target, context, options) {
@@ -96,6 +97,14 @@ function VModelFactory(args, Class, defaultInstance, target, context, options) {
  *
  * export default toVue(MyComponent);
  * </script>
+ * ```
+ * The `@VModel` prop in the component defined above can be used as follows:
+ * ```vue
+ * <template>
+ *   <div class="use-my-component">
+ *     <my-component v-model="msg" />
+ *   </div>
+ * </template>
  * ```
  *
  * @param {...any} args

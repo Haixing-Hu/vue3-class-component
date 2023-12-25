@@ -23,6 +23,7 @@
  * @return {any | undefined}
  *     the inferred default value of the decorated field.
  * @author Haixing Hu
+ * @private
  */
 function inferDefaultValue(defaultValue, initialValue, field) {
   if (initialValue === undefined) {

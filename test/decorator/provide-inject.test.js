@@ -94,7 +94,7 @@ describe('@Provide, @Inject decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'Invalid use of the `@Provide` decorator.',
     );
   });
@@ -108,7 +108,7 @@ describe('@Provide, @Inject decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The @Provide decorator can only be used to decorate a class field.',
     );
   });
@@ -122,7 +122,7 @@ describe('@Provide, @Inject decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'Invalid use of the `@Inject` decorator.',
     );
   });
@@ -136,7 +136,7 @@ describe('@Provide, @Inject decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The @Inject decorator can only be used to decorate a class field.',
     );
   });

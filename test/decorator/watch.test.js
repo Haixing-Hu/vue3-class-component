@@ -130,7 +130,7 @@ describe('@Watch decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The @Watch decorator can only be used to decorate a class method.',
     );
   });
@@ -153,7 +153,7 @@ describe('@Watch decorator', () => {
       }
       new F1();
     }).toThrowWithMessage(
-      Error,
+      SyntaxError,
       'The @Watch decorator can only be used once on the path "value".',
     );
   });

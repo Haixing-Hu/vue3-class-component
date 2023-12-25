@@ -28,6 +28,7 @@ import fixDefaultValue from './fix-default-value';
  *     the Vue component options object. Changes for this object will affect the
  *     provided component.
  * @author Haixing Hu
+ * @private
  */
 function addProp(args, Class, defaultInstance, field, prop, options) {
   // get the initial value of the field from the default constructed instance

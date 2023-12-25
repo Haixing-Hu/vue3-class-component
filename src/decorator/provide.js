@@ -31,7 +31,7 @@ import createDecorator from '../create-decorator';
  */
 function ProvideFactory(args, Class, defaultInstance, target, context, options) {
   if (context?.kind !== 'field') {
-    throw new Error('The @Provide decorator can only be used to decorate a class field.');
+    throw new SyntaxError('The @Provide decorator can only be used to decorate a class field.');
   }
   const key = args.key ?? context.name;
   const reactive = args.reactive ?? false;
@@ -115,7 +115,7 @@ function Provide(...args) {
     const decor = createDecorator(factory);
     return decor(args[0], args[1]);
   } else {
-    throw new TypeError('Invalid use of the `@Provide` decorator.');
+    throw new SyntaxError('Invalid use of the `@Provide` decorator.');
   }
 }
 
