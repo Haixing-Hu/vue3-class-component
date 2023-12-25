@@ -541,6 +541,14 @@ export default {
 };
 </script>
 ```
+The `@VModel` prop in the component defined above can be used as follows:
+```vue
+<template>
+  <div class="use-my-component">
+    <my-component v-model="msg" />
+  </div>
+</template>
+```
 
 **NOTE:**
 - The default `v-model` binding property name `'modelValue'` should not be used

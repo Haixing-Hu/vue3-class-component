@@ -511,6 +511,14 @@ export default {
 };
 </script>
 ```
+上述自定义组件中的`@VModel`属性可按如下方式使用：
+```vue
+<template>
+  <div class="use-my-component">
+    <my-component v-model="msg" />
+  </div>
+</template>
+```
 
 **注意：**
 - 默认的 `v-model` 绑定属性名 `'modelValue'` 不应用作类字段名或类方法名。
