@@ -40,12 +40,6 @@ function addProp(args, Class, defaultInstance, field, prop, options) {
   if ((required === false) && (defaultValue === undefined)) {
     throw new SyntaxError(`The field "${field}" is not required, but it has no default value.`);
   }
-  if (type === undefined || type === null) {
-    throw new TypeError(`The type of the field "${field}" is not specified.`);
-  }
-  if (typeof type !== 'function') {
-    throw new TypeError(`The type of the field "${field}" must be a constructor function.`);
-  }
   if (validator !== undefined && typeof validator !== 'function') {
     throw new TypeError(`The validator of the field "${field}" must be a function.`);
   }

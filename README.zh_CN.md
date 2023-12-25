@@ -387,6 +387,9 @@ class MyComponent {
     age: 32,
     gender: 'MALE',
   };
+  
+  @Prop({ type: [Boolean, String] })
+  lazy;
 }
 
 export default toVue(MyComponent);
@@ -417,6 +420,10 @@ export default {
         gender: 'MALE',
       }),
     },
+    lazy: {
+      type: [Boolean, String],
+      required: true,
+    },
   },
 };
 ```
@@ -434,6 +441,9 @@ export default {
   `Boolean`、`Array`、`Object`、`Date`、`Function`、`Symbol`、自定义的类、自定义的构造
   函数，或这些类型的数组。在开发模式下，Vue 会验证 prop 的值是否与声明的类型匹配，如果不匹配，
   将发出警告。有关更多详情，请参阅[属性校验]。
+ 
+  如果一个 prop允许多种可能的类型，可以在这个选项中指定一个构造函数数组。例如：
+  `{ type: [Boolean, String] }`。
 
   请注意，具有 `Boolean` 类型的 prop 在开发和生产模式下都会影响其值的类型转换行为。有关更多
   详情，请参阅[布尔型强制转换]。
@@ -445,8 +455,7 @@ export default {
   此选项，则库将自动从装饰的类字段的初始值中推断默认值。
 
   值得注意的是，[Vue] 库要求 prop 的非原始类型默认值必须使用工厂函数包装，但我们的库会自动处
-  理此问题。因此，在声明 prop 时，不需要使用工厂函数包装非原始类型的默认值。
-
+  理此问题。因此，**在声明 prop 时，不需要使用工厂函数包装非原始类型的默认值。**
 - `required`: 使用此选项来指定是否必须传递 prop。在非生产环境中，如果此值为真且未提供 prop，
   则会生成控制台警告。
 

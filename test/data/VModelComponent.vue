@@ -19,7 +19,7 @@ import { Component, toVue, VModel } from '../../src';
 
 @Component
 class VModelComponent {
-  @VModel
+  @VModel({ type: [String, Boolean] })
   message = 'Hello world!';
 
   mounted() {

@@ -24,15 +24,29 @@
  * @private
  */
 function inferType(type, defaultValue, field) {
+  const defaultType = defaultValue?.constructor;
   if (type === undefined) {
-    if (defaultValue !== undefined && defaultValue !== null) {
-      return defaultValue.constructor;
-    }
-  } else if ((defaultValue !== undefined)
-      && (defaultValue !== null)
-      && (String(type) !== String(defaultValue.constructor))) {
-    throw new TypeError(`The type of the field "${field}" is ${defaultValue.constructor.name}, `
-      + `which is different from the type ${type.name} specified in arguments of the decorator.`);
+    type = defaultType;
+  }
+  if (type === undefined || type === null) {
+    throw new TypeError(`The type of the field "${field}" is not specified.`);
+  }
+  let typeValid = false;
+  let typeMismatch = false;
+  if (typeof type === 'function') {
+    typeValid = true;
+    typeMismatch = (defaultType && type !== defaultType);
+  } else if (Array.isArray(type)) {
+    typeValid = type.every((v) => (typeof v === 'function'));
+    typeMismatch = (defaultType && !type.includes(defaultType));
+  }
+  if (!typeValid) {
+    throw new TypeError(`The type of the field "${field}" `
+      + 'must be a constructor function or an array of constructor functions.');
+  }
+  if (typeMismatch) {
+    throw new TypeError(`The type of the default value of the field "${field}" is ${defaultType.name}, `
+      + 'which is different from the type specified in arguments of the decorator.');
   }
   return type;
 }

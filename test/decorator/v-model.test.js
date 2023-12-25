@@ -44,6 +44,10 @@ describe('@VModel decorator', () => {
     expect(input.element.value).toBe('This is a new message.');
     expect(wrapper.vm.message).toBe('This is a new message.');
     expect(wrapper.vm.newMessage).toBe('Hello, Bill!');
+
+    wrapper.vm.message = true;
+    await nextTick();
+    expect(input.element.value).toBe('true');
   });
 
   test('invalid number of arguments', () => {
@@ -99,8 +103,8 @@ describe('@VModel decorator', () => {
       new F1();
     }).toThrowWithMessage(
       TypeError,
-      'The type of the field "value" is Number, which is different from the type '
-      + 'String specified in arguments of the decorator.',
+      'The type of the default value of the field "value" is Number, '
+      + 'which is different from the type specified in arguments of the decorator.',
     );
   });
 
@@ -142,7 +146,7 @@ describe('@VModel decorator', () => {
       new F1();
     }).toThrowWithMessage(
       TypeError,
-      'The type of the field "value" must be a constructor function.',
+      'The type of the field "value" must be a constructor function or an array of constructor functions.',
     );
   });
 

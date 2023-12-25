@@ -45,7 +45,7 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  *
  * | Option      | Type       | Default     | Description                                                        |
  * |-------------|------------|-------------|--------------------------------------------------------------------|
- * | `type`      | `Function` | `undefined` | The data type of the prop, which should be a constructor function. |
+ * | `type`      | `Function` | `undefined` | The data type of the prop, which should be a constructor function, or an array of constructor functions. |
  * | `required`  | `Boolean`  | `false`     | Indicates whether the prop is required or not.                     |
  * | `default`   | `any`      | `undefined` | Specifies the default value of the prop.                           |
  * | `validator` | `Function` | `undefined` | A custom validation function for the prop.                         |
@@ -68,6 +68,9 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  *     age: 32,
  *     gender: 'MALE',
  *   };
+ *
+ *   &#064;Prop({ type: [Boolean, String] })
+ *   lazy;
  * }
  *
  * export default toVue(MyComponent);

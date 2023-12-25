@@ -34,6 +34,8 @@ describe('@Prop decorator', () => {
     expect(val3.text()).toBe('0');
     const val4 = wrapper.get('#value4');
     expect(val4.text()).toBe('0');
+    const val5 = wrapper.get('#value5');
+    expect(val5.text()).toBe('true');
     const computed = wrapper.get('#computed');
     expect(computed.text()).toBe('123');
     const personName = wrapper.get('#person-name');
@@ -69,6 +71,10 @@ describe('@Prop decorator', () => {
     await nextTick();
     expect(val3.text()).toBe('51');
     expect(val4.text()).toBe('50');
+
+    wrapper.vm.value5 = 'Hello';
+    await nextTick();
+    expect(val5.text()).toBe('Hello');
   });
 
   test('invalid number of arguments', () => {
@@ -124,8 +130,8 @@ describe('@Prop decorator', () => {
       new F1();
     }).toThrowWithMessage(
       TypeError,
-      'The type of the field "value" is Number, which is different from the type '
-        + 'String specified in arguments of the decorator.',
+      'The type of the default value of the field "value" is Number, '
+      + 'which is different from the type specified in arguments of the decorator.',
     );
   });
 
@@ -167,7 +173,7 @@ describe('@Prop decorator', () => {
       new F1();
     }).toThrowWithMessage(
       TypeError,
-      'The type of the field "value" must be a constructor function.',
+      'The type of the field "value" must be a constructor function or an array of constructor functions.',
     );
   });
 

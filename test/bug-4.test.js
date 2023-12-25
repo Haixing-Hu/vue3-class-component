@@ -9,7 +9,9 @@
 import { mount } from '@vue/test-utils';
 import { Component, toVue } from '../src';
 
-@Component
+@Component({
+  template: '<div>{{ value }}</div>',
+})
 class TestComponent {
   value = 123;
 }

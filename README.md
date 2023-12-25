@@ -405,6 +405,9 @@ class MyComponent {
     age: 32,
     gender: 'MALE',
   };
+  
+  @Prop({ type: [Boolean, String] })
+  lazy;  
 }
 
 export default toVue(MyComponent);
@@ -435,6 +438,10 @@ export default {
         gender: 'MALE',
       }),
     },
+    lazy: {
+      type: [Boolean, String],
+      required: true,
+    },
   },
 };
 ```
@@ -456,6 +463,9 @@ decorator is an object with the following options:
   value matches the declared type and will issue a warning if it doesn't. For
   more details, see [Prop Validation].
 
+  If multiple possible types are allowed for the prop, an array of constructors
+  can be  specified in this option. For example: `{ type: [Boolean, String] }`.
+
   Note that a prop with a `Boolean` type affects its value casting behavior both
   in development and production modes. See [Boolean Casting] for more details.
 
@@ -470,8 +480,8 @@ decorator is an object with the following options:
 
   It's worth noting that the [Vue] library requires non-primitive default values
   of props to be wrapped with factory functions, but our library handles this
-  automatically. Therefore, you don't need to wrap non-primitive default values
-  with factory functions when declaring props.
+  automatically. Therefore, **you don't need to wrap non-primitive default values
+  with factory functions when declaring props.**
 - `required`: Use this option to specify whether the prop is required or not. In
   a non-production environment, a console warning will be generated if this
   value is truthy and the prop is not provided.
