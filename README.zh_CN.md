@@ -373,6 +373,7 @@ export default {
 ```js
 @Component
 class MyComponent {
+  // 如果新属性定义时有默认值，则无需指定其类型和默认值，系统会自动推断其类型
   @Prop
   message = 'hello';
 
@@ -388,8 +389,17 @@ class MyComponent {
     gender: 'MALE',
   };
   
+  // 多个可能的属性类型，可以表示为一个构造器数组
   @Prop({ type: [Boolean, String] })
   lazy;
+
+  // 如果装饰器的参数是一个函数，它将被认为是新属性的类型
+  @Prop(Number)
+  value2;
+
+  // 如果装饰器的参数是一个函数数组，它将被认为是新属性的可能的类型
+  @Prop([Boolean, String, Number])
+  value3;
 }
 
 export default toVue(MyComponent);
@@ -422,6 +432,14 @@ export default {
     },
     lazy: {
       type: [Boolean, String],
+      required: true,
+    },
+    value2: {
+      type: Number,
+      required: true,
+    },
+    value3: {
+      type: [Boolean, String, Number],
       required: true,
     },
   },
@@ -462,6 +480,31 @@ export default {
   如果未指定此选项，则库将自动推断装饰的类字段的初始值是否已提供，以确定是否需要 prop。
 - `validator`: 此选项允许您定义一个自定义验证函数，该函数以 prop 值作为其唯一参数。在开发模
   式下，如果此函数返回假值（即验证失败），则会生成控制台警告。
+
+如果 `@Prop` 装饰器的参数是一个函数，或者一个函数组成的数组，它将被认为是为新 prop 指定的类型。
+例如：
+```js
+@Component
+class MyComponent {
+  @Prop(Number)
+  value1;
+
+  @Prop([Boolean, String, Number])
+  value2;
+}
+```
+
+如果属性定义时给出了默认值，则无需再指定其类型和默认值，系统会自动推断。例如：
+```js
+@Component
+class MyComponent {
+  @Prop
+  message = '';
+
+  @Prop
+  value = 0;
+}
+```
 
 ### <span id="VModel">`@VModel` 装饰器</span>
 

@@ -36,6 +36,10 @@ describe('@Prop decorator', () => {
     expect(val4.text()).toBe('0');
     const val5 = wrapper.get('#value5');
     expect(val5.text()).toBe('true');
+    const val6 = wrapper.get('#value6');
+    expect(val6.text()).toBe('0');
+    const val7 = wrapper.get('#value7');
+    expect(val7.text()).toBe('true');
     const computed = wrapper.get('#computed');
     expect(computed.text()).toBe('123');
     const personName = wrapper.get('#person-name');
@@ -75,6 +79,14 @@ describe('@Prop decorator', () => {
     wrapper.vm.value5 = 'Hello';
     await nextTick();
     expect(val5.text()).toBe('Hello');
+
+    wrapper.vm.value6 = 1;
+    await nextTick();
+    expect(val6.text()).toBe('1');
+
+    wrapper.vm.value7 = 'Hello';
+    await nextTick();
+    expect(val7.text()).toBe('Hello');
   });
 
   test('invalid number of arguments', () => {
@@ -188,6 +200,20 @@ describe('@Prop decorator', () => {
     }).toThrowWithMessage(
       TypeError,
       'The validator of the field "value" must be a function.',
+    );
+  });
+
+  test('argument is not a function, nor an array, nor an object', () => {
+    expect(() => {
+      @Component
+      class F1 {
+        @Prop(123)
+        value;
+      }
+      new F1();
+    }).toThrowWithMessage(
+      TypeError,
+      'The argument of the decorator must be either a function or an object.',
     );
   });
 });

@@ -69,8 +69,18 @@ function PropFactory(args, Class, defaultInstance, target, context, options) {
  *     gender: 'MALE',
  *   };
  *
+ *   // multiple possible types can be represented as an array of constructors.
  *   &#064;Prop({ type: [Boolean, String] })
  *   lazy;
+ *
+ *   // if the argument is a function, it will be treated as the type of the prop.
+ *   &#064;Prop(String)
+ *   text;
+ *
+ *   // if the argument is an array of constructors, it will be treated as the
+ *   // possible types of the prop.
+ *   &#064;Prop([String, Number])
+ *   model;
  * }
  *
  * export default toVue(MyComponent);

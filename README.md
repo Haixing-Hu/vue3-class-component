@@ -391,6 +391,8 @@ For example:
 ```js
 @Component
 class MyComponent {
+  // if the prop has a default value, its type and default value will be infered
+  // automatically
   @Prop
   message = 'hello';
 
@@ -405,9 +407,20 @@ class MyComponent {
     age: 32,
     gender: 'MALE',
   };
-  
+
+  // multiple possible types can be represented as an array of constructors.
   @Prop({ type: [Boolean, String] })
-  lazy;  
+  lazy;
+
+  // if the argument of the decorator is a function, it will be treated as the
+  // type of the prop.
+  @Prop(Number)
+  value2;
+  
+  // if the argument of the decorator is an array of constructors, it will be
+  // treated as the possible types of the prop.
+  @Prop([Boolean, String, Number])
+  value3;
 }
 
 export default toVue(MyComponent);
@@ -440,6 +453,14 @@ export default {
     },
     lazy: {
       type: [Boolean, String],
+      required: true,
+    },
+    value2: {
+      type: Number,
+      required: true,
+    },
+    value3: {
+      type: [Boolean, String, Number],
       required: true,
     },
   },
@@ -493,6 +514,33 @@ decorator is an object with the following options:
   that takes the prop value as its sole argument. In development mode, a console
   warning will be generated if this function returns a falsy value, indicating
   that the validation has failed.
+
+If the argument of the `@Prop` decorator is a function, or an array of functions,
+it will be treated as the specified type of the new prop. For example,
+```js
+@Component
+class MyComponent {
+  @Prop(Number)
+  value1;
+
+  @Prop([Boolean, String, Number])
+  value2;
+}
+```
+
+If a default value is provided when defining a property, there is no need to
+specify its type and default value again, as the system will automatically infer
+them. For example:
+```js
+@Component
+class MyComponent {
+  @Prop
+  message = '';
+
+  @Prop
+  value = 0;
+}
+```
 
 ### <span id="VModel">`@VModel` decorator</span>
 

@@ -13,9 +13,10 @@ import fixDefaultValue from './fix-default-value';
 /**
  * Adds a `Prop` to the Vue component options object.
  *
- * @param {object} args
+ * @param {object|function} args
  *     the optional arguments of the decorator, which contains the configuration
- *     of the new `Prop`.
+ *     of the new `Prop`. If this argument is a function or an array of functions,
+ *     it will be treated as the constructors of the types of the new `Prop`.
  * @param {function} Class
  *     The constructor of the decorated class.
  * @param {object} defaultInstance
@@ -31,6 +32,12 @@ import fixDefaultValue from './fix-default-value';
  * @private
  */
 function addProp(args, Class, defaultInstance, field, prop, options) {
+  // Support for single type argument
+  if ((typeof args === 'function') || Array.isArray(args)) {
+    args = { type: args };
+  } else if (typeof args !== 'object') {
+    throw new TypeError('The argument of the decorator must be either a function or an object.');
+  }
   // get the initial value of the field from the default constructed instance
   const initialValue = defaultInstance[field];
   const defaultValue = inferDefaultValue(args.default, initialValue, field);

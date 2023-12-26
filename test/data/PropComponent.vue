@@ -14,6 +14,8 @@
     <div id="value3">{{ value3 }}</div>
     <div id="value4">{{ value4 }}</div>
     <div id="value5">{{ value5 }}</div>
+    <div id="value6">{{ value6 }}</div>
+    <div id="value7">{{ value7 }}</div>
     <div id="computed">{{ computedValue }}</div>
     <div id="person-name">{{ person.name }}</div>
     <div id="person-age">{{ person.age }}</div>
@@ -52,6 +54,12 @@ class PropComponent {
   @Prop({ type: [Boolean, String] })
   value5;
 
+  @Prop(Number)
+  value6;
+
+  @Prop([Boolean, String])
+  value7;
+
   mounted() {
     console.log('PropComponent.mounted: enter');
     console.log('this:', this);
@@ -61,6 +69,8 @@ class PropComponent {
     console.log('this.value3:', this.value3);
     console.log('this.value4:', this.value4);
     console.log('this.value5:', this.value5);
+    console.log('this.value6:', this.value6);
+    console.log('this.value7:', this.value7);
     console.log('this.person:', this.person);
     console.log('this.user:', this.user);
     console.log('PropComponent.mounted: exit');
