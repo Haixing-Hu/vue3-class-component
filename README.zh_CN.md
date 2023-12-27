@@ -38,12 +38,14 @@
 ## <span id="installation">安装方式</span>
 
 ```bash
-yarn add @haixing_hu/vue3-class-component
+yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
 ```
 or
 ```bash
-npm install @haixing_hu/vue3-class-component
+npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
 ```
+
+注意：这个库依赖于 [@haixing_hu/typeinfo] 和 [@haixing_hu/clone] 库，因此您必须同时安装它们。
 
 ## <span id="configuration">配置方式</span>
 
@@ -59,7 +61,7 @@ npm install @haixing_hu/vue3-class-component
 
 1.  安装需要的依赖：
     ```bash 
-    yarn add @haixing_hu/vue3-class-component
+    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env 
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -85,7 +87,7 @@ npm install @haixing_hu/vue3-class-component
 
 1.  安装需要的依赖：
     ```bash 
-    yarn add @haixing_hu/vue3-class-component
+    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env 
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -901,3 +903,5 @@ export default toVue(MyComponent);
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
 [我们的 vite-plugin-babel 插件]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
 [GitHub 仓库]: https://github.com/Haixing-Hu/vue3-class-component
+[@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
+[@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone

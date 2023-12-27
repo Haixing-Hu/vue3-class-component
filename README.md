@@ -42,12 +42,15 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
 ## <span id="installation">Installation</span>
 
 ```bash
-yarn add @haixing_hu/vue3-class-component
+yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
 ```
 or
 ```bash
-npm install @haixing_hu/vue3-class-component
+npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
 ```
+
+Note that [@haixing_hu/typeinfo] and [@haixing_hu/clone] are peer dependencies of
+this library, so you need to install them separately.
 
 ## <span id="configuration">Configuration</span>
 
@@ -64,7 +67,7 @@ at least `7.23.0`.
 
 1.  Install the required dependencies:
     ```shell
-    yarn add @haixing_hu/vue3-class-component
+    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -91,7 +94,7 @@ For detailed configuration instructions, you can refer to:
 
 1.  Install the required dependencies:
     ```shell
-    yarn add @haixing_hu/vue3-class-component
+    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -988,3 +991,5 @@ See the [LICENSE](LICENSE) file for more details.
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
 [our version of vite-plugin-babel]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
 [GitHub repository]: https://github.com/Haixing-Hu/vue3-class-component
+[@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
+[@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone

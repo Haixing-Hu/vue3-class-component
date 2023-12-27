@@ -8,24 +8,24 @@
   ----------------------------------------------------------------------------->
 <template>
   <div class="hello-page">
-    <div id="message">{{ message }}</div>
-    <div id="value1">{{ value1 }}</div>
-    <div id="value2">{{ value2 }}</div>
-    <div id="computed">{{ computedValue }}</div>
+    <div class="message">{{ message }}</div>
+    <div class="value1">{{ value1 }}</div>
+    <div class="value2">{{ value2 }}</div>
+    <div class="computed">{{ computedValue }}</div>
     <button
-      id="button1"
+      class="button1"
       @click="increaseValue1"
     >
       Increase Value1
     </button>
     <button
-      id="button2"
+      class="button2"
       @click="increaseValue2"
     >
       Increase Value2
     </button>
     <button
-      id="button3"
+      class="button3"
       @click="setMessage('Changed')"
     >
       Change the message

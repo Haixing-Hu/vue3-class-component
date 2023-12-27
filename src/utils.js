@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import clone from '@haixing_hu/clone';
 import {
   VUE_KEYWORDS,
   VUE_LIFECYCLE_HOOKS,
@@ -103,7 +104,9 @@ function collectData(defaultInstance, options) {
   // Add data hook to collect class properties as Vue instance's data
   options.mixins.push({
     data() {
-      return { ...options.fields };  // shadow clone the options.fields
+      // deep clone the fields, so that the data of the Vue instance is
+      // independent of the class instance.
+      return clone(options.fields);
     },
   });
 }
