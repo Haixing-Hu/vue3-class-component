@@ -1611,6 +1611,8 @@ __metadata:
     vue-template-compiler: ^2.7.14
   peerDependencies:
     "@babel/runtime": ^7.23.2
+    "@haixing_hu/clone": ^1.4.1
+    "@haixing_hu/typeinfo": ^2.3.0
     vue: ^3.3.4
   languageName: unknown
   linkType: soft
