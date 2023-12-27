@@ -63,6 +63,20 @@ This library uses the most recent (currently May 2023)
 the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be
 at least `7.23.0`.
 
+**Note:** There is a critical bug in versions of `@babel/helpers` greater than 
+`7.23.0` but less than `8.0.0` (not yet released). It incorrectly sets the `kind`
+property in the context of decorators on classes to `'field'` when it should be 
+`'class'`. For more details, refer to [Babel]'s [issue #16179] and [issue #16180].
+Therefore, we need to enforce the use of version `7.23.0` of `@babel/helpers` in 
+`package.json`. Specifically, add the following code to `package.json`:
+```json
+{
+  "resolutions": {
+    "@babel/helpers": "7.23.0"
+  }
+}
+```
+
 ### <span id="webpack">Bundling with [webpack]</span>
 
 1.  Install the required dependencies:
@@ -993,3 +1007,5 @@ See the [LICENSE](LICENSE) file for more details.
 [GitHub repository]: https://github.com/Haixing-Hu/vue3-class-component
 [@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone
+[issue #16179]: https://github.com/babel/babel/issues/16179
+[issue #16180]: https://github.com/babel/babel/issues/16180

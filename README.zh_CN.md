@@ -57,6 +57,19 @@ npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/cl
 **注意：** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
 插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
 
+**注意：** `@babel/helpers` 在大于 `7.23.0` 但小于 `8.0.0` (尚未发布) 的版本上，有个
+严重的 bug：它错误地将装饰在类上的装饰器的上下文中的 `kind` 属性设置为 `'field'`，而实际上应
+设置为 `'class'`。更多详细信息，请参见 [Babel] 的 [issue #16179] 和 [issue #16180]。
+因此，我们需要在 `package.json` 中强制使用 `7.23.0` 版本的 `@babel/helpers`。具体而言，
+应该在 `package.json`中加上下面这段代码：
+```json
+{
+  "resolutions": {
+    "@babel/helpers": "7.23.0"
+  }
+}
+```
+
 ### <span id="webpack">使用 [webpack] 打包</span>
 
 1.  安装需要的依赖：
@@ -905,3 +918,5 @@ export default toVue(MyComponent);
 [GitHub 仓库]: https://github.com/Haixing-Hu/vue3-class-component
 [@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone
+[issue #16179]: https://github.com/babel/babel/issues/16179
+[issue #16180]: https://github.com/babel/babel/issues/16180
