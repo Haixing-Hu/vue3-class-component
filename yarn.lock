@@ -1732,14 +1732,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/clone@npm:^1.7.2":
-  version: 1.7.2
-  resolution: "@haixing_hu/clone@npm:1.7.2"
+"@haixing_hu/clone@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "@haixing_hu/clone@npm:1.11.1"
   peerDependencies:
     "@babel/runtime": ^7.23.0
     "@haixing_hu/naming-style": ^1.3.0
     "@haixing_hu/typeinfo": ^3.0.0
-  checksum: 10/2489d87c3b993d588d03e93f9a9d93b7f553f6c0269e08820c87b4e207c55a5ac7bb0ad993db006decbf72e97d5768db4d09ffb37f376844a058d9a9b48b8de0
+  checksum: 10/b91422e905a68eeab3bcf61705cc2022eba057542f370ad74d4d8d9ce58a2c870469ec81071e0a39b654ae024c80781e144e494f3ff50abe820f4f847aa2d5af
   languageName: node
   linkType: hard
 
@@ -1823,7 +1823,7 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7.25.4"
     "@babel/preset-env": "npm:^7.25.4"
     "@babel/runtime": "npm:^7.25.6"
-    "@haixing_hu/clone": "npm:^1.7.2"
+    "@haixing_hu/clone": "npm:^1.11.1"
     "@haixing_hu/eslint-config": "npm:^1.3.3"
     "@haixing_hu/jsdoc-minami": "npm:^1.5.1"
     "@haixing_hu/naming-style": "npm:^1.3.0"
@@ -1861,7 +1861,7 @@ __metadata:
     vue-template-compiler: "npm:^2.7.14"
   peerDependencies:
     "@babel/runtime": ^7.24.0
-    "@haixing_hu/clone": ^1.4.1
+    "@haixing_hu/clone": ^1.11.1
     vue: ^3.3.4
   languageName: unknown
   linkType: soft
