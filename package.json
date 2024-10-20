@@ -10,6 +10,13 @@
       "import": "./dist/vue-class-component.esm.min.mjs"
     }
   },
+  "files": [
+    "dist/**/*",
+    "doc/**/*",
+    "LICENSE",
+    "README.md",
+    "README.zh_CN.md"
+  ],
   "scripts": {
     "clean": "rm -rvf dist doc",
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
