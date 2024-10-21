@@ -11,9 +11,15 @@ jobs:
       resource_class: medium
     steps:
       - checkout
+      - run:
+          name: Install Yarn 4.0.0 using Corepack
+          command: |
+            sudo corepack enable
+            sudo corepack prepare yarn@4.0.0 --activate
       - node/install-packages:
           pkg-manager: yarn
           with-cache: true
+          override-ci-command: yarn install --immutable
       - run:
           name: Lint Source Code
           command: yarn lint
