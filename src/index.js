@@ -6,22 +6,27 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+// The following polyfill is required to support the decorator metadata proposal.
+// see:
+// [1] https://github.com/babel/babel/issues/16838
+// [2] https://github.com/babel/website/blob/26139b82ac19e258c806db3de4f33844bd0abda1/docs/plugin-proposal-decorators.md#note-on-symbolmetadata
+import 'core-js/proposals/decorator-metadata-v2.js';
 import Component from './component';
-import toVue from './to-vue';
 import createDecorator from './create-decorator';
-import Prop from './decorator/prop';
-import Watch from './decorator/watch';
-import Provide from './decorator/provide';
-import Inject from './decorator/inject';
-import VModel from './decorator/v-model';
+import Inject from './inject';
+import Prop from './prop';
+import Provide from './provide';
+import toVue from './to-vue';
+import VModel from './v-model';
+import Watch from './watch';
 
 export {
   Component,
-  toVue,
   createDecorator,
-  Prop,
-  Watch,
-  Provide,
   Inject,
+  Prop,
+  Provide,
+  toVue,
   VModel,
+  Watch,
 };

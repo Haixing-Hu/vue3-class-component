@@ -1,13 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { computed } from 'vue';
-import createDecorator from '../create-decorator';
+import createDecorator from './create-decorator';
 
 /**
  * The factory of the `@Provide` decorator.

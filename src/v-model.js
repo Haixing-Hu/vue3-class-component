@@ -1,13 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import addProp from './impl/add-prop';
-import createDecorator from '../create-decorator';
+import addProp from './impl/decorator/add-prop';
+import createDecorator from './create-decorator';
 
 /**
  * The factory of the `@VModel` decorator.

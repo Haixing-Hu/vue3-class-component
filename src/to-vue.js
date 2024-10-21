@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { defineComponent } from 'vue';
-import { OPTIONS_KEY } from './metadata-keys';
+import { OPTIONS_KEY } from './impl/metadata-keys';
 
 /**
  * Converts a Vue class component into the Vue component option.

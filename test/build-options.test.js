@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import buildOptions from '../src/build-options';
+import buildOptions from '../src/impl/build-options';
 
 /**
  * Unit tests the `buildOptions()` function.

@@ -1,18 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { OPTIONS_KEY } from './metadata-keys';
-import {
-  checkOptions,
-  collectMethod,
-  collectData,
-  collectDecorators,
-} from './utils';
+import checkOptions from './check-options';
+import collectMethod from './collect-method';
+import collectData from './collect-data';
+import collectDecorators from './collect-decorators';
 
 /**
  * Builds a Vue component from a class.
@@ -56,6 +54,7 @@ function buildOptions(Class, context, options) {
   for (const key of keys) {
     collectMethod(proto, key, options);
   }
+  // collect the data fields defined in the Class
   const defaultInstance = new Class();
   collectData(defaultInstance, options);
   // deal with customized field/method decorators

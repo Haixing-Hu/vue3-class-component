@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { DECORATORS_KEY } from './metadata-keys';
+import { DECORATORS_KEY } from './impl/metadata-keys';
 
 /**
  * Creates a customized decorator to extends the functionality of this library.

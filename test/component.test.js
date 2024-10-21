@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { Component } from '../src';
-import { OPTIONS_KEY } from '../src/metadata-keys';
+import { OPTIONS_KEY } from '../src/impl/metadata-keys';
 
 /**
  * Unit test of the `@Component` decorator.
