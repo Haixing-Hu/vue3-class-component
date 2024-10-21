@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { OPTIONS_KEY } from './metadata-keys';
 import checkOptions from './check-options';
-import collectMethod from './collect-method';
+import collectMethods from './collect-methods';
 import collectData from './collect-data';
 import collectDecorators from './collect-decorators';
 
@@ -48,15 +48,13 @@ function buildOptions(Class, context, options) {
   options.computed ??= {};
   // initialize the options.fields
   options.fields ??= {};
+  // initialize the options.rawFields
+  options.rawFields ??= {};
   // collect the class methods defined in the Class
-  const proto = Class.prototype;
-  const keys = Object.getOwnPropertyNames(proto);
-  for (const key of keys) {
-    collectMethod(proto, key, options);
-  }
+  collectMethods(Class, options);
   // collect the data fields defined in the Class
   const defaultInstance = new Class();
-  collectData(defaultInstance, options);
+  collectData(Class, defaultInstance, options);
   // deal with customized field/method decorators
   collectDecorators(Class, defaultInstance, context, options);
   // store options in the metadata

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -8,9 +8,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import PropComponent from '../data/PropComponent.vue';
-import UsePropComponent from '../data/UsePropComponent.vue';
-import { Component, Prop } from '../../src';
+import UsePropComponent from './data/UsePropComponent.vue';
+import { Component, Prop } from '../src';
 
 /**
  * Unit tests the `@Prop` decorator.
@@ -19,8 +18,6 @@ import { Component, Prop } from '../../src';
  */
 describe('@Prop decorator', () => {
   test('should work', async () => {
-    console.log('PropComponent:', PropComponent);
-    console.log('UsePropComponent:', UsePropComponent);
     const wrapper = mount(UsePropComponent);
     expect(wrapper.exists()).toBe(true);
     await nextTick();

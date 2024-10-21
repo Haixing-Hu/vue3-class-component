@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -8,9 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import WatchComponent from '../data/WatchComponent.vue';
-import UseWatchComponent from '../data/UseWatchComponent.vue';
-import { Component, Watch } from '../../src';
+import WatchComponent from './data/WatchComponent.vue';
+import UseWatchComponent from './data/UseWatchComponent.vue';
+import { Component, Watch } from '../src';
 
 /**
  * Unit tests the `@Watch` decorator.

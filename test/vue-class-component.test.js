@@ -20,6 +20,7 @@ describe('HelloPage', () => {
     console.log('HelloPage:', HelloPage);
     const wrapper = mount(HelloPage);
     expect(wrapper.exists()).toBe(true);
+    console.dir(wrapper.vm);
     await nextTick();
     const msg = wrapper.get('.message');
     expect(msg.text()).toBe('Hello World');

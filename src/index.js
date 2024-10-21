@@ -16,6 +16,7 @@ import createDecorator from './create-decorator';
 import Inject from './inject';
 import Prop from './prop';
 import Provide from './provide';
+import Raw from './raw';
 import toVue from './to-vue';
 import VModel from './v-model';
 import Watch from './watch';
@@ -26,6 +27,7 @@ export {
   Inject,
   Prop,
   Provide,
+  Raw,
   toVue,
   VModel,
   Watch,

@@ -35,6 +35,7 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
   - [@Watch decorator](#Watch)
   - [@Provide decorator](#Provide)
   - [@Inject decorator](#Inject)
+  - [@Raw decorator](#Raw)
 - [Customize Decorators](#customize-decorators)
 - [Contributing](#contributing)
 - [License](#license)
@@ -878,6 +879,80 @@ decorators to declare non-reactive and reactive injected values, respectively.
 However, this library simplifies the implementation by providing only one `@Inject`
 decorator, and the reactivity of the injected value is determined by the reactivity
 of the provided value.
+
+### <span id="Raw">`@Raw` decorator</span>
+
+The `@Raw` decorator is marked on class fields to declare that the field should
+be treated as a raw value, meaning that it should not be wrapped in a reactive
+proxy. This decorator is useful when you want to inject a non-reactive property
+into a Vue component. This decorator works somewhat similarly to the `markRaw()` 
+function in the Composition API.
+
+For example:
+```js
+@Component
+class MyComponent {
+
+  message = 'hello';
+
+  @Raw
+  rawValue = 123;
+
+  @Raw
+  rawObject = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+
+  @Raw
+  client = new Client({
+    url: '/graphql',
+  });
+
+  created() {
+    console.log(this.rawValue);  
+    console.log(this.rawObject);
+    this.client.fetch();
+  }
+}
+```
+is equivalent to:
+```js
+export default {
+  name: 'MyComponent',
+  data() {
+    return {
+      message: 'hello',
+    };
+  },
+  created() {
+    console.log(this.rawValue);
+    console.log(this.rawObject);
+    this.client.fetch();
+  },
+  mixins: [{
+    created() {
+      this.rawValue = 123;
+      this.rawObject = {
+        id: 1,
+        name: 'John',
+        age: 32,
+        gender: 'MALE',
+      };
+      this.client = new Client({
+        url: '/graphql',
+      });
+    },
+  }],
+};
+```
+Note that directly returning an object property marked by the `markRaw()`
+function in `data()` is ineffective. This is because the `markRaw()` function
+can only be used in the `setup()` function of the Composition API. Therefore, 
+we inject a `created()` lifecycle hook in the `mixins` to initialize these 
+non-reactive properties.
 
 ## <span id="customize-decorators">Customize Decorators</span>
 

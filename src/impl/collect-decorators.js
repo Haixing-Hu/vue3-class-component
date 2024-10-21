@@ -25,8 +25,9 @@ import { DECORATORS_KEY } from './metadata-keys';
  */
 function collectDecorators(Class, defaultInstance, context, options) {
   const metadata = context.metadata;
-  if (metadata[DECORATORS_KEY]) {
-    for (const decorator of metadata[DECORATORS_KEY]) {
+  const decorators = metadata[DECORATORS_KEY];
+  if (decorators) {
+    for (const decorator of decorators) {
       decorator(Class, defaultInstance, options);
     }
   }

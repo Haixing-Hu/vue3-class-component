@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -8,9 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import { Component, VModel } from '../../src';
-import VModelComponent from '../data/VModelComponent.vue';
-import UseVModelComponent from '../data/UseVModelComponent.vue';
+import { Component, VModel } from '../src';
+import VModelComponent from './data/VModelComponent.vue';
+import UseVModelComponent from './data/UseVModelComponent.vue';
 
 /**
  * Unit tests the `@VModel` decorator.

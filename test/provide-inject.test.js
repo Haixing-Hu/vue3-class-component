@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -8,9 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import ProvideComponent from '../data/ProvideComponent.vue';
-import InjectComponent from '../data/InjectComponent.vue';
-import { Component, Provide, Inject } from '../../src';
+import ProvideComponent from './data/ProvideComponent.vue';
+import InjectComponent from './data/InjectComponent.vue';
+import { Component, Provide, Inject } from '../src';
 
 /**
  * Unit tests the `@Provide`, `@Inject` decorators.

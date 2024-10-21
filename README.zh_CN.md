@@ -31,6 +31,7 @@
     - [@Watch 装饰器](#Watch)
     - [@Provide 装饰器](#Provide)
     - [@Inject 装饰器](#Inject)
+    - [@Raw 装饰器](#Raw)
 - [自定义装饰器](#customize-decorators)
 - [贡献](#contributing)
 - [许可](#license)
@@ -808,6 +809,76 @@ export default {
 **注意：** [vue-property-decorator] 提供了 `@Inject` 和 `@InjectReactive` 装饰器，
 分别用于声明非响应式和响应式的注入值。但此库通过提供只有一个 `@Inject` 装饰器来简化实现，
 并且注入值的响应性由提供值的响应性决定。
+
+### <span id="Raw">`@Raw` 装饰器</span>
+
+`@Raw` 装饰器标记在类字段上，用于声明该字段应被视为原始值，这意味着它不应被包装在响应式代理中。
+当你想要将非响应式属性注入到 Vue 组件中时，这个装饰器非常有用。这个装饰器的作用有点类似于
+composition API 中的 `markRaw()` 函数。
+
+例如
+```js
+@Component
+class MyComponent {
+
+  message = 'hello';
+
+  @Raw
+  rawValue = 123;
+
+  @Raw
+  rawObject = {
+    id: 1,
+    name: 'John',
+    age: 32,
+    gender: 'MALE',
+  };
+
+  @Raw
+  client = new Client({
+    url: '/graphql',
+  });
+
+  created() {
+    console.log(this.rawValue);  
+    console.log(this.rawObject);
+    this.client.fetch();
+  }
+}
+```
+上述代码等效于：
+```js
+export default {
+  name: 'MyComponent',
+  data() {
+    return {
+      message: 'hello',
+    };
+  },
+  created() {
+    console.log(this.rawValue);
+    console.log(this.rawObject);
+    this.client.fetch();
+  },
+  mixins: [{
+    created() {
+      this.rawValue = 123;
+      this.rawObject = {
+        id: 1,
+        name: 'John',
+        age: 32,
+        gender: 'MALE',
+      };
+      this.client = new Client({
+        url: '/graphql',
+      });
+    },
+  }],
+};
+```
+注意，直接在`data()`中返回一个被`markRaw()`函数所标记的对象属性，是无效的。因为`markRaw()`函数
+只能在 compositional API 的 `setup()` 函数中使用。因此，我们在`mixins`中注入一个`created()`
+生命周期钩子函数来初始化这些非响应式的属性。
 
 ## <span id="customize-decorators">自定义装饰器</span>
 

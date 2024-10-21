@@ -13,14 +13,17 @@ import collectMethod from './collect-method';
  * Collects all class fields from an instance of a class and modify the existing
  * Vue component options object.
  *
- * @param defaultInstance
+ * @param {function} Class
+ *     The constructor of the class being decorated.
+ * @param {object} defaultInstance
  *     the default constructed instance of the decorated class.
- * @param options
+ * @param {object} options
  *     the Vue component options object.
  * @private
  * @author Haixing Hu
  */
-function collectData(defaultInstance, options) {
+function collectData(Class, defaultInstance, options) {
+  // Collect the class fields
   const entries = Object.entries(defaultInstance);
   entries.forEach(([key, value]) => {
     if (typeof value === 'function') {
@@ -29,7 +32,7 @@ function collectData(defaultInstance, options) {
       options.fields[key] = value;
     }
   });
-  // Add data hook to collect class properties as Vue instance's data
+  // push a mixin to the options to initialize the data fields
   options.mixins.push({
     data() {
       // deep clone the fields, so that the data of the Vue instance is
