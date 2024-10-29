@@ -1,13 +1,13 @@
 {
   "name": "@haixing_hu/vue3-class-component",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A JavaScript class decorator for Vue3 components",
-  "main": "dist/vue-class-component.cjs.min.js",
-  "module": "dist/vue-class-component.esm.min.mjs",
+  "main": "dist/vue-class-component.min.cjs",
+  "module": "dist/vue-class-component.min.mjs",
   "exports": {
     ".": {
-      "require": "./dist/vue-class-component.cjs.min.js",
-      "import": "./dist/vue-class-component.esm.min.mjs"
+      "require": "./dist/vue-class-component.min.cjs",
+      "import": "./dist/vue-class-component.min.mjs"
     }
   },
   "files": [
@@ -21,12 +21,12 @@
     "clean": "rm -rvf dist doc",
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
     "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.mjs",
-    "build:all": "yarn clean && yarn build:dev && yarn build && yarn doc",
+    "build:all": "npm run clean && npm run build:dev && npm run build && npm run doc",
     "test": "jest",
     "lint": "eslint ./src ./test",
     "doc": "jsdoc -c jsdoc.json",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "yarn && yarn lint && yarn test && yarn build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
+    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
   },
   "author": "Haixing Hu",
   "license": "Apache License 2.0",
@@ -52,7 +52,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.24.0",
-    "@haixing_hu/clone": "^1.11.1",
+    "@haixing_hu/clone": "^1.12.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
@@ -62,13 +62,13 @@
     "@babel/plugin-transform-runtime": "^7.25.4",
     "@babel/preset-env": "^7.25.4",
     "@babel/runtime": "^7.25.6",
-    "@haixing_hu/clone": "^1.11.1",
+    "@haixing_hu/clone": "^1.12.0",
     "@haixing_hu/eslint-config": "^1.3.3",
     "@haixing_hu/jsdoc-minami": "^1.5.1",
-    "@haixing_hu/naming-style": "^1.3.0",
-    "@haixing_hu/rollup-builder": "^1.6.5",
-    "@haixing_hu/type-detect": "^1.1.0",
-    "@haixing_hu/typeinfo": "^3.0.0",
+    "@haixing_hu/naming-style": "^1.3.1",
+    "@haixing_hu/rollup-builder": "^1.8.2",
+    "@haixing_hu/type-detect": "^1.2.0",
+    "@haixing_hu/typeinfo": "^3.1.0",
     "@jest/core": "^29.7.0",
     "@rollup/plugin-alias": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.4",
