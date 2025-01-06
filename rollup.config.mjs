@@ -6,6 +6,6 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import rollupBuilder from '@haixing_hu/rollup-builder';
+import rollupBuilder from '@qubit-ltd/rollup-builder';
 
 export default rollupBuilder('VueClassComponent', import.meta.url);

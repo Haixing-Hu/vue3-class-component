@@ -4,7 +4,7 @@
     "recurse": true,
     "verbose": true,
     "encoding": "utf8",
-    "template": "./node_modules/@haixing_hu/jsdoc-minami"
+    "template": "./node_modules/@qubit-ltd/jsdoc-minami"
   },
   "recurseDepth": 10,
   "source": {

@@ -1,6 +1,6 @@
 # vue3-class-component
 
-[![npm package](https://img.shields.io/npm/v/@haixing_hu/vue3-class-component.svg)](https://npmjs.com/package/@haixing_hu/vue3-class-component)
+[![npm package](https://img.shields.io/npm/v/@qubit-ltd/vue3-class-component.svg)](https://npmjs.com/package/@qubit-ltd/vue3-class-component)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![中文文档](https://img.shields.io/badge/文档-中文版-blue.svg)](README.zh_CN.md)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
@@ -43,14 +43,14 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
 ## <span id="installation">Installation</span>
 
 ```bash
-yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 or
 ```bash
-npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+npm install @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 
-Note that [@haixing_hu/typeinfo] and [@haixing_hu/clone] are peer dependencies of
+Note that [@qubit-ltd/typeinfo] and [@qubit-ltd/clone] are peer dependencies of
 this library, so you need to install them separately.
 
 ## <span id="configuration">Configuration</span>
@@ -82,7 +82,7 @@ Therefore, we need to enforce the use of version `7.23.0` of `@babel/helpers` in
 
 1.  Install the required dependencies:
     ```shell
-    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+    yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -109,7 +109,7 @@ For detailed configuration instructions, you can refer to:
 
 1.  Install the required dependencies:
     ```shell
-    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+    yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -181,7 +181,7 @@ For detailed configuration instructions, you can refer to:
     import { fileURLToPath, URL } from 'node:url';
     import { defineConfig } from 'vite';
     import vue from '@vitejs/plugin-vue';
-    import babel from '@haixing_hu/vite-plugin-babel';
+    import babel from '@qubit-ltd/vite-plugin-babel';
 
     export default defineConfig({
       plugins: [
@@ -573,7 +573,7 @@ For example:
   </div>
 </template>
 <script>
-import { Component, VModel, toVue } from '@haixing_hu/vue3-class-component';  
+import { Component, VModel, toVue } from '@qubit-ltd/vue3-class-component';  
   
 @Component
 class MyComponent {
@@ -1073,14 +1073,14 @@ See the [LICENSE](LICENSE) file for more details.
 [Component v-model]: https://vuejs.org/guide/components/v-model.html#component-v-model
 [working with symbol keys]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [working with reactivity]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
-[vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component
+[vue3-class-component]: https://npmjs.com/package/@qubit-ltd/vue3-class-component
 [vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
 [vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite
 [vite-plugin-vue]: https://www.npmjs.com/package/@vitejs/plugin-vue
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
-[our version of vite-plugin-babel]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
+[our version of vite-plugin-babel]: https://npmjs.com/package/@qubit-ltd/vite-plugin-babel
 [GitHub repository]: https://github.com/Haixing-Hu/vue3-class-component
-[@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
-[@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone
+[@qubit-ltd/typeinfo]: https://npmjs.com/package/@qubit-ltd/typeinfo
+[@qubit-ltd/clone]: https://npmjs.com/package/@qubit-ltd/clone
 [issue #16179]: https://github.com/babel/babel/issues/16179
 [issue #16180]: https://github.com/babel/babel/issues/16180

@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import clone from '@haixing_hu/clone';
+import clone from '@qubit-ltd/clone';
 import collectMethod from './collect-method';
 
 /**

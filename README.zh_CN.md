@@ -1,6 +1,6 @@
 # vue3-class-component
 
-[![npm package](https://img.shields.io/npm/v/@haixing_hu/vue3-class-component.svg)](https://npmjs.com/package/@haixing_hu/vue3-class-component)
+[![npm package](https://img.shields.io/npm/v/@qubit-ltd/vue3-class-component.svg)](https://npmjs.com/package/@qubit-ltd/vue3-class-component)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![English Document](https://img.shields.io/badge/Document-English-blue.svg)](README.md)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
@@ -39,14 +39,14 @@
 ## <span id="installation">安装方式</span>
 
 ```bash
-yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 or
 ```bash
-npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+npm install @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 
-注意：这个库依赖于 [@haixing_hu/typeinfo] 和 [@haixing_hu/clone] 库，因此您必须同时安装它们。
+注意：这个库依赖于 [@qubit-ltd/typeinfo] 和 [@qubit-ltd/clone] 库，因此您必须同时安装它们。
 
 ## <span id="configuration">配置方式</span>
 
@@ -75,7 +75,7 @@ npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/cl
 
 1.  安装需要的依赖：
     ```bash 
-    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+    yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env 
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -101,7 +101,7 @@ npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/cl
 
 1.  安装需要的依赖：
     ```bash 
-    yarn add @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/clone
+    yarn add @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
     yarn add --dev @babel/core @babel/runtime @babel/preset-env 
     yarn add --dev @babel/plugin-proposal-decorators @babel/plugin-transform-class-properties @babel/plugin-transform-runtime
     ```
@@ -166,7 +166,7 @@ npm install @haixing_hu/vue3-class-component @haixing_hu/typeinfo @haixing_hu/cl
     import { fileURLToPath, URL } from 'node:url';
     import { defineConfig } from 'vite';
     import vue from '@vitejs/plugin-vue';
-    import babel from '@haixing_hu/vite-plugin-babel';
+    import babel from '@qubit-ltd/vite-plugin-babel';
 
     export default defineConfig({
       plugins: [
@@ -535,7 +535,7 @@ class MyComponent {
   </div>
 </template>
 <script>
-  import { Component, VModel, toVue } from '@haixing_hu/vue3-class-component';
+  import { Component, VModel, toVue } from '@qubit-ltd/vue3-class-component';
 
   @Component
   class MyComponent {
@@ -980,14 +980,14 @@ export default toVue(MyComponent);
 [组件 v-model]: https://vuejs.org/guide/components/v-model.html#component-v-model
 [使用符号键]: https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 [使用响应式]: https://vuejs.org/guide/components/provide-inject#working-with-reactivity
-[vue3-class-component]: https://npmjs.com/package/@haixing_hu/vue3-class-component
+[vue3-class-component]: https://npmjs.com/package/@qubit-ltd/vue3-class-component
 [vue3-class-component-demo-webpack]: https://github.com/Haixing-Hu/vue3-class-component-demo-webpack
 [vue3-class-component-demo-vite]: https://github.com/Haixing-Hu/vue3-class-component-demo-vite
 [vite-plugin-vue]: https://www.npmjs.com/package/@vitejs/plugin-vue
 [vite-plugin-babel]: https://www.npmjs.com/package/vite-plugin-babel
-[我们的 vite-plugin-babel 插件]: https://npmjs.com/package/@haixing_hu/vite-plugin-babel
+[我们的 vite-plugin-babel 插件]: https://npmjs.com/package/@qubit-ltd/vite-plugin-babel
 [GitHub 仓库]: https://github.com/Haixing-Hu/vue3-class-component
-[@haixing_hu/typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
-[@haixing_hu/clone]: https://npmjs.com/package/@haixing_hu/clone
+[@qubit-ltd/typeinfo]: https://npmjs.com/package/@qubit-ltd/typeinfo
+[@qubit-ltd/clone]: https://npmjs.com/package/@qubit-ltd/clone
 [issue #16179]: https://github.com/babel/babel/issues/16179
 [issue #16180]: https://github.com/babel/babel/issues/16180
