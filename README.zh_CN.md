@@ -416,6 +416,10 @@ class MyComponent {
   // 如果装饰器的参数是一个函数数组，它将被认为是新属性的可能的类型
   @Prop([Boolean, String, Number])
   value3;
+
+  // 如果属性值可空，则其类型数组中可以包含一个`null`
+  @Prop([String, null])
+  value4;
 }
 
 export default toVue(MyComponent);
@@ -456,6 +460,10 @@ export default {
     },
     value3: {
       type: [Boolean, String, Number],
+      required: true,
+    },
+    value4: {
+      type: [String, null],
       required: true,
     },
   },

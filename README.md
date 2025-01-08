@@ -439,6 +439,10 @@ class MyComponent {
   // treated as the possible types of the prop.
   @Prop([Boolean, String, Number])
   value3;
+
+  // if the property is nullable, the type array of the prop can have a `null`.
+  @Prop([String, null])
+  value4;
 }
 
 export default toVue(MyComponent);
@@ -479,6 +483,10 @@ export default {
     },
     value3: {
       type: [Boolean, String, Number],
+      required: true,
+    },
+    value4: {
+      type: [String, null],
       required: true,
     },
   },
