@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/vue3-class-component",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "A JavaScript class decorator for Vue3 components",
   "main": "dist/vue-class-component.min.cjs",
   "module": "dist/vue-class-component.min.mjs",

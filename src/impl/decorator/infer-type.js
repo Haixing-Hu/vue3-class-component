@@ -37,7 +37,7 @@ function inferType(type, defaultValue, field) {
     typeValid = true;
     typeMismatch = (defaultType && type !== defaultType);
   } else if (Array.isArray(type)) {
-    typeValid = type.every((v) => (typeof v === 'function'));
+    typeValid = type.every((v) => ((v === null) || (typeof v === 'function')));
     typeMismatch = (defaultType && !type.includes(defaultType));
   }
   if (!typeValid) {
