@@ -16,6 +16,7 @@
       :value5="value5"
       :value6="value6"
       :value7="value7"
+      :value8="value8"
       :user="user"
     />
     <button
@@ -72,6 +73,8 @@ class UsePropComponent {
   value6 = 0;
 
   value7 = true;
+
+  value8 = null;
 
   constructor() {
     this.value2 = 0;

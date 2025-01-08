@@ -60,6 +60,9 @@ class PropComponent {
   @Prop([Boolean, String])
   value7;
 
+  @Prop([String, null])
+  value8;
+
   mounted() {
     console.log('PropComponent.mounted: enter');
     console.log('this:', this);
@@ -71,6 +74,7 @@ class PropComponent {
     console.log('this.value5:', this.value5);
     console.log('this.value6:', this.value6);
     console.log('this.value7:', this.value7);
+    console.log('this.value8:', this.value8);
     console.log('this.person:', this.person);
     console.log('this.user:', this.user);
     console.log('PropComponent.mounted: exit');
