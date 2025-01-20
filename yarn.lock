@@ -2216,7 +2216,7 @@ __metadata:
     vue-template-compiler: "npm:^2.7.16"
   peerDependencies:
     "@babel/runtime": ^7.26.0
-    "@qubit-ltd/clone": ^1.12.2
+    "@qubit-ltd/clone": ^1.12.3
     vue: ^3.5.13
   languageName: unknown
   linkType: soft
