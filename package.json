@@ -26,7 +26,9 @@
     "lint": "eslint ./src ./test",
     "doc": "jsdoc -c jsdoc.json",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/' --access public"
+    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/' --access public",
+    "deploy:public": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.org/' --access public",
+    "deploy:all": "npm run deploy && npm publish --registry='https://registry.npmjs.org/' --access public"
   },
   "author": "Haixing Hu",
   "license": "Apache License 2.0",
