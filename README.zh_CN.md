@@ -6,9 +6,11 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/vue3-class-component/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/vue3-class-component?branch=master)
 
+*最后更新：2024年5月*
+
 这个库允许您使用类式语法创建您的 [Vue] 组件。它从 [vue-class-component] 得到了很多灵感，但有一些显著的区别：
 
-- 它支持 [Vue] v3.x.x（当前版本为 v3.3.4）。
+- 它支持 [Vue] v3.x.x（当前版本为 v3.5.13）。
 - 与 [vue-facing-decorator] 不同，它使用纯 JavaScript 而非 TypeScript 编写，不再需要配置使用 TypeScript。
 - 它采用了最新的（截止到2023年5月） [JavaScript 装饰器第3阶段提案] 和
   [JavaScript 装饰器元数据第3阶段提案]。
@@ -18,6 +20,62 @@
 - 同时提供 UMD 和 ESM 打包格式，支持[webpack]和[vite]。更多详细信息，请参阅[配置](#configuration)部分。
 - 经过详细单元测试，代码覆盖率达到了100%。
 - 代码全面重写，装饰器功能经过重新设计，更加合理。
+
+## 主要特性
+
+- **完整支持 Vue 3**：完全兼容 Vue 3 的 Composition API，同时提供优雅的基于类的语法。
+- **无缝集成**：同时支持 webpack 和 Vite 构建系统。
+- **强大的类型推断**：自动推断 props 和默认值的类型。
+- **全面的装饰器集**：包含所有 Vue 功能的完整装饰器集，包括属性绑定、模型绑定、侦听器、提供/注入等。
+- **自定义装饰器 API**：通过简单的 API 创建您自己的自定义装饰器。
+- **无需 TypeScript**：享受基于类的组件的好处，无需 TypeScript 配置开销。
+- **经过全面测试**：完整的测试覆盖确保稳定性和可靠性。
+
+## 快速入门
+
+下面是使用本库的一个简单 Vue 3 组件示例：
+
+```vue
+<template>
+  <div class="hello-component">
+    <h1>{{ greeting }}</h1>
+    <p>计数: {{ count }}</p>
+    <button @click="increment">增加</button>
+    <button @click="reset">重置</button>
+  </div>
+</template>
+
+<script>
+import { Component, Prop, toVue } from '@qubit-ltd/vue3-class-component';
+
+@Component
+class HelloComponent {
+  // 带有自动类型推断的属性
+  @Prop
+  greeting = '你好，世界';
+
+  // 本地状态
+  count = 0;
+
+  // 方法
+  increment() {
+    this.count += 1;
+  }
+
+  reset() {
+    this.count = 0;
+  }
+
+  // 生命周期钩子
+  mounted() {
+    console.log('组件已挂载！');
+  }
+}
+
+// 别忘了调用toVue()将类转换为Vue组件
+export default toVue(HelloComponent);
+</script>
+```
 
 ## 目录
 
@@ -56,20 +114,7 @@ npm install @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
 [@babel/plugin-proposal-decorators] 插件。
 
 **注意：** 为了支持 [JavaScript 装饰器元数据第3阶段提案],
-插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.23.0`。
-
-**注意：** `@babel/helpers` 在大于 `7.23.0` 但小于 `8.0.0` (尚未发布) 的版本上，有个
-严重的 bug：它错误地将装饰在类上的装饰器的上下文中的 `kind` 属性设置为 `'field'`，而实际上应
-设置为 `'class'`。更多详细信息，请参见 [Babel] 的 [issue #16179] 和 [issue #16180]。
-因此，我们需要在 `package.json` 中强制使用 `7.23.0` 版本的 `@babel/helpers`。具体而言，
-应该在 `package.json`中加上下面这段代码：
-```json
-{
-  "resolutions": {
-    "@babel/helpers": "7.23.0"
-  }
-}
-```
+插件 [@babel/plugin-proposal-decorators] 的版本号必须至少为 `7.26.0`。
 
 ### <span id="webpack">使用 [webpack] 打包</span>
 
@@ -88,7 +133,7 @@ npm install @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
       ],
       "plugins": [
         "@babel/plugin-transform-runtime",
-        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        ["@babel/plugin-proposal-decorators", { "version": "2023-11" }],
         "@babel/plugin-transform-class-properties"
       ]
     }
@@ -114,7 +159,7 @@ npm install @qubit-ltd/vue3-class-component @qubit-ltd/typeinfo @qubit-ltd/clone
       ],
       "plugins": [
         "@babel/plugin-transform-runtime",
-        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        ["@babel/plugin-proposal-decorators", { "version": "2023-11" }],
         "@babel/plugin-transform-class-properties"
       ]
     }
@@ -224,7 +269,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent); // don't forget calling `toVue`
+export default toVue(HelloPage); // don't forget calling `toVue`
 </script>
 ```
 上述代码等效于：
@@ -299,7 +344,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent); // don't forget calling `toVue`
+export default toVue(HelloPage); // don't forget calling `toVue`
 ```
 上述代码等效于：
 ```js
@@ -388,7 +433,7 @@ export default {
 例如：
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   // 如果新属性定义时有默认值，则无需指定其类型和默认值，系统会自动推断其类型
   @Prop
   message = 'hello';
@@ -422,12 +467,12 @@ class MyComponent {
   value4;
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 上述代码等效于：
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   props: {
     message: {
       type: String,
@@ -509,7 +554,7 @@ export default {
 例如：
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   @Prop(Number)
   value1;
 
@@ -521,7 +566,7 @@ class MyComponent {
 如果属性定义时给出了默认值，则无需再指定其类型和默认值，系统会自动推断。例如：
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   @Prop
   message = '';
 
@@ -546,12 +591,12 @@ class MyComponent {
   import { Component, VModel, toVue } from '@qubit-ltd/vue3-class-component';
 
   @Component
-  class MyComponent {
+  class HelloPage {
     @VModel({ type: String, validator: (v) => (v.length >= 0) })
     message;
   }
 
-  export default toVue(MyComponent);
+  export default toVue(HelloPage);
 </script>
 ```
 等同于：
@@ -563,7 +608,7 @@ class MyComponent {
 </template>
 <script>
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   props: {
     modelValue: {
       type: String,
@@ -612,7 +657,7 @@ export default {
 例如：
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   value = 123;
 
   person = {
@@ -633,12 +678,12 @@ class MyComponent {
   }
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 上述代码等效于：
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   data() {
     return {
       value: 123,
@@ -827,7 +872,7 @@ composition API 中的 `markRaw()` 函数。
 例如
 ```js
 @Component
-class MyComponent {
+class HelloPage {
 
   message = 'hello';
 
@@ -857,7 +902,7 @@ class MyComponent {
 上述代码等效于：
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   data() {
     return {
       message: 'hello',
@@ -952,7 +997,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 
 **注意：** 上述的 @Log 装饰器不能应用于组件类的 getter 或 setter。
@@ -997,5 +1042,3 @@ export default toVue(MyComponent);
 [GitHub 仓库]: https://github.com/Haixing-Hu/vue3-class-component
 [@qubit-ltd/typeinfo]: https://npmjs.com/package/@qubit-ltd/typeinfo
 [@qubit-ltd/clone]: https://npmjs.com/package/@qubit-ltd/clone
-[issue #16179]: https://github.com/babel/babel/issues/16179
-[issue #16180]: https://github.com/babel/babel/issues/16180

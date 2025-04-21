@@ -6,10 +6,12 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/vue3-class-component/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/vue3-class-component/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/vue3-class-component/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/vue3-class-component?branch=master)
 
+*Last Updated: May 2024*
+
 This library allows you to create your [Vue] components using the class-style syntax.
 It draws heavy inspiration from [vue-class-component], with a few notable differences:
 
-- It supports [Vue] v3.x.x (currently v3.3.4).
+- It supports [Vue] v3.x.x (currently v3.5.13).
 - Unlike [vue-facing-decorator], it's written in pure JavaScript rather than TypeScript,
   eliminating the need for TypeScript configuration.
 - It adopts the most recent (as of May 2023) [stage 3 proposal of JavaScript decorators]
@@ -22,6 +24,62 @@ It draws heavy inspiration from [vue-class-component], with a few notable differ
   For more details, refer to the [Configuration](#configuration) section.
 - It has undergone extensive unit testing, achieving a remarkable 100% code coverage.
 - The code has undergone a complete rewrite, and the functionality of decorators has been redesigned for improved coherence and efficiency.
+
+## Key Features
+
+- **Full Vue 3 Support**: Fully compatible with Vue 3's Composition API while providing an elegant class-based syntax.
+- **Seamless Integration**: Works with both webpack and Vite build systems.
+- **Robust Type Inference**: Automatically infers types for props and default values.
+- **Comprehensive Decorator Set**: Includes a complete set of decorators for all Vue features, including props, model binding, watch, provide/inject, and more.
+- **Custom Decorator API**: Allows creating your own custom decorators with a simple API.
+- **No TypeScript Required**: Enjoy the benefits of class-based components without TypeScript configuration overhead.
+- **Thoroughly Tested**: Complete test coverage ensures stability and reliability.
+
+## Quick Start
+
+Here's a simple Vue 3 component using this library:
+
+```vue
+<template>
+  <div class="hello-component">
+    <h1>{{ greeting }}</h1>
+    <p>Count: {{ count }}</p>
+    <button @click="increment">Increment</button>
+    <button @click="reset">Reset</button>
+  </div>
+</template>
+
+<script>
+import { Component, Prop, toVue } from '@qubit-ltd/vue3-class-component';
+
+@Component
+class HelloComponent {
+  // Props with automatic type inference
+  @Prop
+  greeting = 'Hello World';
+
+  // Local state
+  count = 0;
+
+  // Methods
+  increment() {
+    this.count += 1;
+  }
+
+  reset() {
+    this.count = 0;
+  }
+
+  // Lifecycle hooks
+  mounted() {
+    console.log('Component mounted!');
+  }
+}
+
+// Don't forget to call toVue() to convert the class to a Vue component
+export default toVue(HelloComponent);
+</script>
+```
 
 ## Table of Contents
 
@@ -62,21 +120,7 @@ This library uses the most recent (currently May 2023)
 
 **NOTE:** To support the [stage 3 proposal of JavaScript decorator metadata],
 the version of the [Babel] plugin [@babel/plugin-proposal-decorators] must be
-at least `7.23.0`.
-
-**Note:** There is a critical bug in versions of `@babel/helpers` greater than 
-`7.23.0` but less than `8.0.0` (not yet released). It incorrectly sets the `kind`
-property in the context of decorators on classes to `'field'` when it should be 
-`'class'`. For more details, refer to [Babel]'s [issue #16179] and [issue #16180].
-Therefore, we need to enforce the use of version `7.23.0` of `@babel/helpers` in 
-`package.json`. Specifically, add the following code to `package.json`:
-```json
-{
-  "resolutions": {
-    "@babel/helpers": "7.23.0"
-  }
-}
-```
+at least `7.26.0`.
 
 ### <span id="webpack">Bundling with [webpack]</span>
 
@@ -96,7 +140,7 @@ Therefore, we need to enforce the use of version `7.23.0` of `@babel/helpers` in
       ],
       "plugins": [
         "@babel/plugin-transform-runtime",
-        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        ["@babel/plugin-proposal-decorators", { "version": "2023-11" }],
         "@babel/plugin-transform-class-properties"
       ]
     }
@@ -123,7 +167,7 @@ For detailed configuration instructions, you can refer to:
       ],
       "plugins": [
         "@babel/plugin-transform-runtime",
-        ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+        ["@babel/plugin-proposal-decorators", { "version": "2023-11" }],
         "@babel/plugin-transform-class-properties"
       ]
     }
@@ -216,7 +260,7 @@ For detailed configuration instructions, you can refer to:
   </div>
 </template>
 <script>
-import { Component, toVue } from 'vue3-class-component';
+import { Component, toVue } from '@qubit-ltd/vue3-class-component';
 
 @Component
 class HelloPage {
@@ -239,7 +283,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent); // don't forget calling `toVue`
+export default toVue(HelloPage); // don't forget calling `toVue`
 </script>
 ```
 The above code is equivalent to the following code:
@@ -315,7 +359,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent); // don't forget calling `toVue`
+export default toVue(HelloPage); // don't forget calling `toVue`
 ```
 is equivalent to:
 ```js
@@ -397,7 +441,7 @@ Vue components:
 - [`@Prop` decorator](#Prop)
 - [`@VModel` decorator](#VModel)
 - [`@Watch` decorator](#Watch)
-- [`@Provid` decorator](#Provide)
+- [`@Provide` decorator](#Provide)
 - [`@Inject` decorator](#Inject)
 
 ### <span id="Prop">`@Prop` decorator</span>
@@ -408,7 +452,7 @@ component.
 For example:
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   // if the prop has a default value, its type and default value will be infered
   // automatically
   @Prop
@@ -445,12 +489,12 @@ class MyComponent {
   value4;
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 is equivalent to:
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   props: {
     message: {
       type: String,
@@ -545,7 +589,7 @@ If the argument of the `@Prop` decorator is a function, or an array of functions
 it will be treated as the specified type of the new prop. For example,
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   @Prop(Number)
   value1;
 
@@ -559,7 +603,7 @@ specify its type and default value again, as the system will automatically infer
 them. For example:
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   @Prop
   message = '';
 
@@ -584,12 +628,12 @@ For example:
 import { Component, VModel, toVue } from '@qubit-ltd/vue3-class-component';  
   
 @Component
-class MyComponent {
+class HelloPage {
   @VModel({ type: String, validator: (v) => (v.length >= 0) })
   message;
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 </script>
 ```
 is equivalent to:
@@ -601,7 +645,7 @@ is equivalent to:
 </template>
 <script>
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   props: {
     modelValue: {
       type: String,
@@ -655,7 +699,7 @@ Vue component.
 For example:
 ```js
 @Component
-class MyComponent {
+class HelloPage {
   value = 123;
 
   person = {
@@ -676,12 +720,12 @@ class MyComponent {
   }
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 is equivalent to:
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   data() {
     return {
       value: 123,
@@ -755,8 +799,7 @@ class AncestorComponent {
 }
 
 export default toVue(AncestorComponent);
-```
-is equivalent to:
+```is equivalent to:
 ```js
 import { computed } from 'vue'
 
@@ -899,7 +942,7 @@ function in the Composition API.
 For example:
 ```js
 @Component
-class MyComponent {
+class HelloPage {
 
   message = 'hello';
 
@@ -929,7 +972,7 @@ class MyComponent {
 is equivalent to:
 ```js
 export default {
-  name: 'MyComponent',
+  name: 'HelloPage',
   data() {
     return {
       message: 'hello',
@@ -1042,7 +1085,7 @@ class HelloPage {
   }
 }
 
-export default toVue(MyComponent);
+export default toVue(HelloPage);
 ```
 
 **NOTE:** The `@Log` decorator mentioned above cannot be applied to the getter
@@ -1090,5 +1133,3 @@ See the [LICENSE](LICENSE) file for more details.
 [GitHub repository]: https://github.com/Haixing-Hu/vue3-class-component
 [@qubit-ltd/typeinfo]: https://npmjs.com/package/@qubit-ltd/typeinfo
 [@qubit-ltd/clone]: https://npmjs.com/package/@qubit-ltd/clone
-[issue #16179]: https://github.com/babel/babel/issues/16179
-[issue #16180]: https://github.com/babel/babel/issues/16180
