@@ -21,20 +21,26 @@ jobs:
           with-cache: true
           override-ci-command: yarn install --immutable
       - run:
-          name: Lint Source Code
+          name: Lint the Source Code
           command: yarn lint
       - run:
-          name: Test the library
+          name: Test the Library
           command: yarn test
       - run:
-          name: Build the library
+          name: Generate the API Documents
+          command: yarn doc
+      - run:
+          name: Build the Library in Development Mode
+          command: yarn build:dev
+      - run:
+          name: Build the Library in Production Mode
           command: yarn build
       - coveralls/upload:
           coverage_format: lcov
           coverage_file: coverage/lcov.info
 
 workflows:
-  test_and_build_workflow:
+  build_workflow:
     jobs:
       - test_and_build:
           filters:
