@@ -426,7 +426,7 @@ export default {
 - [`@Provid` 装饰器](#Provide)
 - [`@Inject` 装饰器](#Inject)
 
-### <span id="Prop">`@Prop` 装饰器</span>
+### <span id="Prop">@Prop 装饰器</span>
 
 `@Prop` 装饰器应用在类字段上，用于声明 Vue 组件的 props。
 
@@ -575,7 +575,7 @@ class HelloPage {
 }
 ```
 
-### <span id="VModel">`@VModel` 装饰器</span>
+### <span id="VModel">@VModel 装饰器</span>
 
 `@VModel` 装饰器与 `@Prop` 装饰器类似，不同之处在于它支持 `v-model` 绑定。
 有关更多详细信息，请参见[组件 v-model]。
@@ -650,7 +650,7 @@ export default {
 装饰器的参数是一个包含附加选项的对象。`@VModel` 可用的选项与 `@Prop` 支持的选项完全相同。
 有关更多详细信息，请参见 [@Prop 装饰器](#Prop)。
 
-### <span id="Watch">`@Watch` 装饰器</span>
+### <span id="Watch">@Watch 装饰器</span>
 
 `@Watch` 装饰器应用在类方法上，用于声明 Vue 组件的观察者。
 
@@ -723,7 +723,7 @@ export default {
 装饰器不支持使用多个观察处理程序同时监视相同的状态或属性。因为这不是常见用例，所以我们决定简
 化`@Watch`装饰器的实现。
 
-### <span id="Provide">`@Provide` 装饰器</span>
+### <span id="Provide">@Provide 装饰器</span>
 
 `@Provide` 装饰器应用在类字段上，用于声明可以由子组件注入的提供的值。
 
@@ -800,7 +800,7 @@ export default {
 `@Provide` 装饰器来简化实现。由于提供的值通常是非响应式的，我们决定将 `reactive` 选项的默认
 值设置为 `false`。
 
-### <span id="Inject">`@Inject` 装饰器</span>
+### <span id="Inject">@Inject 装饰器</span>
 
 `@Inject` 装饰器应用在类字段上，用于声明被注入的值。
 
@@ -863,7 +863,7 @@ export default {
 分别用于声明非响应式和响应式的注入值。但此库通过提供只有一个 `@Inject` 装饰器来简化实现，
 并且注入值的响应性由提供值的响应性决定。
 
-### <span id="Raw">`@Raw` 装饰器</span>
+### <span id="Raw">@Raw 装饰器</span>
 
 `@Raw` 装饰器标记在类字段上，用于声明该字段应被视为原始值，这意味着它不应被包装在响应式代理中。
 当你想要将非响应式属性注入到 Vue 组件中时，这个装饰器非常有用。这个装饰器的作用有点类似于

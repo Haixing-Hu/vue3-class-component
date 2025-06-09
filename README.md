@@ -444,7 +444,7 @@ Vue components:
 - [`@Provide` decorator](#Provide)
 - [`@Inject` decorator](#Inject)
 
-### <span id="Prop">`@Prop` decorator</span>
+### <span id="Prop">@Prop decorator</span>
 
 The `@Prop` decorator is applied to class fields to declare the props of the Vue
 component.
@@ -612,7 +612,7 @@ class HelloPage {
 }
 ```
 
-### <span id="VModel">`@VModel` decorator</span>
+### <span id="VModel">@VModel decorator</span>
 
 The `@VModel` decorator is similar to the `@Prop` decorator, except that it
 supports the `v-model` binding. See [Component v-model] for more details.
@@ -691,7 +691,7 @@ optional argument. This argument for the `@VModel` decorator is an object
 containing additional options. The options available for `@VModel` are identical
 to those supported by `@Prop`. See [@Prop decorator](#Prop) for more details.
 
-### <span id="Watch">`@Watch` decorator</span>
+### <span id="Watch">@Watch decorator</span>
 
 The `@Watch` decorator is marked on class methods to declare watchers of the
 Vue component.
@@ -771,7 +771,7 @@ decorator in this library does not support watching the same state or property
 with more than one watching handler. As this is not a common use case, we have
 chosen to simplify the implementation of the `@Watch` decorator.
 
-### <span id="Provide">`@Provide` decorator</span>
+### <span id="Provide">@Provide decorator</span>
 
 The `@Provide` decorator is marked on class fields to declare provided values
 that can be injected by descendant components.
@@ -857,7 +857,7 @@ However, this library simplifies the implementation by offering only one
 are typically non-reactive, we have decided to set the default value of the
 `reactive` option to `false`.
 
-### <span id="Inject">`@Inject` decorator</span>
+### <span id="Inject">@Inject decorator</span>
 
 The `@Inject` decorator is marked on class fields to declare injected values.
 
@@ -931,7 +931,7 @@ However, this library simplifies the implementation by providing only one `@Inje
 decorator, and the reactivity of the injected value is determined by the reactivity
 of the provided value.
 
-### <span id="Raw">`@Raw` decorator</span>
+### <span id="Raw">@Raw decorator</span>
 
 The `@Raw` decorator is marked on class fields to declare that the field should
 be treated as a raw value, meaning that it should not be wrapped in a reactive
